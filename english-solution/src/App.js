@@ -1,15 +1,19 @@
 // App.js
+import "./App.css";
+import React from "react";
+import MainPage from "./pages/MainPage/MainPage";
+import VideoPage from "./pages/VideoPage/VideoPage";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import React from 'react';
-import Header from './components/Header/Header';
-
-function App() {
-    return (
-        <div className="App">
-            <Header />
-            {/* 이 곳에 나머지 컴포넌트 및 내용을 추가하세요 */}
-        </div>
-    );
-}
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route exact path="/" element={<MainPage />} />
+        <Route path="/video-page" element={<VideoPage />} />
+      </Routes>
+    </Router>
+  );
+};
 
 export default App;
