@@ -1,6 +1,7 @@
 // MainPage: 링크 삽입 페이지
 
 import React from "react";
+import Header from "../../components/Header/Header";
 import { useNavigate } from "react-router-dom";
 import "./MainPage.css";
 
@@ -13,7 +14,10 @@ const MainPage = () => {
 
   return (
     <div className="main-page">
-      <header></header>
+      <header>
+        <Header />
+      </header>
+
       <main>
         <button onClick={handlePlayClick} className="play-button">
           재생
