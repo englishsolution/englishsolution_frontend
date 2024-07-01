@@ -4,6 +4,7 @@ import axios from "axios";
 import SubtitleActions from "./SubtitleActions/SubtitleActions";
 import Button from "@mui/material/Button";
 import WordSave from "./WordSave/WordSave";
+import { Box } from "@mui/material";
 
 const Subtitles = ({ videoId }) => {
   const [englishSubtitles, setEnglishSubtitles] = useState([]);

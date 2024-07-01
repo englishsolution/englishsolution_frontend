@@ -5,6 +5,10 @@ import VideoPlayer from "./VideoPlayer/VideoPlayer";
 import Subtitles from "./Subtitles/Subtitles";
 import "./VideoPage.css";
 import ChatbotButton from "./ChatbotButton/ChatbotButton";
+import Description from "./Description/Description";
+import { Grid } from "@mui/material";
+
+const recievedId = "iz8CuDdKVh4";
 
 const VideoPage = () => {
   return (
@@ -13,9 +17,11 @@ const VideoPage = () => {
         <Header />
       </header>
       <main>
-        <VideoPlayer videoId="iz8CuDdKVh4" />
-        <Subtitles videoId="iz8CuDdKVh4" />
+        <Grid></Grid>
+        <VideoPlayer videoId={recievedId} />
+        <Subtitles videoId={recievedId} />
         <ChatbotButton />
+        <Description />
       </main>
     </div>
   );
