@@ -2,8 +2,9 @@
 import React from "react";
 import Header from "../../components/Header/Header";
 import VideoPlayer from "./VideoPlayer/VideoPlayer";
-import Subtitle from "./Subtitle/Subtitle";
+import Subtitles from "./Subtitles/Subtitles";
 import "./VideoPage.css";
+import ChatbotButton from "./ChatbotButton/ChatbotButton";
 
 const VideoPage = () => {
   return (
@@ -13,7 +14,8 @@ const VideoPage = () => {
       </header>
       <main>
         <VideoPlayer videoId="iz8CuDdKVh4" />
-        <Subtitle />
+        <Subtitles videoId="iz8CuDdKVh4" />
+        <ChatbotButton />
       </main>
     </div>
   );
