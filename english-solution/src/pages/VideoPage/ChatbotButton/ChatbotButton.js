@@ -9,7 +9,18 @@ const ChatbotButton = () => {
     navigate("/chatbot-page");
   };
 
-  return <Button label="챗봇과 대화하기" onClick={goToChatbot} />;
+  return (
+    <Button
+      style={{
+        position: "fixed",
+        bottom: "100px",
+        right: "100px",
+        zIndex: 1000,
+      }}
+      label="챗봇과 대화하기"
+      onClick={goToChatbot}
+    />
+  );
 };
 
 export default ChatbotButton;

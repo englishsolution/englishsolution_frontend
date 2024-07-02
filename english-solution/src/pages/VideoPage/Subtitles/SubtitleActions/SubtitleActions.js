@@ -21,7 +21,7 @@ const SubtitleActions = ({ subtitle }) => {
   };
 
   return (
-    <div className="subtitle-actions">
+    <span className="subtitle-actions">
       <Button variant="outlined" onClick={sentenceSave}>
         ⭐
       </Button>
@@ -33,7 +33,7 @@ const SubtitleActions = ({ subtitle }) => {
         handleClose={handleCloseModal}
         subtitle={subtitle}
       />
-    </div>
+    </span>
   );
 };
 

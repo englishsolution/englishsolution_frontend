@@ -4,7 +4,7 @@ import axios from "axios";
 import SubtitleActions from "./SubtitleActions/SubtitleActions";
 import Button from "@mui/material/Button";
 import WordSave from "./WordSave/WordSave";
-import { Box } from "@mui/material";
+import { Box, Switch, Typography } from "@mui/material";
 
 const Subtitles = ({ videoId }) => {
   const [englishSubtitles, setEnglishSubtitles] = useState([]);
@@ -31,35 +31,48 @@ const Subtitles = ({ videoId }) => {
   }, [videoId]);
 
   return (
-    <div className="subtitles">
-      {apiError}
-      <div>
-        <Button
-          variant="contained"
-          onClick={() => setShowEnglish(!showEnglish)}
-        >
-          {showEnglish ? "자막 켜기" : "자막 끄기"}
-        </Button>
-        <Button variant="contained" onClick={() => setShowKorean(!showKorean)}>
-          {showKorean ? "번역 켜기" : "번역 끄기"}
-        </Button>
-      </div>
-      <div>
+    <Box flex={1} display="flex" flexDirection="column">
+      <Box display="flex" alighItems="center" marginBottom={1}>
+        <Typography variant="body1" marginRight={2}>
+          영어 자막 {showEnglish ? "끄기" : "켜기"}
+        </Typography>
+        <Switch
+          checked={showEnglish}
+          onChange={() => setShowEnglish(!showEnglish)}
+        />
+
+        <Typography variant="body1">
+          한국어 번역 {showKorean ? "끄기" : "켜기"}
+        </Typography>
+        <Switch
+          checked={showKorean}
+          onChange={() => setShowKorean(!showKorean)}
+        />
+      </Box>
+      <Box bgcolor="#f1f3f5" padding={2} marginBottom={2}>
         {englishSubtitles.map((subtitle, index) => (
-          <div key={index} style={{ display: showEnglish ? "block" : "none" }}>
+          <Typography
+            key={index}
+            style={{ display: showEnglish ? "block" : "none" }}
+          >
             {subtitle.text.split(" ").map((word, idx) => (
               <WordSave key={idx} word={word} />
             ))}
             <SubtitleActions subtitle={subtitle} />
-          </div>
+          </Typography>
         ))}
+      </Box>
+      <Box bgcolor="#f1f3f5" padding={2}>
         {koreanSubtitles.map((subtitle, index) => (
-          <div key={index} style={{ display: showKorean ? "block" : "none" }}>
+          <Typography
+            key={index}
+            style={{ display: showKorean ? "block" : "none" }}
+          >
             {subtitle.text}
-          </div>
+          </Typography>
         ))}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 
