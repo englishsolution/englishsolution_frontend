@@ -3,7 +3,6 @@ import React from "react";
 import Header from "../../components/Header/Header";
 import VideoPlayer from "./VideoPlayer/VideoPlayer";
 import Subtitles from "./Subtitles/Subtitles";
-import "./VideoPage.css";
 import ChatbotButton from "./ChatbotButton/ChatbotButton";
 import Description from "./Description/Description";
 import { Container, Box, Grid } from "@mui/material";
