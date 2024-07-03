@@ -11,10 +11,14 @@ const ChatbotButton = () => {
 
   return (
     <Button
+      variant="contained"
+      className="chatbot-button"
       style={{
         position: "fixed",
         bottom: "100px",
         right: "100px",
+        width: "auto",
+        height: "auto",
         zIndex: 1000,
       }}
       label="챗봇과 대화하기"

@@ -1,4 +1,4 @@
-// VideoPlayer.js 파일 내용 예시
+// VideoPlayer.js
 
 import React from "react";
 import { Box } from "@mui/material";

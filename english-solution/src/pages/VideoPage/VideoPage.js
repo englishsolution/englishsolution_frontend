@@ -1,6 +1,6 @@
 // VideoPage: 영상 시청 페이지
 import React from "react";
-import Header from "../../components/Header/Header";
+import { useParams } from "react-router-dom";
 import VideoPlayer from "../../pages/VideoPage/VideoPlayer/VideoPlayer";
 import Subtitles from "./Subtitles/Subtitles";
 import ChatbotButton from "./ChatbotButton/ChatbotButton";
@@ -8,12 +8,13 @@ import Description from "./Description/Description";
 import { Container, Box, Grid } from "@mui/material";
 
 const VideoPage = () => {
-  const recievedId = "iz8CuDdKVh4";
+  const { videoId } = useParams();
+
   return (
     <Container
       maxWidth="lg"
       style={{
-        minHeight: "100vh",
+        minHeight: "70vh",
         minWidth: "100vw",
         display: "flex",
         flexDirection: "column",
@@ -26,8 +27,8 @@ const VideoPage = () => {
             xs={9}
             style={{ display: "flex", flexDirection: "column" }}
           >
-            <VideoPlayer videoId={recievedId} />
-            <Subtitles videoId={recievedId} />
+            <VideoPlayer videoId={videoId} />
+            <Subtitles videoId={videoId} />
           </Grid>
           <Grid
             item
@@ -37,8 +38,8 @@ const VideoPage = () => {
             <Description />
           </Grid>
         </Grid>
-        <ChatbotButton />
       </Box>
+      <ChatbotButton />
     </Container>
   );
 };
