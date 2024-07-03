@@ -6,7 +6,7 @@ const ChatbotButton = () => {
   const navigate = useNavigate();
 
   const goToChatbot = () => {
-    navigate("/chatbot-page");
+    navigate("/chatbot");
   };
 
   return (

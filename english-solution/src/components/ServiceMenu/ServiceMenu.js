@@ -1,16 +1,17 @@
 // ServiceMenu.js
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './ServiceMenu.css';
 
 const ServiceMenu = () => {
   return (
     <div className="service-menu">
       <ul>
-        <li><a href="#">서비스 소개</a></li>
-        <li><a href="#">사용 가이드</a></li>
-        <li><a href="#">학습하기</a></li>
-        <li><a href="#">챗봇</a></li>
+        <li><Link to="/service-intro">서비스 소개</Link></li>
+        <li><Link to="/usage-guide">사용 가이드</Link></li>
+        <li><Link to="/learning">학습하기</Link></li>
+        <li><Link to="/chatbot">챗봇</Link></li>
       </ul>
     </div>
   );

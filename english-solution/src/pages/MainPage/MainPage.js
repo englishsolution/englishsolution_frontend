@@ -5,7 +5,6 @@ import Header from "../../components/Header/Header";
 import Button from "../../components/Button/Button";
 import InsertLink from "../../components/InsertLink/InsertLink";
 import VideoPlayer from "../../pages/VideoPage/VideoPlayer/VideoPlayer"; // 예시 경로, 실제 경로에 맞게 수정 필요
-import ServiceMenu from "../../components/ServiceMenu/ServiceMenu"; // 추가된 부분
 import { useNavigate } from "react-router-dom";
 import "./MainPage.css";
 
@@ -28,14 +27,8 @@ const MainPage = () => {
 
   return (
     <div className="main-page">
-      <header>
-        <Header />
-      </header>
-
       <main>
-        <ServiceMenu /> {/* 추가된 서비스 메뉴 */}
         <InsertLink onLinkSubmit={handleLinkSubmit} />
-
         {videoId && <VideoPlayer videoId={videoId} />}
       </main>
     </div>

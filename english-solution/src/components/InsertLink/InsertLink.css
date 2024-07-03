@@ -1,9 +1,18 @@
-/* InsertLink.css */
-
 .insert-link {
   margin-top: 20px;
-  padding: 10px;
+  padding: 50px; /* 패딩을 늘려서 내용을 더 넓게 만듭니다 */
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #f0f0f0;
+  text-align: center;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 }
+
+.insert-link input[type="text"] {
+  font-size: 20px; /* 예시로 폰트 크기를 늘립니다 */
+  padding: 10px; /* 내부 패딩을 조정하여 더 넓게 만듭니다 */
+  width: 100%; /* 입력창을 꽉 채우도록 설정합니다 */
+}
+

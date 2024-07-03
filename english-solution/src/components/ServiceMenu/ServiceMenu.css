@@ -3,17 +3,19 @@
 .service-menu {
   width: 100%;
   background-color: #f0f0f0;
-  padding: 10px 0;
+  padding: 15px 0;
 }
 
 .service-menu ul {
   list-style-type: none;
-  display: flex;
-  justify-content: center;
+  padding: 0;
+  margin: 0;
+  padding-left: 30px;
 }
 
 .service-menu ul li {
-  margin: 0 10px;
+  display: inline-block;
+  margin-right: 50px;
 }
 
 .service-menu ul li a {

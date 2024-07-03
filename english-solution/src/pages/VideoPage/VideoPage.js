@@ -19,7 +19,6 @@ const VideoPage = () => {
         flexDirection: "column",
       }}
     >
-      <Header />
       <Box paddingTop={2} flex={1} display="flex">
         <Grid container spacing={2} style={{ flex: 1 }}>
           <Grid
