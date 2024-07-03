@@ -8,14 +8,12 @@ const Header = () => {
         <header className="header">
             <div className="logo">
                 <img src="/path/to/logo.png" alt="Logo" />
-                <span>My Website</span>
+                <span>영솔</span>
             </div>
             <nav className="navigation">
                 <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Log-In</a></li>
+                    <li><a href="#">회원가입</a></li>
                 </ul>
             </nav>
         </header>

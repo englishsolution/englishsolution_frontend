@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/material": "^5.15.21",
+    "react-router-dom": "^6.24.0"
+  },
+  "name": "englishsolution_frontend",
+  "version": "1.0.0",
+  "description": "c# englishsolution_frontend\r englishsolution_frontend_repository",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

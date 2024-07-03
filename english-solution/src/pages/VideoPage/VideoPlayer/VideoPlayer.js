@@ -1,8 +1,9 @@
-import { Box } from "@mui/material";
+// VideoPlayer.js 파일 내용 예시
+
 import React from "react";
+import { Box } from "@mui/material";
 
 const VideoPlayer = ({ videoId }) => {
-  // 제공된 videoId를 사용하여 YouTube 임베드 URL을 구성
   const embedUrl = `https://www.youtube.com/embed/${videoId}`;
 
   return (
@@ -20,4 +21,4 @@ const VideoPlayer = ({ videoId }) => {
   );
 };
 
-export default VideoPlayer;
+export default VideoPlayer; // default export 설정

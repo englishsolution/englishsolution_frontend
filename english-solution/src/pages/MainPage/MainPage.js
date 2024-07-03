@@ -1,15 +1,29 @@
-// MainPage: 링크 삽입 페이지
+// MainPage.js
 
-import React from "react";
+import React, { useState } from "react";
 import Header from "../../components/Header/Header";
+import Button from "../../components/Button/Button";
+import InsertLink from "../../components/InsertLink/InsertLink";
+import VideoPlayer from "../../pages/VideoPage/VideoPlayer/VideoPlayer"; // 예시 경로, 실제 경로에 맞게 수정 필요
+import ServiceMenu from "../../components/ServiceMenu/ServiceMenu"; // 추가된 부분
 import { useNavigate } from "react-router-dom";
 import "./MainPage.css";
 
 const MainPage = () => {
   const navigate = useNavigate();
+  const [videoId, setVideoId] = useState(null);
 
-  const handlePlayClick = () => {
-    navigate("/video-page");
+  const handleLinkSubmit = (link) => {
+    // 링크를 사용하여 videoId를 추출하는 로직
+    const videoId = extractVideoIdFromLink(link);
+    setVideoId(videoId);
+  };
+
+  const extractVideoIdFromLink = (link) => {
+    // YouTube 링크에서 videoId 추출
+    const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/;
+    const match = link.match(regex);
+    return match && match[1];
   };
 
   return (
@@ -19,12 +33,13 @@ const MainPage = () => {
       </header>
 
       <main>
-        <button onClick={handlePlayClick} className="play-button">
-          재생
-        </button>{" "}
+        <ServiceMenu /> {/* 추가된 서비스 메뉴 */}
+        <InsertLink onLinkSubmit={handleLinkSubmit} />
+
+        {videoId && <VideoPlayer videoId={videoId} />}
       </main>
     </div>
-  ); // 재생버튼: 임시로 만듬, 컴포넌트로 변경 필요
+  );
 };
 
 export default MainPage;

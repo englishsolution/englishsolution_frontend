@@ -1,17 +1,12 @@
-import React from "react";
-import MuiButton from "@mui/material/Button"; // MUI Button 컴포넌트 import
+import React from 'react';
+import './Button.css'; // Button 스타일을 위한 CSS 파일 import
 
-const Button = ({ label, onClick, style, className }) => {
-  return (
-    <MuiButton
-      onClick={onClick}
-      style={style}
-      className={className}
-      variant="contained"
-    >
-      {label}
-    </MuiButton>
-  );
-};
+const Button = ({ label, onClick }) => {
+    return (
+        <button className="custom-button" onClick={onClick}>
+            {label}
+        </button>
+    );
+}
 
 export default Button;

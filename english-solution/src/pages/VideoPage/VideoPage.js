@@ -1,7 +1,7 @@
 // VideoPage: 영상 시청 페이지
 import React from "react";
 import Header from "../../components/Header/Header";
-import VideoPlayer from "./VideoPlayer/VideoPlayer";
+import VideoPlayer from "../../pages/VideoPage/VideoPlayer/VideoPlayer";
 import Subtitles from "./Subtitles/Subtitles";
 import ChatbotButton from "./ChatbotButton/ChatbotButton";
 import Description from "./Description/Description";
