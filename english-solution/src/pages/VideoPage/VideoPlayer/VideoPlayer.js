@@ -1,23 +1,18 @@
 // VideoPlayer.js
 
-import React from "react";
-import { Box } from "@mui/material";
+import "./VideoPlayer.css";
+import ReactPlayer from "react-player/youtube";
 
 const VideoPlayer = ({ videoId }) => {
-  const embedUrl = `https://www.youtube.com/embed/${videoId}`;
-
   return (
-    <Box flex={2} marginRight={2} className="video-player">
-      <iframe
+    <div className="video-player">
+      <ReactPlayer
+        url={`https://www.youtube.com/watch?v=${videoId}`}
+        controls
         width="100%"
-        height="550"
-        src={embedUrl}
-        title="YouTube video player"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      ></iframe>
-    </Box>
+        height="550px"
+      />
+    </div>
   );
 };
 

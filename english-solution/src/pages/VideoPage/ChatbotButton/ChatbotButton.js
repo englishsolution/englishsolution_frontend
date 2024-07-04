@@ -13,15 +13,7 @@ const ChatbotButton = () => {
     <Button
       variant="contained"
       className="chatbot-button"
-      style={{
-        position: "fixed",
-        bottom: "100px",
-        right: "100px",
-        width: "auto",
-        height: "auto",
-        zIndex: 1000,
-      }}
-      label="챗봇과 대화하기"
+      label="영상 관련 챗봇과 대화하기"
       onClick={goToChatbot}
     />
   );

@@ -3,7 +3,6 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import VideoPlayer from "../../pages/VideoPage/VideoPlayer/VideoPlayer";
 import Subtitles from "./Subtitles/Subtitles";
-import ChatbotButton from "./ChatbotButton/ChatbotButton";
 import Description from "./Description/Description";
 import { Container, Box, Grid } from "@mui/material";
 
@@ -14,7 +13,7 @@ const VideoPage = () => {
     <Container
       maxWidth="lg"
       style={{
-        minHeight: "70vh",
+        minHeight: "80vh",
         minWidth: "100vw",
         display: "flex",
         flexDirection: "column",
@@ -25,7 +24,12 @@ const VideoPage = () => {
           <Grid
             item
             xs={9}
-            style={{ display: "flex", flexDirection: "column" }}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              position: "relative",
+              overflow: "hidden",
+            }}
           >
             <VideoPlayer videoId={videoId} />
             <Subtitles videoId={videoId} />
@@ -33,13 +37,17 @@ const VideoPage = () => {
           <Grid
             item
             xs={3}
-            style={{ display: "flex", flexDirection: "column" }}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              position: "relative",
+              height: "100%",
+            }}
           >
             <Description />
           </Grid>
         </Grid>
       </Box>
-      <ChatbotButton />
     </Container>
   );
 };
