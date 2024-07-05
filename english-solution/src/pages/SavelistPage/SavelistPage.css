@@ -1,0 +1,55 @@
+.savelistPage-container {
+  display: flex;
+}
+
+.SavelistPage__btns {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+  width: 200px;
+}
+
+.list-container {
+  width: 100%;
+  margin-bottom: 20px;
+  background-color: beige;
+}
+
+.video-list,
+.sentence-list,
+.word-list {
+  height: 550px;
+  display: grid;
+  gap: 10px;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* videos */
+.video-list {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.video {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.video img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* sentences */
+
+/* words */
+.word-list {
+  gap: 10px;
+  grid-template-columns: repeat(5, 1fr);
+}
