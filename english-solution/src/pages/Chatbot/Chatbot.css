@@ -1,0 +1,81 @@
+.chatbot-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.chatbot-messages {
+  width: 100%;
+  max-width: 60%;
+  height: 60vh;
+  overflow-y: auto;
+  border: 5px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.chatbot-input-container {
+  width: 100%;
+  max-width: 60%;
+  display: flex;
+  justify-content: space-between; /* 내부 요소들을 양 끝으로 정렬 */
+  align-items: center; /* 세로 중앙 정렬 */
+  margin-top: 20px;
+}
+
+.chatbot-input {
+  flex: 1;
+  padding: 8px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #ffffff; /* 흰색 배경색 */
+}
+
+.chatbot-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.chatbot-button:hover {
+  background-color: #0056b3;
+}
+
+.button-container {
+  align-self: flex-end; /* 오른쪽으로 정렬 */
+  margin-top: 10px; /* 원하는 간격 설정 */
+  display: flex;
+}
+
+.wordbutton {
+  background-color: #007bff;
+  color: white;
+  margin-right: 10px; /* 버튼 사이 간격 */
+}
+
+.wordbutton:hover {
+  background-color: #0056b3;
+}
+
+.speakingbutton {
+  background-color: #007bff;
+  color: white;
+}
+
+.speakingbutton:hover {
+  background-color: #0056b3;
+}
+
+.button-container {
+  margin-left: auto; /* 오른쪽으로 이동 */
+}
