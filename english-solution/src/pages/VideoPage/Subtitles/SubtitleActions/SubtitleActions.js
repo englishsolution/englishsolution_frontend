@@ -5,19 +5,19 @@ import Button from "@mui/material/Button";
 import SpeakingModal from "../../SpeakingModal/SpeakingModal";
 
 const SubtitleActions = ({ subtitle }) => {
-  const [openModal, setOpenModal] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const sentenceSave = async () => {
     await axios.post("/api/save-subtitle", { subtitle });
     console.log("Save subtitle:", subtitle);
   };
 
-  const handleOpenModal = () => {
-    setOpenModal(true);
+  const openModal = () => {
+    setIsOpen(true);
   };
 
-  const handleCloseModal = () => {
-    setOpenModal(false);
+  const closeModal = () => {
+    setIsOpen(false);
   };
 
   return (
@@ -25,12 +25,12 @@ const SubtitleActions = ({ subtitle }) => {
       <Button variant="outlined" onClick={sentenceSave}>
         ⭐
       </Button>
-      <Button variant="outlined" onClick={handleOpenModal}>
+      <Button variant="outlined" onClick={openModal}>
         🎤
       </Button>
       <SpeakingModal
-        open={openModal}
-        handleClose={handleCloseModal}
+        open={isOpen}
+        handleClose={closeModal}
         subtitle={subtitle}
       />
     </span>
