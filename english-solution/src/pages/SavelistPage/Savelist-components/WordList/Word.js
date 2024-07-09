@@ -4,7 +4,8 @@ import { Box } from "@mui/material";
 const Word = ({ word }) => {
   return (
     <Box className="word">
-      <span>{word.english}</span>
+      <span className="word-text">{word.english}</span>
+      <span>{word.korean}</span>
     </Box>
   );
 };
