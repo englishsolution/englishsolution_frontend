@@ -22,29 +22,30 @@
   margin-bottom: 20px;
 }
 
-.message-bubblerR {
-  background-color: #f0f0f0; /* 말풍선 배경색 */
-  padding: 10px;
-  border-radius: 10px;
-  position: relative;
-  align-self: flex-end;
-}
 
-.message-bubblerL {
-  background-color: #f0f0f0; /* 말풍선 배경색 */
-  padding: 10px;
-  border-radius: 10px;
-  position: relative;
-  align-self: flex-start;
-}
-
-.message.other .message-bubble {
-  background-color: #ffffff;
+.message.bot .message-bubble {
+  font-size: 18px;
+  padding: 20px;
+  background-color: #dbe893;
+  border: 2px solid #000000;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  display: inline-block; /* 글자 길이에 따라 너비가 조정되도록 설정 */
+  max-width: 80%; /* 대화창의 최대 너비를 화면의 80%로 설정 */
+  word-wrap: break-word;
 }
 
 .message.user .message-bubble {
-  background-color: #dcf8c6;
-  align-self: flex-end; /* 오른쪽 정렬 */
+  font-size: 18px;
+  padding: 20px;
+  background-color: #f49670;
+  border: 2px solid #000000;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  display: inline-block; /* 글자 길이에 따라 너비가 조정되도록 설정 */
+  max-width: 80%; /* 대화창의 최대 너비를 화면의 80%로 설정 */
+  word-wrap: break-word;
+  float: right;
 }
 
 .chatbot-input-container {

@@ -60,10 +60,13 @@ const Chatbot = () => {
       <div className="chatbot-messages">
         {messages.map((msg, index) => (
           <div key={index} className={`message ${msg.sender}`}>
-            {msg.text}
+            <div className="message-bubble">
+              {msg.text}
+              </div>
           </div>
         ))}
       </div>
+
       <div className="button-container">
         <button className="chatbot-button wordbutton" onClick={sendMessage}>Word</button>
         <button className="chatbot-button speakingbutton" onClick={sendMessage}>Speaking</button>
