@@ -2,23 +2,25 @@ import React, { useState } from "react";
 import SentenceModal from "./SentenceModal";
 
 const Sentence = ({ sentence }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
-  const openModal = () => {
-    setIsOpen(true);
+  const handleClickOpen = () => {
+    setOpen(true);
   };
 
-  const closeModal = () => {
-    setIsOpen(false);
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
-    <div className="sentence" onClick={openModal}>
-      <span className="sentence-date">{sentence.date}</span>
-      <span className="sentence-text">{sentence.text}</span>
+    <div>
+      <div className="sentence" onClick={handleClickOpen}>
+        <span className="sentence-date">{sentence.date}</span>
+        <span className="sentence-text">{sentence.text}</span>
+      </div>
       <SentenceModal
-        open={isOpen}
-        handleClose={closeModal}
+        open={open}
+        handleClose={handleClose}
         sentence={sentence}
       />
     </div>

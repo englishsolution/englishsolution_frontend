@@ -19,7 +19,7 @@
 .word-list {
   height: 550px;
   display: grid;
-  gap: 10px;
+  gap: 20px;
 }
 
 .pagination-container {
@@ -31,7 +31,7 @@
 /* videos */
 .video-list {
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  grid-auto-rows: 270px;
 }
 
 .video {
@@ -84,8 +84,15 @@
 }
 
 /* sentences */
+.sentence-list {
+  grid-template-columns: 1fr; /* 한 열로 설정 */
+  grid-auto-rows: 47px; /* 각 문장 박스의 고정 높이 설정 (필요에 따라 조정) */
+  gap: 10px;
+}
+
 .sentence {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   padding: 0.7rem;
   margin: 0.1rem 0;
@@ -103,25 +110,33 @@
 }
 
 .sentence-date {
-  font-weight: bold;
-  color: #333;
-  flex-shrink: 0; /* 날짜 부분이 너비를 줄이지 않도록 설정 */
+  color: #666;
+  flex-shrink: 0;
 }
 
 .sentence-text {
-  text-align: center; /* 텍스트를 가운데 정렬 */
-  color: #666;
-  flex-grow: 1; /* 텍스트 부분이 남은 공간을 모두 차지하도록 설정 */
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+  flex-grow: 1;
 }
 
 .sentence:active {
   transform: translateY(-1px);
 }
 
+.custom-dialog {
+  width: 80%;
+  max-width: none;
+}
+.custom-dialog .MuiDialogContent-root {
+  min-height: 400px;
+}
+
 /* words */
 .word-list {
-  gap: 10px;
   grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: 125px;
 }
 
 .word {
