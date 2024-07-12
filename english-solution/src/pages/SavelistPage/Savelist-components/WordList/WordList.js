@@ -2,8 +2,8 @@
 import React, { useState } from "react";
 import { Container } from "@mui/material";
 import Box from "@mui/material/Box";
-import Pagination from "../../../../components/Pagination/Pagination"; // Pagination 컴포넌트를 import합니다.
-import Word from "./Word"; // Word 컴포넌트를 import합니다.
+import Pagination from "../../../../components/Pagination/Pagination";
+import Word from "./Word";
 
 const WordList = ({ words }) => {
   const [page, setPage] = useState(1); // 현재 페이지 번호를 상태로 관리합니다.

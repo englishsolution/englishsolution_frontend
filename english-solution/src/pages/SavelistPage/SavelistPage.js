@@ -48,43 +48,16 @@ const SavelistPage = () => {
       title: "DIY Home Decor Ideas",
       thumbnail: "https://via.placeholder.com/180x100.png?text=Video+8",
     },
-    {
-      id: "9",
-      title: "Tips for Running Your First Marathon",
-      thumbnail: "https://via.placeholder.com/180x100.png?text=Video+9",
-    },
-    {
-      id: "10",
-      title: "Making Fresh Sushi at Home",
-      thumbnail: "https://via.placeholder.com/180x100.png?text=Video+10",
-    },
-    {
-      id: "11",
-      title: "Hiking Essentials: What to Pack",
-      thumbnail: "https://via.placeholder.com/180x100.png?text=Video+11",
-    },
-    {
-      id: "12",
-      title: "Exploring Ancient Rome",
-      thumbnail: "https://via.placeholder.com/180x100.png?text=Video+12",
-    },
   ];
 
   const sentences = [
     { date: "2024-06-03", text: "Are you ready for the adventure?" },
     { date: "2024-06-07", text: "She looked at him and smiled." },
     { date: "2024-06-10", text: "This is a crucial moment in history." },
-    { date: "2024-06-12", text: "He whispered something in her ear." },
-    { date: "2024-06-15", text: "The sun was setting over the horizon." },
-    { date: "2024-06-18", text: "Let's make today unforgettable." },
-    { date: "2024-06-20", text: "They had been friends for years." },
-    { date: "2024-06-22", text: "It's a beautiful day, isn't it?" },
-    { date: "2024-06-25", text: "The evidence was clear and undeniable." },
     { date: "2024-06-28", text: "He couldn't shake the feeling of déjà vu." },
     { date: "2024-07-02", text: "We must act now to save the planet." },
     { date: "2024-07-05", text: "In the end, it was all worth it." },
     { date: "2024-07-09", text: "This is just the beginning of the story." },
-
     { date: "2024-07-05", text: "Another example sentence." },
     { date: "2024-07-05", text: "Yet another sentence to display." },
     { date: "2024-06-01", text: "I can't believe this is happening." },
@@ -105,13 +78,6 @@ const SavelistPage = () => {
   ];
 
   const words = [
-    { english: "apple", korean: "사과" },
-    { english: "banana", korean: "바나나" },
-    { english: "cherry", korean: "체리" },
-    { english: "date", korean: "대추" },
-    { english: "eggplant", korean: "가지" },
-    { english: "fig", korean: "무화과" },
-    { english: "grape", korean: "포도" },
     { english: "honeydew", korean: "허니듀 멜론" },
     { english: "kiwi", korean: "키위" },
     { english: "lemon", korean: "레몬" },

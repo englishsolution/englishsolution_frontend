@@ -1,6 +1,5 @@
 // src/components/VideoList.js
 import React, { useState } from "react";
-import ReactPaginate from "react-paginate";
 import Video from "./Video";
 import Pagination from "../../../../components/Pagination/Pagination";
 import { Box, Container } from "@mui/material";

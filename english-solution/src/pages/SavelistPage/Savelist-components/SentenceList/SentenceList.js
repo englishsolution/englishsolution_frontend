@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Container } from "@mui/material";
 import Box from "@mui/material/Box";
 import Sentence from "./Sentence";
-import Pagination from "../../../../components/Pagination/Pagination"; // Pagination 컴포넌트를 import합니다.
+import Pagination from "../../../../components/Pagination/Pagination";
 
 const SentenceList = ({ sentences }) => {
   // 임시 데이터로 예시 문장들을 정의합니다.
