@@ -10,7 +10,7 @@ const VideoPlayer = ({ videoId }) => {
         url={`https://www.youtube.com/watch?v=${videoId}`}
         controls
         width="100%"
-        height="550px"
+        height="500px"
       />
     </div>
   );
