@@ -24,7 +24,6 @@ const Subtitles = ({ videoId }) => {
       } catch (error) {
         console.error("Error fetching subtitles:", error);
         setApiError(true); // API 호출 오류가 발생했음을 설정
-        // API 호출 실패 시, default subtitle을 설정할 수 있습니다.
         setEnglishSubtitles([{ text: "Failed to load subtitles..." }]);
         setKoreanSubtitles([{ text: "자막 불러오기 실패!" }]);
       }
