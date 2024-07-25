@@ -1,4 +1,3 @@
-// src/Savelist-components/SentenceModal.js
 import React from "react";
 import {
   Dialog,
@@ -6,35 +5,65 @@ import {
   DialogContent,
   DialogActions,
   Button,
+  Typography,
+  Divider,
+  styled,
 } from "@mui/material";
+import Description from "../../../VideoPage/Description/Description";
+
+const CustomDialog = styled(Dialog)(({ theme }) => ({
+  "& .MuiPaper-root": {
+    borderRadius: "12px",
+    padding: "16px",
+    boxShadow: theme.shadows[8],
+    backgroundColor: "#ffffff",
+  },
+}));
+
+const CustomDialogTitle = styled(DialogTitle)(({ theme }) => ({
+  backgroundColor: theme.palette.primary.main,
+  color: "#ffffff",
+  borderRadius: "12px 12px 0 0",
+  padding: "16px",
+  fontWeight: 600,
+}));
+
+const Content = styled(DialogContent)(({ theme }) => ({
+  padding: "16px",
+  height: "500px",
+  color: theme.palette.text.primary,
+}));
+
+const CustomButton = styled(Button)(({ theme }) => ({
+  backgroundColor: theme.palette.primary.main,
+  color: "#ffffff",
+  borderRadius: "8px",
+  "&:hover": {
+    backgroundColor: theme.palette.primary.dark,
+  },
+}));
 
 const SentenceModal = ({ open, handleClose, sentence }) => {
   return (
-    <Dialog
-      open={open}
-      onClose={handleClose}
-      PaperProps={{
-        className: "custom-dialog",
-      }}
-      maxWidth="md" // 모달의 최대 너비를 설정합니다.
-      fullWidth // 모달이 전체 너비를 사용하도록 설정합니다.
-    >
-      <DialogTitle>문장 분석</DialogTitle>
-      <DialogContent>
-        <p>
-          <strong>저장한 날짜: </strong> {sentence.date}
-        </p>
-        <p>
-          <strong>English: </strong> {sentence.text}
-        </p>
-        <p>한글 번역, 문법, 관용어구, 단어 등등 ...</p>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose} color="primary">
-          닫기
-        </Button>
+    <CustomDialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
+      <CustomDialogTitle>문장 분석</CustomDialogTitle>
+      <Content>
+        <Typography variant="body1" gutterBottom>
+          <strong>저장한 날짜:</strong> {sentence.save_date}
+        </Typography>
+        <Divider sx={{ my: 2 }} />
+        <Typography variant="h5" gutterBottom>
+          <strong>English:</strong> {sentence.sentence_eg}
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          <strong>한국어:</strong> {sentence.sentence_kr}
+        </Typography>
+        <Description />
+      </Content>
+      <DialogActions sx={{ padding: "16px", justifyContent: "center" }}>
+        <CustomButton onClick={handleClose}>닫기</CustomButton>
       </DialogActions>
-    </Dialog>
+    </CustomDialog>
   );
 };
 
