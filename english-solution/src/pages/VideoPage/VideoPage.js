@@ -5,6 +5,7 @@ import VideoPlayer from "../../pages/VideoPage/VideoPlayer/VideoPlayer";
 import Subtitles from "./Subtitles/Subtitles";
 import Description from "./Description/Description";
 import { Container, Box, Grid } from "@mui/material";
+import ChatbotButton from "./ChatbotButton/ChatbotButton";
 
 const VideoPage = () => {
   const { videoId } = useParams();
@@ -47,6 +48,9 @@ const VideoPage = () => {
             <Description />
           </Grid>
         </Grid>
+      </Box>
+      <Box className="chatbot-button-container">
+        <ChatbotButton />
       </Box>
     </Container>
   );

@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
 import React from "react";
-import ChatbotButton from "../ChatbotButton/ChatbotButton";
 import DescriptionDetail from "./DescriptionDetail";
 import "../VideoPage.css";
 
@@ -21,9 +20,6 @@ const Description = () => {
       <DescriptionDetail title="주요 단어" items={keyVocabulary} />
       <DescriptionDetail title="관용어구" items={idioms} />
       <DescriptionDetail title="문법 구조" items={grammarStructure} />
-      <Box className="chatbot-button-container">
-        <ChatbotButton />
-      </Box>
     </Box>
   );
 };
