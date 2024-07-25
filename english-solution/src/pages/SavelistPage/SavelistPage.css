@@ -36,9 +36,9 @@
 
 .video {
   display: flex;
-  flex-direction: column; /* 수직으로 정렬 */
-  align-items: center; /* 가운데 정렬 */
-  justify-content: center; /* 수직 가운데 정렬 */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: 0.7rem;
   margin: 0.1rem 0;
   border: 1px solid #ddd;
@@ -61,20 +61,65 @@
 
 .video-thumbnail {
   width: 80%;
-  height: auto;
+  height: 50%;
+  object-fit: cover;
   border-radius: 10px;
-  margin-bottom: 0.5rem; /* 이미지와 제목 사이의 간격 추가 */
 }
 
 .video-title {
   font-weight: bold;
+  font-size: 15px;
   color: #333;
-  text-align: center; /* 제목을 가운데 정렬 */
+  text-align: center;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  white-space: wrap;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
-.video img {
-  max-width: 100%;
-  height: auto;
+/* Container for buttons */
+.video-btns {
+  width: 200px;
+  display: flex;
+  box-sizing: border-box;
+}
+
+/* Style for navigation buttons */
+.video-btns__sentences,
+.video-btns__words {
+  background-color: #747474; /* Blue background color */
+  color: white; /* White text color */
+  border: none; /* Remove default border */
+  border-radius: 8px; /* Rounded corners */
+  width: 120px;
+  height: 30px;
+  margin: 0px 10px;
+  text-align: center; /* Center text */
+  font-size: 13px; /* Font size */
+  font-weight: bold; /* Bold text */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+}
+
+.video-btns__sentences:hover,
+.video-btns__words:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: scale(1.05); /* Slightly enlarge button */
+}
+
+.video-btns__sentences:disabled,
+.video-btns__words:active {
+  background-color: #004494; /* Even darker blue when clicked */
+  transform: scale(0.98); /* Slightly shrink button */
+}
+
+.video-btns__sentences:disabled,
+.video-btns__words:disabled {
+  background-color: #d6d6d6; /* Gray background for disabled state */
+  color: #a0a0a0; /* Gray text */
+  cursor: not-allowed; /* Not-allowed cursor */
 }
 
 .video.empty {

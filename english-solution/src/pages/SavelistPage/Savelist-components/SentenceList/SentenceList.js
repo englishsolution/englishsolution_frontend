@@ -6,19 +6,15 @@ import Sentence from "./Sentence";
 import Pagination from "../../../../components/Pagination/Pagination";
 
 const SentenceList = ({ sentences }) => {
-  // 임시 데이터로 예시 문장들을 정의합니다.
+  const [page, setPage] = useState(1);
+  const sentencesPerPage = 10;
 
-  const [page, setPage] = useState(1); // 현재 페이지 번호를 상태로 관리합니다.
-  const sentencesPerPage = 10; // 페이지당 보여질 문장 수를 정의합니다.
-
-  // 현재 페이지에 해당하는 문장들을 계산합니다.
   const startIndex = (page - 1) * sentencesPerPage;
   const endIndex = startIndex + sentencesPerPage;
   const currentSentences = sentences.slice(startIndex, endIndex);
 
-  // 페이지 변경 시 호출될 함수를 정의합니다.
   const handleChangePage = ({ selected }) => {
-    setPage(selected + 1); // react-paginate의 selected 값이 0부터 시작하므로 1을 더해줍니다.
+    setPage(selected + 1);
   };
 
   return (
