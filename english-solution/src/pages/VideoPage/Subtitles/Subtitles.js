@@ -24,7 +24,7 @@ const Subtitles = ({ videoId }) => {
       } catch (error) {
         console.error("Error fetching subtitles:", error);
         setApiError(true); // API 호출 오류가 발생했음을 설정
-        setEnglishSubtitles([{ text: "Failed to load subtitles..." }]);
+        setEnglishSubtitles([{ text: "Failed to load subtitles!" }]);
         setKoreanSubtitles([{ text: "자막 불러오기 실패!" }]);
       }
     };

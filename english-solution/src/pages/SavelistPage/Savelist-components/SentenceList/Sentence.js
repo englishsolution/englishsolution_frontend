@@ -15,8 +15,8 @@ const Sentence = ({ sentence }) => {
   return (
     <div>
       <div className="sentence" onClick={handleClickOpen}>
-        <span className="sentence-date">{sentence.date}</span>
-        <span className="sentence-text">{sentence.text}</span>
+        <span className="sentence-date">{sentence.save_date}</span>
+        <span className="sentence-text">{sentence.sentence_eg}</span>
       </div>
       <SentenceModal
         open={open}
