@@ -3,34 +3,84 @@ import React, { useState, useEffect } from "react";
 import SubtitleActions from "./SubtitleActions/SubtitleActions";
 import WordSave from "./WordSave/WordSave";
 import { Box, Switch, Typography } from "@mui/material";
-import { fetchYoutubeSubtitles } from "./SubtitlesLoader/SubtitlesLoader";
+import { fetchBackendSubtitles } from "./SubtitlesLoader/SubtitlesLoader";
 
-const Subtitles = ({ videoId }) => {
+const validateSubtitleData = (subtitles) => {
+  return subtitles.every(
+    (sub) =>
+      sub.start !== undefined && sub.end !== undefined && sub.text !== undefined
+  );
+};
+
+const Subtitles = ({ videoId, playerRef }) => {
   const [englishSubtitles, setEnglishSubtitles] = useState([]);
   const [koreanSubtitles, setKoreanSubtitles] = useState([]);
   const [showEnglish, setShowEnglish] = useState(true);
   const [showKorean, setShowKorean] = useState(true);
   const [apiError, setApiError] = useState(false); // 추가: API 호출 오류 상태
+  const [currentEnglishSubtitle, setCurrentEnglishSubtitle] = useState(null);
+  const [currentKoreanSubtitle, setCurrentKoreanSubtitle] = useState(null);
 
   useEffect(() => {
     const fetchSubtitles = async () => {
       try {
-        // YouTube Data API를 통해 영어 자막 가져오기
-        const youtubeSubtitles = await fetchYoutubeSubtitles(videoId);
-        setEnglishSubtitles(youtubeSubtitles);
+        const { transcription_en, transcription_ko } =
+          await fetchBackendSubtitles(videoId);
 
-        // 한국어 자막은 아직 준비되지 않았으므로 임시 메시지 사용
-        setKoreanSubtitles([{ text: "한국어 자막 준비 중입니다." }]);
+        // Validate subtitle data before setting state
+        if (
+          !validateSubtitleData(transcription_en) ||
+          !validateSubtitleData(transcription_ko)
+        ) {
+          throw new Error("Invalid subtitle data structure");
+        }
+
+        setEnglishSubtitles(transcription_en);
+        setKoreanSubtitles(transcription_ko);
       } catch (error) {
         console.error("Error fetching subtitles:", error);
-        setApiError(true); // API 호출 오류가 발생했음을 설정
-        setEnglishSubtitles([{ text: "Failed to load subtitles!" }]);
-        setKoreanSubtitles([{ text: "자막 불러오기 실패!" }]);
+        setApiError(true);
+        setEnglishSubtitles([
+          { start: 0, end: 0, text: "Failed to load subtitles!" },
+        ]);
+        setKoreanSubtitles([{ start: 0, end: 0, text: "자막 불러오기 실패!" }]);
       }
     };
 
     fetchSubtitles();
   }, [videoId]);
+
+  useEffect(() => {
+    const updateSubtitles = () => {
+      if (playerRef.current) {
+        const currentTime = playerRef.current.getCurrentTime();
+
+        // 자막 데이터의 구조를 검증
+        if (
+          !validateSubtitleData(englishSubtitles) ||
+          !validateSubtitleData(koreanSubtitles)
+        ) {
+          console.error("Invalid subtitle data structure");
+          return;
+        }
+
+        // 전체 자막 리스트에서 현재 재생 시간에 맞는 자막 찾기
+        const currentEnSubtitle = englishSubtitles.find(
+          (sub) => currentTime >= sub.start && currentTime <= sub.end
+        );
+        const currentKoSubtitle = koreanSubtitles.find(
+          (sub) => currentTime >= sub.start && currentTime <= sub.end
+        );
+
+        // 현재 자막 상태 업데이트
+        setCurrentEnglishSubtitle(currentEnSubtitle);
+        setCurrentKoreanSubtitle(currentKoSubtitle);
+      }
+    };
+
+    const intervalId = setInterval(updateSubtitles, 100); // 100ms마다 업데이트
+    return () => clearInterval(intervalId); // 컴포넌트 언마운트 시 타이머 제거
+  }, [englishSubtitles, koreanSubtitles, playerRef]);
 
   // 자막 표시/숨기기 토글 함수
   const handleEnglishToggle = () => {
@@ -54,27 +104,27 @@ const Subtitles = ({ videoId }) => {
         </Typography>
         <Switch checked={showKorean} onChange={handleKoreanToggle} />
       </Box>
+      {apiError && (
+        <Typography color="error" marginBottom={2}>
+          자막을 불러오는 중 오류가 발생했습니다.
+        </Typography>
+      )}
+
       <Box bgcolor="#f1f3f5" padding={2} marginBottom={2}>
-        {showEnglish &&
-          englishSubtitles.map((subtitle, index) => (
-            <Typography key={index}>
-              {subtitle.text.split(" ").map((word, idx) => (
-                <WordSave key={idx} word={word} />
-              ))}
-              <SubtitleActions subtitle={subtitle} />
-            </Typography>
-          ))}
+        {showEnglish && currentEnglishSubtitle && (
+          <Typography>
+            {currentEnglishSubtitle.text.split(" ").map((word, idx) => (
+              <WordSave key={idx} word={word} />
+            ))}
+            <SubtitleActions subtitle={currentEnglishSubtitle} />
+          </Typography>
+        )}
       </Box>
 
       <Box bgcolor="#f1f3f5" padding={2}>
-        {koreanSubtitles.map((subtitle, index) => (
-          <Typography
-            key={index}
-            style={{ display: showKorean ? "block" : "none" }}
-          >
-            {subtitle.text}
-          </Typography>
-        ))}
+        {showKorean && currentKoreanSubtitle && (
+          <Typography>{currentKoreanSubtitle.text}</Typography>
+        )}
       </Box>
     </Box>
   );

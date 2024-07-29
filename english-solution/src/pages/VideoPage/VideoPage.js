@@ -2,7 +2,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import VideoPlayer from "../../pages/VideoPage/VideoPlayer/VideoPlayer";
-import Subtitles from "./Subtitles/Subtitles";
 import Description from "./Description/Description";
 import { Container, Box, Grid } from "@mui/material";
 import ChatbotButton from "./ChatbotButton/ChatbotButton";
@@ -20,7 +19,7 @@ const VideoPage = () => {
         flexDirection: "column",
       }}
     >
-      <Box paddingTop={2} flex={1} display="flex">
+      <Box paddingTop={2} flex={1} display="flex" style={{ height: "100vh" }}>
         <Grid container spacing={2} style={{ flex: 1 }}>
           <Grid
             item
@@ -33,7 +32,6 @@ const VideoPage = () => {
             }}
           >
             <VideoPlayer videoId={videoId} />
-            <Subtitles videoId={videoId} />
           </Grid>
           <Grid
             item
