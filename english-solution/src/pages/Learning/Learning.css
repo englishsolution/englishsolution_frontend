@@ -1,0 +1,19 @@
+/* src/pages/Learning/Learning.css */
+
+.learning-container {
+  padding: 20px;
+  text-align: center; /* 제목과 비디오 제목들을 중앙 정렬 */
+}
+
+.learning-title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333; /* 제목 색상 */
+}
+
+.learning-list {
+  display: flex;
+  flex-direction: column; /* 비디오 항목들을 수직으로 나열 */
+  align-items: center; /* 가운데 정렬 */
+  gap: 20px; /* 비디오 항목들 사이의 간격 */
+}

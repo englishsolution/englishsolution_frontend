@@ -8,7 +8,7 @@ import ServiceMenu from "./components/ServiceMenu/ServiceMenu";
 import ServiceIntro from "./pages/ServiceIntro/ServiceIntro";
 import UsageGuide from "./pages/UsageGuide/UsageGuide";
 import Learning from "./pages/Learning/Learning";
-import FakeChatbot from "./pages/FakeChatbot/FakeChatbot";
+import Chatbot from "./pages/Chatbot/Chatbot";
 import Header from "./components/Header/Header";
 import SignUp from "./pages/SignUp/SignUp";
 import LogIn from "./pages/LogIn/LogIn";
@@ -31,7 +31,7 @@ const App = () => {
           <Route path="/service-intro" element={<ServiceIntro />} />
           <Route path="/usage-guide" element={<UsageGuide />} />
           <Route path="/learning" element={<Learning />} />
-          <Route path="/chatbot" element={<FakeChatbot />} />
+          <Route path="/chatbot" element={<Chatbot />} />
           <Route path="/save-list" element={<SavelistPage />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/log-in" element={<LogIn />} />

@@ -20,14 +20,15 @@ const Chatbot = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-CSRFToken": csrftoken,
+        //"X-CSRFToken": csrftoken,
       },
-      body: JSON.stringify({ message: inputText }),
+      body: JSON.stringify({ mode:'general', prompt : inputText }),
     };
 
     // Send message to backend
-    fetch("http://15.165.135.23/chatbot/", requestData)
+    fetch("http://15.165.135.23/chatbot", requestData)
       .then((response) => {
+        console.log('Response:', response);
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
