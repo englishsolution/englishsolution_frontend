@@ -1,4 +1,4 @@
-// src/mockData.js
+// mockData.js
 
 const youtubeVideoData = [
   {
