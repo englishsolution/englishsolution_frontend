@@ -20,7 +20,7 @@ const Chatbot = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        //"X-CSRFToken": csrftoken,
+        "X-CSRFToken": csrftoken,
       },
       body: JSON.stringify({ mode:'general', prompt : inputText }),
     };

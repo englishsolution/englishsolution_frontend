@@ -13,7 +13,26 @@
 
 .learning-list {
   display: flex;
-  flex-direction: column; /* 비디오 항목들을 수직으로 나열 */
-  align-items: center; /* 가운데 정렬 */
-  gap: 20px; /* 비디오 항목들 사이의 간격 */
+  flex-direction: column; /* 세로로 나열 */
+  align-items: center; /* 중앙 정렬 */
+}
+
+.learning-item {
+  background-color: transparent;
+  border: none;
+  font-size: 1.2rem;
+  padding: 5px 0;
+  margin : 0; 
+  width: auto; 
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s; /* 클릭 효과 */
+}
+
+.learning-item:hover {
+  background-color: #e0e0e0;
+}
+
+.learning-item:active {
+  transform: scale(0.98); /* 클릭 시 박스 축소 효과 */
 }
