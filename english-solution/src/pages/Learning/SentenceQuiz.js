@@ -75,7 +75,7 @@ const SentenceQuiz = () => {
   const userAnswer = userAnswers[currentQuestionIndex] || "";
 
   return (
-    <div className="app">
+    <div className="quiz-box">
       <h2>아래 문장의 빈칸에 들어갈 단어를 입력하세요:</h2>
       <div className="question-box">
         <h3>{currentQuestion.question}</h3>
@@ -93,14 +93,14 @@ const SentenceQuiz = () => {
           >
             이전 문제
           </button>
-          {currentQuestionIndex < quizData.length - 1 ? (
-            <button
-              onClick={handleNextClick}
-              disabled={currentQuestionIndex === quizData.length - 1}
-            >
-              다음 문제
-            </button>
-          ) : (
+          <button
+            onClick={handleNextClick}
+            disabled={currentQuestionIndex === quizData.length - 1}
+          >
+            다음 문제
+          </button>
+
+          {currentQuestionIndex === quizData.length - 1 && (
             <form onSubmit={handleSubmit}>
               <button type="submit" className="submit-button">
                 제출

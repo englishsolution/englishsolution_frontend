@@ -8,9 +8,8 @@ const SentenceQuizResult = ({ quizData, userAnswers }) => {
   return (
     <div>
       <h2>퀴즈 결과</h2>
-      <p>총 문제 수: {quizData.length}</p>
-      <p>정답 수: {correctAnswers}</p>
-      <p>정답률: {((correctAnswers / quizData.length) * 100).toFixed(2)}%</p>
+      <p>맞은 개수: {correctAnswers}</p>
+      <p>틀린 개수: {correctAnswers}</p>
       {quizData.map((question, index) => (
         <div key={index}>
           <p>{question.question}</p>
