@@ -1,0 +1,39 @@
+{
+  "questions": [
+    {
+      "sentence": "The quick brown fox ____ over the lazy dog.",
+      "options": ["jumps", "runs", "flies", "sits"],
+      "answer": "jumps"
+    },
+    {
+      "sentence": "She ____ the new book with great enthusiasm.",
+      "options": ["read", "reads", "reading", "readed"],
+      "answer": "read"
+    },
+    {
+      "sentence": "The weather today is quite ____ compared to yesterday.",
+      "options": ["mild", "harsh", "stormy", "cold"],
+      "answer": "mild"
+    },
+    {
+      "sentence": "He was ____ when he heard the news.",
+      "options": ["elated", "disappointed", "angry", "neutral"],
+      "answer": "elated"
+    },
+    {
+      "sentence": "She ____ the problem before it became serious.",
+      "options": ["addressed", "ignored", "complicated", "overlooked"],
+      "answer": "addressed"
+    },
+    {
+      "sentence": "The painting was ____ in a prestigious gallery.",
+      "options": ["displayed", "hidden", "removed", "stored"],
+      "answer": "displayed"
+    },
+    {
+      "sentence": "His performance was ____ and left everyone impressed.",
+      "options": ["outstanding", "mediocre", "poor", "average"],
+      "answer": "outstanding"
+    }
+  ]
+}

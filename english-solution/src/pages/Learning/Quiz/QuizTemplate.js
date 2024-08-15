@@ -12,12 +12,17 @@ const QuizTemplate = ({ videoId, quizType }) => {
 
   useEffect(() => {
     const loadQuizData = async () => {
-      const data = await fetchQuizData(videoId, quizType);
-      setQuizData(data.questions);
+      try {
+        const data = await fetchQuizData(videoId, quizType);
+        setQuizData(data);
+      } catch (error) {
+        console.error("퀴즈 데이터 로딩 오류:", error);
+      }
     };
     loadQuizData();
   }, [videoId, quizType]);
 
+  // 옵션 클릭 시 처리 함수
   const handleOptionClick = (option) => {
     setSelectedOptions({
       ...selectedOptions,
@@ -25,14 +30,17 @@ const QuizTemplate = ({ videoId, quizType }) => {
     });
   };
 
+  // 이전 문제 버튼 클릭 시 처리 함수
   const handlePreviousClick = () => {
     setCurrentQuestionIndex(currentQuestionIndex - 1);
   };
 
+  // 다음 문제 버튼 클릭 시 처리 함수
   const handleNextClick = () => {
     setCurrentQuestionIndex(currentQuestionIndex + 1);
   };
 
+  // 제출 버튼 클릭 시 처리 함수
   const handleSubmit = (event) => {
     event.preventDefault();
     setShowResults(true);
@@ -45,14 +53,17 @@ const QuizTemplate = ({ videoId, quizType }) => {
     });
   };
 
+  // 결과가 이미 보여지는 경우 아무것도 렌더링하지 않음
   if (showResults) {
     return null;
   }
 
+  // 퀴즈 데이터가 로딩 중인 경우 로딩 메시지 표시
   if (!quizData.length) {
     return <div>Loading...</div>;
   }
 
+  // 현재 문제 및 선택된 옵션 가져오기
   const currentQuestion = quizData[currentQuestionIndex];
   const selectedOption = selectedOptions[currentQuestionIndex];
 
@@ -61,6 +72,8 @@ const QuizTemplate = ({ videoId, quizType }) => {
       <h2>
         {quizType === "word"
           ? "아래 단어의 뜻은?"
+          : quizType === "replay"
+          ? "퀴즈를 다시 풀어보세요"
           : "아래 문장의 빈칸에 들어갈 단어는?"}
       </h2>
       <QuizQuestion

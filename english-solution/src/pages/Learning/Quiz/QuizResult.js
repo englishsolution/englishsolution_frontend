@@ -29,8 +29,9 @@ const QuizResult = () => {
 
   const results = getResults();
 
-  const handleRetakeQuiz = () => {
-    navigate(`/learning/${quizType}-quiz`);
+  // 학습 페이지로 돌아가는 핸들러
+  const handleGoToLearning = () => {
+    navigate(`/learning`);
   };
 
   return (
@@ -83,8 +84,8 @@ const QuizResult = () => {
         </>
       )}
 
-      <button onClick={handleRetakeQuiz} className="retake-button">
-        퀴즈 다시 풀기
+      <button onClick={handleGoToLearning} className="retake-button">
+        학습 페이지로 돌아가기
       </button>
     </div>
   );

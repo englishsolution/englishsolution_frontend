@@ -96,3 +96,19 @@ button:hover:not(:disabled) {
   background-color: #0069d9;
   cursor: not-allowed;
 }
+
+.option {
+  cursor: pointer; /* 클릭 가능한 스타일 추가 */
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.option:hover {
+  background-color: #e9ecef; /* 호버 시 스타일 */
+}
+
+.option.selected {
+  background-color: #cce5ff; /* 선택된 옵션의 스타일 */
+}

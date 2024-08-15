@@ -18,6 +18,7 @@ import SentenceList from "./pages/SavelistPage/Savelist-components/SentenceList/
 import WordList from "./pages/SavelistPage/Savelist-components/WordList/WordList";
 import SentenceQuiz from "./pages/Learning/Quiz/SentenceQuiz";
 import WordQuiz from "./pages/Learning/Quiz/WordQuiz";
+import ReplayQuiz from "./pages/Learning/Quiz/ReplayQuiz";
 import QuizResult from "./pages/Learning/Quiz/QuizResult";
 
 import mockData from "./mockData";
@@ -48,6 +49,7 @@ const App = () => {
           />
           <Route path="learning/word-quiz" element={<WordQuiz />} />
           <Route path="learning/sentence-quiz" element={<SentenceQuiz />} />
+          <Route path="learning/replay-quiz" element={<ReplayQuiz />} />
           <Route path="/learning/quiz-result" element={<QuizResult />} />
         </Routes>
       </div>
