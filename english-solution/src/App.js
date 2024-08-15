@@ -16,8 +16,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SavelistPage from "./pages/SavelistPage/SavelistPage";
 import SentenceList from "./pages/SavelistPage/Savelist-components/SentenceList/SentenceList";
 import WordList from "./pages/SavelistPage/Savelist-components/WordList/WordList";
-import WordQuiz from "./pages/Learning/WordQuiz";
-import SentenceQuiz from "./pages/Learning/SentenceQuiz";
+import SentenceQuiz from "./pages/Learning/Quiz/SentenceQuiz";
+import WordQuiz from "./pages/Learning/Quiz/WordQuiz";
+import QuizResult from "./pages/Learning/Quiz/QuizResult";
 
 import mockData from "./mockData";
 
@@ -47,6 +48,7 @@ const App = () => {
           />
           <Route path="learning/word-quiz" element={<WordQuiz />} />
           <Route path="learning/sentence-quiz" element={<SentenceQuiz />} />
+          <Route path="/learning/quiz-result" element={<QuizResult />} />
         </Routes>
       </div>
     </Router>

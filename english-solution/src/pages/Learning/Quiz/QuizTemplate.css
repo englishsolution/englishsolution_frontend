@@ -1,27 +1,36 @@
-/* SentenceQuiz.css */
 .quiz-box {
   font-family: Arial, sans-serif;
   text-align: center;
   padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
 }
 
 h2 {
   margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
 }
 
 .question-box {
-  background-color: #f2f2f2;
+  background-color: #fff;
   padding: 20px;
   border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  text-align: left;
   display: inline-block;
-  text-align: center;
-  width: 300px;
+  width: 100%;
+  max-width: 500px;
 }
 
 h3 {
   margin-top: 0;
-  font-size: 24px;
-  margin-bottom: 20px;
+  font-size: 20px;
+  color: #333;
 }
 
 .question {
@@ -29,13 +38,14 @@ h3 {
 }
 
 .sentence-with-blank {
-  background-color: white;
+  background-color: #ffffff;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-bottom: 20px;
   font-size: 18px;
-  min-height: 40px; /* To ensure space for the blank */
+  min-height: 40px; /* Ensure space for the blank */
+  text-align: left;
 }
 
 input {
@@ -44,6 +54,7 @@ input {
   border: 1px solid #ccc;
   border-radius: 4px;
   width: calc(100% - 22px); /* Adjust width to fit within the box */
+  box-sizing: border-box; /* Ensure padding is included in width */
 }
 
 .navigation-buttons {
@@ -57,11 +68,13 @@ button {
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
+  color: #666;
 }
 
 button:hover:not(:disabled) {
@@ -70,11 +83,16 @@ button:hover:not(:disabled) {
 }
 
 .submit-button {
-  background-color: blue;
+  background-color: #007bff;
   color: white;
   border: none;
 }
 
 .submit-button:hover {
-  background-color: darkblue;
+  background-color: #0056b3;
+}
+
+.submit-button:disabled {
+  background-color: #0069d9;
+  cursor: not-allowed;
 }
