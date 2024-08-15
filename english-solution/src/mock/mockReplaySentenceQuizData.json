@@ -1,0 +1,39 @@
+{
+  "questions": [
+    {
+      "sentence": "The cat ____ on the windowsill.",
+      "options": ["sat", "stood", "jumped", "ran"],
+      "answer": "sat"
+    },
+    {
+      "sentence": "She ____ the song beautifully at the concert.",
+      "options": ["sang", "sings", "sung", "sing"],
+      "answer": "sang"
+    },
+    {
+      "sentence": "The city was ____ with lights during the festival.",
+      "options": ["illuminated", "dark", "blurry", "cloudy"],
+      "answer": "illuminated"
+    },
+    {
+      "sentence": "They ____ a new strategy to improve the process.",
+      "options": ["devised", "ignored", "scrapped", "reduced"],
+      "answer": "devised"
+    },
+    {
+      "sentence": "The movie was ____ and kept everyone engaged.",
+      "options": ["captivating", "boring", "predictable", "dull"],
+      "answer": "captivating"
+    },
+    {
+      "sentence": "She ____ her old friends at the reunion.",
+      "options": ["met", "avoided", "forgot", "ignored"],
+      "answer": "met"
+    },
+    {
+      "sentence": "The storm caused ____ damage to the neighborhood.",
+      "options": ["significant", "minimal", "slight", "negligible"],
+      "answer": "significant"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "questions": [
+    {
+      "word": "example",
+      "options": ["exemplar", "sample", "illustration", "prototype"],
+      "answer": "sample"
+    },
+    {
+      "word": "abundant",
+      "options": ["plentiful", "scarce", "insufficient", "rare"],
+      "answer": "plentiful"
+    },
+    {
+      "word": "benevolent",
+      "options": ["kind", "cruel", "selfish", "indifferent"],
+      "answer": "kind"
+    },
+    {
+      "word": "meticulous",
+      "options": ["careful", "negligent", "hasty", "sloppy"],
+      "answer": "careful"
+    },
+    {
+      "word": "vivid",
+      "options": ["bright", "dull", "drab", "dim"],
+      "answer": "bright"
+    },
+    {
+      "word": "serene",
+      "options": ["calm", "chaotic", "disturbed", "noisy"],
+      "answer": "calm"
+    },
+    {
+      "word": "arduous",
+      "options": ["difficult", "easy", "simple", "light"],
+      "answer": "difficult"
+    },
+    {
+      "word": "transient",
+      "options": ["temporary", "permanent", "lasting", "enduring"],
+      "answer": "temporary"
+    }
+  ]
+}
