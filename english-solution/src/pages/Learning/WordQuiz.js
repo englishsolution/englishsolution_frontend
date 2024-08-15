@@ -105,14 +105,14 @@ const WordQuiz = () => {
           >
             이전 문제
           </button>
-          {currentQuestionIndex < 9 ? (
-            <button
-              onClick={handleNextClick}
-              disabled={currentQuestionIndex === quizData.length - 1}
-            >
-              다음 문제
-            </button>
-          ) : (
+          <button
+            onClick={handleNextClick}
+            disabled={currentQuestionIndex === quizData.length - 1}
+          >
+            다음 문제
+          </button>
+
+          {currentQuestionIndex === quizData.length - 1 && (
             <form onSubmit={handleSubmit}>
               <button type="submit" className="submit-button">
                 제출
