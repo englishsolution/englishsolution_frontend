@@ -1,23 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Learning.css'; // 스타일링을 위한 CSS 파일
 
 const Learning = () => {
     const [searchTerm, setSearchTerm] = useState('');
-    const [data, setData] = useState([
-        { id: 1, title: 'Task 1' },
-        { id: 2, title: 'Task 2' },
-        { id: 3, title: 'Write blog post for demo day' },
-        { id: 4, title: 'Publish blog page' },
-        { id: 5, title: 'Add gradients to design system' },
-        { id: 6, title: 'Responsive behavior doesn’t work on Android' },
-        { id: 7, title: 'Confirmation states not rendering properly' },
-        { id: 8, title: 'Text wrapping is awkward on older iPhones' },
-        { id: 9, title: 'Revise copy on About page' },
-        { id: 10, title: 'Publish HackerNews post' },
-    ]);
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     
     const navigate = useNavigate();
+
+    useEffect(() => {
+        // Function to fetch data from API
+        const fetchData = async () => {
+            try {
+                const response = await fetch('http://15.165.135.23/save'); // Replace with your API endpoint
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const result = await response.json();
+                setData(result);
+                setLoading(false);
+            } catch (error) {
+                setError(error.message);
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
@@ -44,6 +55,9 @@ const Learning = () => {
     const filteredData = data.filter(item => 
         item.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error}</p>;
 
     return (
         <div className="learning-container">
