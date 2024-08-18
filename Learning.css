@@ -1,0 +1,56 @@
+.learning-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.search-bar {
+  margin-bottom: 20px;
+}
+
+.search-bar input {
+  padding: 10px;
+  font-size: 16px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.quiz-button {
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.quiz-button:hover {
+  background-color: #0056b3;
+}
+
+.learning-table {
+  width: 80%;
+  border-collapse: collapse;
+}
+
+.learning-table th, .learning-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.learning-table th {
+  background-color: #f4f4f4;
+}
+
+.learning-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.learning-table tr:hover {
+  background-color: #f1f1f1;
+}
