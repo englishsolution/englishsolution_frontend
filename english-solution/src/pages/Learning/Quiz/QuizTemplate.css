@@ -1,0 +1,114 @@
+.quiz-box {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.question-box {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  text-align: left;
+  display: inline-block;
+  width: 100%;
+  max-width: 500px;
+}
+
+h3 {
+  margin-top: 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.question {
+  margin-bottom: 20px;
+}
+
+.sentence-with-blank {
+  background-color: #ffffff;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  font-size: 18px;
+  min-height: 40px; /* Ensure space for the blank */
+  text-align: left;
+}
+
+input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: calc(100% - 22px); /* Adjust width to fit within the box */
+  box-sizing: border-box; /* Ensure padding is included in width */
+}
+
+.navigation-buttons {
+  margin-top: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 0 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  color: #666;
+}
+
+button:hover:not(:disabled) {
+  background-color: #007bff;
+  color: white;
+}
+
+.submit-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+.submit-button:disabled {
+  background-color: #0069d9;
+  cursor: not-allowed;
+}
+
+.option {
+  cursor: pointer; /* 클릭 가능한 스타일 추가 */
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.option:hover {
+  background-color: #e9ecef; /* 호버 시 스타일 */
+}
+
+.option.selected {
+  background-color: #cce5ff; /* 선택된 옵션의 스타일 */
+}

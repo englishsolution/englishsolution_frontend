@@ -1,0 +1,44 @@
+{
+  "questions": [
+    {
+      "word": "arduous",
+      "options": ["difficult", "easy", "simple", "light"],
+      "answer": "difficult"
+    },
+    {
+      "word": "ubiquitous",
+      "options": ["everywhere", "rare", "uncommon", "limited"],
+      "answer": "everywhere"
+    },
+    {
+      "word": "elated",
+      "options": ["happy", "sad", "angry", "bored"],
+      "answer": "happy"
+    },
+    {
+      "word": "diligent",
+      "options": ["hardworking", "lazy", "careless", "negligent"],
+      "answer": "hardworking"
+    },
+    {
+      "word": "pristine",
+      "options": ["clean", "dirty", "used", "worn"],
+      "answer": "clean"
+    },
+    {
+      "word": "meticulous",
+      "options": ["careful", "careless", "hasty", "reckless"],
+      "answer": "careful"
+    },
+    {
+      "word": "resilient",
+      "options": ["strong", "fragile", "weak", "delicate"],
+      "answer": "strong"
+    },
+    {
+      "word": "serene",
+      "options": ["calm", "noisy", "chaotic", "disturbed"],
+      "answer": "calm"
+    }
+  ]
+}
