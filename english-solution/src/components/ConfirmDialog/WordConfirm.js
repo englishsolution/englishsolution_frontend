@@ -7,7 +7,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Button from "@mui/material/Button";
 
-const ConfirmDialog = ({ open, onClose, onConfirm, word }) => {
+const WordConfirm = ({ open, onClose, onConfirm, word }) => {
   const handleConfirm = () => {
     onConfirm();
     onClose();
@@ -31,4 +31,4 @@ const ConfirmDialog = ({ open, onClose, onConfirm, word }) => {
   );
 };
 
-export default ConfirmDialog;
+export default WordConfirm;
