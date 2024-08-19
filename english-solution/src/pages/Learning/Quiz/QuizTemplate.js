@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import QuizQuestion from "./QuizQuestion";
 import { fetchQuizData } from "../../../api/quizApi";
 
-const QuizTemplate = ({ videoId, quizType }) => {
+const QuizTemplate = () => {
+  const { quizType, videoId } = useParams(); // URL 파라미터 가져오기
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState({});
   const [quizData, setQuizData] = useState([]);
@@ -44,7 +45,7 @@ const QuizTemplate = ({ videoId, quizType }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setShowResults(true);
-    navigate("/learning/quiz-result", {
+    navigate(`/learning/Quiz/${quizType}/${videoId}/quiz-result`, {
       state: {
         quizType,
         quizData,

@@ -6,13 +6,14 @@ const Chatbot = () => {
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState("");
   const [csrftoken, setCsrfToken] = useState("");
+  const [currentPrompt, setCurrentPrompt] = useState("general");
 
   useEffect(() => {
     // 페이지 로딩 시 초기화 시키기 위함
     setCsrfToken(Cookies.get("csrftoken"));
   }, []);
 
-  const sendMessage = () => {
+  const sendMessage = (prompt) => {
     if (inputText.trim() === "") return;
 
     // Prepare request data
@@ -22,25 +23,28 @@ const Chatbot = () => {
         "Content-Type": "application/json",
         "X-CSRFToken": csrftoken,
       },
-      body: JSON.stringify({ mode:'general', prompt : inputText }),
+      body: JSON.stringify({ mode: prompt, prompt: inputText }),
     };
 
     // Send message to backend
     fetch("http://15.165.135.23/chatbot", requestData)
       .then((response) => {
-        console.log('Response:', response);
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
         return response.json();
       })
       .then((data) => {
-        const botReply = data.reply;
-        // Update messages state
+        const botReplies = data.replies; // Assuming 'data.replies' is an array of replies
+        // Update messages state with user input and bot replies
         setMessages((prevMessages) => [
           ...prevMessages,
           { text: inputText, sender: "user" },
-          { text: botReply, sender: "bot" },
+          ...botReplies.map((reply, index) => ({
+            text: reply,
+            sender: "bot",
+            key: index,
+          })),
         ]);
         // Clear input text
         setInputText("");
@@ -52,7 +56,7 @@ const Chatbot = () => {
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      sendMessage();
+      sendMessage(currentPrompt);
     }
   };
 
@@ -61,18 +65,34 @@ const Chatbot = () => {
       <div className="chatbot-messages">
         {messages.map((msg, index) => (
           <div key={index} className={`message ${msg.sender}`}>
-            <div className="message-bubble">
-              {msg.text}
-              </div>
+            <div className="message-bubble">{msg.text}</div>
           </div>
         ))}
       </div>
 
       <div className="button-container">
-        <button className="chatbot-button wordbutton" onClick={sendMessage}>
-          Word
+        <button
+          className="chatbot-button wordbutton"
+          onClick={() => setCurrentPrompt("high")}
+        >
+          Word (상)
         </button>
-        <button className="chatbot-button speakingbutton" onClick={sendMessage}>
+        <button
+          className="chatbot-button wordbutton"
+          onClick={() => setCurrentPrompt("medium")}
+        >
+          Word (중)
+        </button>
+        <button
+          className="chatbot-button wordbutton"
+          onClick={() => setCurrentPrompt("low")}
+        >
+          Word (하)
+        </button>
+        <button
+          className="chatbot-button speakingbutton"
+          onClick={() => sendMessage(currentPrompt)}
+        >
           Speaking
         </button>
       </div>
@@ -85,7 +105,10 @@ const Chatbot = () => {
           onKeyPress={handleKeyPress}
           className="chatbot-input"
         />
-        <button className="chatbot-button" onClick={sendMessage}>
+        <button
+          className="chatbot-button"
+          onClick={() => sendMessage(currentPrompt)}
+        >
           Send
         </button>
       </div>

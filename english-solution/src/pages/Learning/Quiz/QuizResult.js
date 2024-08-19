@@ -8,12 +8,16 @@ const QuizResult = () => {
   const navigate = useNavigate();
 
   const getResults = () => {
-    const correctAnswers = quizData.filter(
-      (question, index) => selectedOptions[index] === question.answer
-    );
-    const incorrectAnswers = quizData.filter(
-      (question, index) => selectedOptions[index] !== question.answer
-    );
+    const correctAnswers = [];
+    const incorrectAnswers = [];
+
+    quizData.forEach((question, index) => {
+      if (selectedOptions[index] === question.answer) {
+        correctAnswers.push(question);
+      } else {
+        incorrectAnswers.push(question);
+      }
+    });
 
     return {
       correctCount: correctAnswers.length,
