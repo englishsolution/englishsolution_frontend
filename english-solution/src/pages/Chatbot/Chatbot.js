@@ -40,11 +40,13 @@ const Chatbot = () => {
         setMessages((prevMessages) => [
           ...prevMessages,
           { text: inputText, sender: "user" },
+
           ...botReplies.map((reply, index) => ({
             text: reply,
             sender: "bot",
             key: index,
           })),
+
         ]);
         // Clear input text
         setInputText("");
@@ -65,7 +67,9 @@ const Chatbot = () => {
       <div className="chatbot-messages">
         {messages.map((msg, index) => (
           <div key={index} className={`message ${msg.sender}`}>
+
             <div className="message-bubble">{msg.text}</div>
+
           </div>
         ))}
       </div>
@@ -73,19 +77,25 @@ const Chatbot = () => {
       <div className="button-container">
         <button
           className="chatbot-button wordbutton"
+
           onClick={() => setCurrentPrompt("high")}
+
         >
           Word (상)
         </button>
         <button
           className="chatbot-button wordbutton"
+
           onClick={() => setCurrentPrompt("medium")}
+
         >
           Word (중)
         </button>
         <button
           className="chatbot-button wordbutton"
+
           onClick={() => setCurrentPrompt("low")}
+
         >
           Word (하)
         </button>
