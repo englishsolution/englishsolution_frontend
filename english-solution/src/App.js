@@ -1,6 +1,6 @@
 import "./App.css";
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { useParams, BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import MainPage from "./pages/MainPage/MainPage";
 import VideoPage from "./pages/VideoPage/VideoPage";
@@ -12,7 +12,8 @@ import Chatbot from "./pages/Chatbot/Chatbot";
 import Header from "./components/Header/Header";
 import SignUp from "./pages/SignUp/SignUp";
 import LogIn from "./pages/LogIn/LogIn";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import FindId from "./pages/FindId/FindId";
+import FindPassword from "./pages/FindPassword/FindPassword";
 import SavelistPage from "./pages/SavelistPage/SavelistPage";
 import SentenceList from "./pages/SavelistPage/Savelist-components/SentenceList/SentenceList";
 import WordList from "./pages/SavelistPage/Savelist-components/WordList/WordList";
@@ -24,10 +25,20 @@ import QuizResult from "./pages/Learning/Quiz/QuizResult";
 import mockData from "./mockData";
 
 const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  };
+
   return (
     <Router>
       <div>
-        <Header />
+        <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />
         <ServiceMenu />
         <Routes>
           <Route path="/" element={<MainPage />} />
@@ -38,18 +49,14 @@ const App = () => {
           <Route path="/chatbot" element={<Chatbot />} />
           <Route path="/save-list" element={<SavelistPage />} />
           <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/log-in" element={<LogIn />} />
-          <Route
-            path="/save-list/sentences/:videoId"
-            element={<SentenceListWrapper />}
-          />
-          <Route
-            path="/save-list/words/:videoId"
-            element={<WordListWrapper />}
-          />
-          <Route path="learning/word-quiz" element={<WordQuiz />} />
-          <Route path="learning/sentence-quiz" element={<SentenceQuiz />} />
-          <Route path="learning/replay-quiz" element={<ReplayQuiz />} />
+          <Route path="/log-in" element={<LogIn onLogin={handleLogin} />} />
+          <Route path="/find-id" element={<FindId />} />
+          <Route path="/find-password" element={<FindPassword />} />
+          <Route path="/save-list/sentences/:videoId" element={<SentenceListWrapper />} />
+          <Route path="/save-list/words/:videoId" element={<WordListWrapper />} />
+          <Route path="/learning/word-quiz" element={<WordQuiz />} />
+          <Route path="/learning/sentence-quiz" element={<SentenceQuiz />} />
+          <Route path="/learning/replay-quiz" element={<ReplayQuiz />} />
           <Route path="/learning/quiz-result" element={<QuizResult />} />
         </Routes>
       </div>
