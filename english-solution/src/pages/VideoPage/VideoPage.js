@@ -47,9 +47,9 @@ const VideoPage = () => {
           </Grid>
         </Grid>
       </Box>
-      <Box className="chatbot-button-container">
+      {/* <Box className="chatbot-button-container">
         <ChatbotButton />
-      </Box>
+      </Box> */}
     </Container>
   );
 };
