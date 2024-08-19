@@ -42,13 +42,10 @@ const VideoPage = () => {
               height: "100%",
             }}
           >
-            <Description />
+            {/* <Description /> */}
           </Grid>
         </Grid>
       </Box>
-      {/* <Box className="chatbot-button-container">
-        <ChatbotButton />
-      </Box> */}
     </Container>
   );
 };

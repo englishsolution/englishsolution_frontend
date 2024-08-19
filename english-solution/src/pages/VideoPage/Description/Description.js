@@ -3,7 +3,9 @@ import React from "react";
 import DescriptionDetail from "./DescriptionDetail";
 import "../VideoPage.css";
 
-const Description = () => {
+const Description = ({ subtitle }) => {
+  // 백엔드 API 연결로 변경 필요
+
   const keyVocabulary = ["old man: 노인", "Gepetto: 제페토 (인물 이름)"];
 
   const idioms = [
