@@ -1,63 +1,63 @@
-// src/components/SubtitleActions.js
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import Button from "@mui/material/Button";
-import SpeakingModal from "../../SpeakingModal/SpeakingModal";
+import SentenceConfirm from "../../../../components/ConfirmDialog/SentenceConfirm";
+import SpeakingTestButton from "../../SpeakingModal/SpeakingTestButton";
 
-const SubtitleActions = ({ subtitle }) => {
-  // Modal 상태 관리
+/**
+ * 자막 저장 및 스피킹 테스트 버튼을 관리하는 컴포넌트
+ * @param {Object} props - 컴포넌트의 속성
+ * @param {Object} props.subtitle - 현재 자막 정보 (영어 및 한국어 자막)
+ * @param {string} props.videoId - 현재 비디오 ID
+ */
+const SubtitleActions = ({ subtitle = {}, videoId }) => {
   const [isOpen, setIsOpen] = useState(false);
-
-  // 자막 저장 상태 관리
   const [isSaved, setIsSaved] = useState(false);
 
-  // subtitle이 변경될 때마다 저장 상태를 초기화
-  useEffect(() => {
-    setIsSaved(false);
-  }, [subtitle]);
-
-  // 자막을 서버에 저장하는 함수
-  const sentenceSave = async () => {
-    try {
-      // 서버에 자막 데이터를 POST 요청으로 전송
-      await axios.post("/api/save-subtitle", { subtitle });
-
-      // 요청이 성공하면 콘솔에 메시지를 출력하고, 버튼 상태를 저장 완료로 업데이트
-      console.log("Subtitle saved successfully:", subtitle);
-      setIsSaved(true); // 저장 완료 상태로 업데이트
-    } catch (error) {
-      // 요청이 실패하면 에러 메시지를 콘솔에 출력하고, 사용자에게 알림
-      console.error("Error saving subtitle:", error);
-      alert("Failed to save subtitle. Please try again.");
-    }
-  };
-
-  // Modal 열기 함수
-  const openModal = () => {
+  const openDialog = () => {
     setIsOpen(true);
   };
 
-  // Modal 닫기 함수
-  const closeModal = () => {
+  const closeDialog = () => {
     setIsOpen(false);
   };
 
+  /**
+   * 자막을 서버에 저장하는 함수
+   */
+  const saveSubtitlesToDatabase = async () => {
+    try {
+      await axios.post("/api/save-subtitle", {
+        sentence_eg: subtitle.englishSubtitle || "", // 영어 자막 텍스트
+        sentence_kr: subtitle.koreanSubtitle || "", // 한국어 자막 텍스트
+        save_date: new Date().toISOString(), // 현재 날짜와 시간
+        video: videoId, // 비디오 ID
+      });
+
+      console.log("Subtitle saved successfully.");
+      setIsSaved(true); // 저장 완료 상태로 업데이트
+      closeDialog(); // 저장 후 Modal 닫기
+    } catch (error) {
+      console.error("Error saving subtitles:", error);
+      alert("Failed to save subtitles. Please try again.");
+    }
+  };
+
   return (
-    <span className="subtitle-actions">
-      <Button variant="outlined" onClick={sentenceSave} disabled={isSaved}>
-        {isSaved ? "Saved" : "⭐"}
+    <>
+      <Button variant="outlined" onClick={openDialog} disabled={isSaved}>
+        {isSaved ? "Saved" : "Save"}
       </Button>
 
-      <Button variant="outlined" onClick={openModal}>
-        🎤
-      </Button>
-
-      <SpeakingModal
+      <SentenceConfirm
         open={isOpen}
-        handleClose={closeModal}
-        subtitle={subtitle}
+        onClose={closeDialog}
+        onConfirm={saveSubtitlesToDatabase}
+        subtitle={subtitle} // 현재 자막 정보 전달
       />
-    </span>
+
+      <SpeakingTestButton subtitle={subtitle} />
+    </>
   );
 };
 

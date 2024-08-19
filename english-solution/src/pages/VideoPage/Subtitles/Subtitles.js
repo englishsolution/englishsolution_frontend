@@ -25,8 +25,7 @@ const Subtitles = ({ videoId, playerRef }) => {
   const [apiError, setApiError] = useState(false);
 
   // 현재 비디오 재생 시간에 맞는 자막을 저장할 상태 변수
-  const [currentEnglishSubtitle, setCurrentEnglishSubtitle] = useState(null);
-  const [currentKoreanSubtitle, setCurrentKoreanSubtitle] = useState(null);
+  const [currentSubtitle, setCurrentSubtitle] = useState(null);
 
   // 컴포넌트가 마운트될 때 비디오 ID를 기반으로 자막 데이터를 백엔드에서 가져오는 함수
   useEffect(() => {
@@ -81,9 +80,16 @@ const Subtitles = ({ videoId, playerRef }) => {
           (sub) => currentTime >= sub.start && currentTime <= sub.end
         );
 
+        // 영어와 한국어 자막을 모두 포함하는 subtitle 객체 생성
+        const subtitle = {
+          start: currentTime,
+          end: currentTime + 1, // 예시로 현재 시간 + 1초를 종료 시간으로 설정
+          englishSubtitle: currentEnSubtitle ? currentEnSubtitle.text : "",
+          koreanSubtitle: currentKoSubtitle ? currentKoSubtitle.text : "",
+        };
+
         // 현재 자막을 상태에 저장
-        setCurrentEnglishSubtitle(currentEnSubtitle);
-        setCurrentKoreanSubtitle(currentKoSubtitle);
+        setCurrentSubtitle(subtitle);
       }
       // 다음 프레임에서 다시 updateSubtitles 호출
       animationFrameId = requestAnimationFrame(updateSubtitles);
@@ -130,20 +136,20 @@ const Subtitles = ({ videoId, playerRef }) => {
 
       {/* 현재 시간에 맞는 영어 자막 표시 */}
       <Box bgcolor="#f1f3f5" padding={2} marginBottom={2}>
-        {showEnglish && currentEnglishSubtitle && (
+        {showEnglish && currentSubtitle && (
           <Typography>
-            {currentEnglishSubtitle.text.split(" ").map((word, idx) => (
-              <WordSave key={idx} word={word} />
+            {currentSubtitle.englishSubtitle.split(" ").map((word, idx) => (
+              <WordSave key={idx} word={word} videoId={videoId} />
             ))}
-            <SubtitleActions subtitle={currentEnglishSubtitle} />
+            <SubtitleActions subtitle={currentSubtitle} videoId={videoId} />
           </Typography>
         )}
       </Box>
 
       {/* 현재 시간에 맞는 한국어 자막 표시 */}
       <Box bgcolor="#f1f3f5" padding={2}>
-        {showKorean && currentKoreanSubtitle && (
-          <Typography>{currentKoreanSubtitle.text}</Typography>
+        {showKorean && currentSubtitle && (
+          <Typography>{currentSubtitle.koreanSubtitle}</Typography>
         )}
       </Box>
     </Box>

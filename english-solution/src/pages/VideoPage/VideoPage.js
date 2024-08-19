@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import VideoPlayer from "../../pages/VideoPage/VideoPlayer/VideoPlayer";
 import Description from "./Description/Description";
 import { Container, Box, Grid } from "@mui/material";
-import ChatbotButton from "./ChatbotButton/ChatbotButton";
 
 const VideoPage = () => {
   const { videoId } = useParams();
