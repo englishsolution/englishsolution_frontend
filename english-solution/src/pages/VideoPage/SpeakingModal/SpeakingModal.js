@@ -1,18 +1,19 @@
-// 스피킹 테스트 페이지 (모달)
+// 스피킹 테스트 페이지
 import React, { useState, useRef } from "react";
-import Button from "@mui/material/Button"; // MUI Button import
-import Modal from "@mui/material/Modal"; // MUI Modal import
+import Button from "@mui/material/Button";
+import Modal from "@mui/material/Modal";
 import { Box } from "@mui/material";
 
 const SpeakingModal = ({ open, handleClose, subtitle }) => {
-  const [audioData, setAudioData] = useState(null);
-  const [audioUrl, setAudioUrl] = useState(null);
-  const [score, setScore] = useState(null);
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
-  const mediaRecorderRef = useRef(null);
-  const audioChunksRef = useRef([]);
+  const [audioData, setAudioData] = useState(null); // 오디오 데이터 상태
+  const [audioUrl, setAudioUrl] = useState(null); // 오디오 URL 상태
+  const [score, setScore] = useState(null); // 평가 점수 상태
+  const [message, setMessage] = useState(""); // 서버에서 받은 메시지 상태
+  const [error, setError] = useState(""); // 에러 메시지 상태
+  const mediaRecorderRef = useRef(null); // MediaRecorder 참조
+  const audioChunksRef = useRef([]); // 녹음된 오디오 청크 저장
 
+  // 녹음 시작 함수
   const startRecording = () => {
     navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
       mediaRecorderRef.current = new MediaRecorder(stream);
@@ -23,7 +24,6 @@ const SpeakingModal = ({ open, handleClose, subtitle }) => {
         const audioBlob = new Blob(audioChunksRef.current, {
           type: "audio/wav",
         });
-        console.log("Audio Blob Size:", audioBlob.size); // Blob 크기 확인
         setAudioData(audioBlob);
         setAudioUrl(URL.createObjectURL(audioBlob));
         audioChunksRef.current = [];
@@ -32,37 +32,35 @@ const SpeakingModal = ({ open, handleClose, subtitle }) => {
     });
   };
 
+  // 녹음 중지 함수
   const stopRecording = () => {
     if (mediaRecorderRef.current) {
       mediaRecorderRef.current.stop();
     }
   };
 
+  // 서버로 오디오 파일 전송 및 결과 처리
   const handleSubmit = async () => {
     if (audioData) {
       const formData = new FormData();
       formData.append("audio", audioData, "recording.wav");
+      formData.append("script", subtitle.text); // 스크립트 텍스트도 함께 전송
 
       try {
         const response = await fetch(
-          "http://localhost:8000/processing_speaking/", // 서버 임시 주소
+          "http://localhost:8000/processing_speaking/", // 실제 서버 주소로 교체 필요
           {
             method: "POST",
             body: formData,
           }
         );
 
-        console.log("Response:", response); // 디버깅을 위한 로그
-
         if (response.ok) {
           const data = await response.json();
-          console.log("Response Data:", data);
-          // 서버 응답이 예상한 데이터 형식인지 확인
-          setScore(data.score || null);
-          setMessage(data.message || "No message received.");
+          setScore(data.score || null); // 서버로부터 받은 점수 설정
+          setMessage(data.message || "No message received."); // 서버로부터 받은 메시지 설정
           setError("");
         } else {
-          // 서버 응답 구조가 예상과 다른 경우 처리
           setError("Failed to process the audio file.");
           setScore(null);
           setMessage("");
