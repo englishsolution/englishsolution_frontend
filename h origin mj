@@ -1,0 +1,56 @@
+[33mbb46429[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmj[m[33m, [m[1;31morigin/mj[m[33m)[m 로그인, 회원가입, 아이디비번찾기
+[33mdf3a81c[m Merge branch 'main' of https://github.com/englishsolution/englishsolution_frontend into mj
+[33m5d2a997[m API 반영한
+[33m022abd7[m Add files via upload
+[33m16c21d2[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Merge pull request #13 from englishsolution/yeryung
+[33ma9287bf[m[33m ([m[1;31morigin/yeryung[m[33m)[m mockData JSON 형식으로 수정
+[33mb9b76cc[m 퀴즈 템플릿 및 결과 페이지 구현
+[33m44f268d[m Reapply "퀴즈 수정"
+[33m2b135e0[m Revert "퀴즈 수정"
+[33m17e458f[m Merge pull request #12 from englishsolution/yeryung
+[33m4c9db6e[m 퀴즈 수정
+[33m3e7d2f3[m ㅇ
+[33ma99f5f5[m Merge pull request #11 from englishsolution/yeryung
+[33mf816139[m WordQuiz, SentenceQuiz 생성
+[33m8e6a8fc[m Merge pull request #10 from englishsolution/mj
+[33mf0d2160[m ㅇ
+[33md448d75[m Merge pull request #9 from englishsolution/yeryung
+[33m1e1e2e4[m Subtitle 컴포넌트 fetch 수정
+[33md46c404[m Merge pull request #8 from englishsolution/yeryung
+[33m434c0e4[m SentenceModal 레이아웃 수정
+[33mecb01e0[m Merge pull request #7 from englishsolution/yeryung
+[33m986985a[m 전체 데이터 보기 및 내비게이션 기능 추가
+[33mfdf78fb[m Merge pull request #6 from englishsolution/main
+[33mc6a3fe2[m Merge pull request #5 from englishsolution/yeryung
+[33mbf8c547[m 오디오 파일 녹음, 전송 기능 추가
+[33me922fc0[m Merge pull request #4 from englishsolution/yeryung
+[33m2cbbdbd[m VideoPage CSS 수정
+[33mc26471f[m Merge pull request #3 from englishsolution/mj
+[33m076b4cb[m Merge pull request #2 from englishsolution/yeryung
+[33mb6d9b50[m SavelistPage css 수정2
+[33m3a567f3[m fakechatbot
+[33m7091c1b[m Merge pull request #1 from englishsolution/yeryung
+[33m10b6225[m SavelistPage css 수정
+[33mf915863[m Merge branch 'main' into yeryung
+[33me51f878[m 아아
+[33m3c11a9c[m json 수정
+[33mdfa4f64[m Update package.json
+[33mcd20888[m Merge branch 'main' of https://github.com/englishsolution/englishsolution_frontend
+[33m3f932db[m 저장 기록 페이지 구현
+[33mbb02162[m 7/5
+[33meff46c2[m Youtube Data API 설정 중
+[33m9d29785[m 링크 삽입 기능 구현
+[33m1135eef[m 조금더 추가ver
+[33m60631f3[m 컴포넌트 추가
+[33mbd06460[m Rename: css 파일 위치 수정
+[33md501c37[m feat: VideoPage 레이아웃 설정
+[33m61271f1[m feat: 단어 저장 방법 수정
+[33m75caf69[m feat: video-page 자막 기능 구현
+[33m8a39bb8[m mainPage, videoPage 수정
+[33m1785f93[m 페이지 2개 구분
+[33mcc470b2[m 연습
+[33m6d0f4ec[m header 추가
+[33m8ba8c8c[m react 초기설정2
+[33ma18b77f[m react 초기설정
+[33m0608b5c[m react 설치
+[33m5d7a330[m Initial commit
