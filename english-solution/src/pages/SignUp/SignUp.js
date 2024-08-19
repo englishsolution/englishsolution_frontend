@@ -99,7 +99,7 @@ const SignUp = () => {
   // 소셜 로그인 버튼 클릭 시 동작하지 않도록 처리
   const handleSocialLoginClick = (e) => {
     e.preventDefault();
-    alert("소셜 로그인 기능은 현재 사용할 수 없습니다."); // 테스트용 알림, 추후 제거 가능
+    alert("소셜 회원가입 기능은 현재 사용할 수 없습니다."); // 테스트용 알림, 추후 제거 가능
   };
 
   return (
