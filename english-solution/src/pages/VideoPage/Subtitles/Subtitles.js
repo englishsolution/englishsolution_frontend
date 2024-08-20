@@ -8,7 +8,9 @@ import { fetchBackendSubtitles } from "./SubtitlesLoader/SubtitlesLoader";
 const validateSubtitleData = (subtitles) => {
   return subtitles.every(
     (sub) =>
-      sub.start !== undefined && sub.end !== undefined && sub.text !== undefined
+      sub.start !== undefined &&
+      sub.duration !== undefined &&
+      sub.text !== undefined
   );
 };
 
@@ -43,9 +45,15 @@ const Subtitles = ({ videoId, playerRef }) => {
           throw new Error("Invalid subtitle data structure");
         }
 
-        // 자막 데이터를 상태에 저장
-        setEnglishSubtitles(transcription_en);
-        setKoreanSubtitles(transcription_ko);
+        // 각 자막의 종료 시간 계산 후 상태에 저장
+        const processSubtitles = (subtitles) =>
+          subtitles.map((sub) => ({
+            ...sub,
+            end: sub.start + sub.duration,
+          }));
+
+        setEnglishSubtitles(processSubtitles(transcription_en));
+        setKoreanSubtitles(processSubtitles(transcription_ko));
       } catch (error) {
         console.error("Error fetching subtitles:", error);
         setApiError(true);

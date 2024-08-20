@@ -5,6 +5,9 @@ import WordList from "./Savelist-components/WordList/WordList";
 import Button from "@mui/material/Button";
 import { Box, Container } from "@mui/material";
 import "./SavelistPage.css";
+import mockVideos from "../../mock/mockSaveVideoData.json";
+import mockSentences from "../../mock/mockSaveSentenceData.json";
+import mockWords from "../../mock/mockSaveWordData.json";
 
 const SavelistPage = () => {
   const [selectedList, setSelectedList] = useState("video");
@@ -15,8 +18,8 @@ const SavelistPage = () => {
   const [error, setError] = useState(null); // 오류 상태 추가
 
   useEffect(() => {
-    // 컴포넌트가 마운트될 때 백엔드에서 데이터를 로드합니다.
-    const fetchData = async () => {
+    // 비디오 데이터를 가져옵니다.
+    const fetchVideos = async () => {
       try {
         const response = await fetch("http://15.165.135.23/save"); // 백엔드 API 주소
         if (!response.ok) {
@@ -24,27 +27,48 @@ const SavelistPage = () => {
         }
         const data = await response.json();
         setVideos(data);
-        setLoading(false);
       } catch (error) {
         setError(error.message);
-        setLoading(false);
+        setVideos(mockVideos); // 오류 발생 시 mock 데이터로 대체
+      } finally {
+        setLoading(false); // 로딩 상태 해제
       }
     };
 
-    fetchData();
+    // 문장 데이터를 가져옵니다.
+    const fetchSentences = async () => {
+      try {
+        const response = await fetch("http://15.165.135.23/realtime/sentences"); // 백엔드 API 주소
+        if (!response.ok) {
+          throw new Error("네트워크 응답이 올바르지 않습니다.");
+        }
+        const data = await response.json();
+        setAllSentences(data);
+      } catch (error) {
+        setError(error.message);
+        setAllSentences(mockSentences); // 오류 발생 시 mock 데이터로 대체
+      }
+    };
+
+    // 단어 데이터를 가져옵니다.
+    const fetchWords = async () => {
+      try {
+        const response = await fetch("http://15.165.135.23/realtime/words"); // 백엔드 API 주소
+        if (!response.ok) {
+          throw new Error("네트워크 응답이 올바르지 않습니다.");
+        }
+        const data = await response.json();
+        setAllWords(data);
+      } catch (error) {
+        setError(error.message);
+        setAllWords(mockWords); // 오류 발생 시 mock 데이터로 대체
+      }
+    };
+
+    fetchVideos();
+    fetchSentences();
+    fetchWords();
   }, []); // 컴포넌트가 처음 렌더링될 때만 데이터 로드
-
-  useEffect(() => {
-    if (selectedList === "sentence") {
-      const sentences = videos.flatMap((video) => video.sentences);
-      setAllSentences(sentences);
-    }
-
-    if (selectedList === "word") {
-      const words = videos.flatMap((video) => video.words);
-      setAllWords(words);
-    }
-  }, [selectedList, videos]); // selectedList 또는 videos가 변경될 때 데이터 업데이트
 
   const handleButtonClick = (listType) => {
     setSelectedList(listType);
@@ -53,7 +77,7 @@ const SavelistPage = () => {
   // 선택된 리스트에 따라 해당 컴포넌트를 렌더링합니다.
   const renderList = () => {
     if (loading) return <p>Loading...</p>; // 로딩 중 표시
-    if (error) return <p>Error: {error}</p>; // 오류 발생 시 표시
+    // if (error) return <p>Error: {error}</p>; // 오류 발생 시 표시
 
     switch (selectedList) {
       case "video":
@@ -70,8 +94,8 @@ const SavelistPage = () => {
   return (
     <Container>
       <h1>저장 기록</h1>
-      <Box class="savelistPage-container">
-        <Box class="SavelistPage__btns">
+      <Box className="savelistPage-container">
+        <Box className="SavelistPage__btns">
           <Button
             className="youtube-list-btn"
             variant="contained"

@@ -1,0 +1,27 @@
+[
+  {
+    "sentence_eg": "Hello, how are you?",
+    "sentence_kr": "안녕하세요, 어떻게 지내세요?",
+    "save_date": "2024-08-19T15:20:45.123456Z"
+  },
+  {
+    "sentence_eg": "The weather is nice today.",
+    "sentence_kr": "오늘 날씨가 좋네요.",
+    "save_date": "2024-08-19T16:22:33.654321Z"
+  },
+  {
+    "sentence_eg": "I love programming.",
+    "sentence_kr": "저는 프로그래밍을 좋아합니다.",
+    "save_date": "2024-08-19T17:45:10.987654Z"
+  },
+  {
+    "sentence_eg": "What is your favorite food?",
+    "sentence_kr": "당신이 가장 좋아하는 음식은 무엇인가요?",
+    "save_date": "2024-08-19T18:12:00.456789Z"
+  },
+  {
+    "sentence_eg": "Let's go to the park.",
+    "sentence_kr": "공원에 가자.",
+    "save_date": "2024-08-19T19:30:25.345678Z"
+  }
+]
