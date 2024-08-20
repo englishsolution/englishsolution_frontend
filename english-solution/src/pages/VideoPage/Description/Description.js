@@ -6,6 +6,8 @@ import "../VideoPage.css";
 // Import mock data
 import mockDescriptionData from "../../../mock/mockDescriptionData.json";
 
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+
 const Description = ({ sentence }) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -13,10 +15,11 @@ const Description = ({ sentence }) => {
 
   useEffect(() => {
     if (sentence) {
+      console.log(sentence);
       const fetchData = async () => {
         setLoading(true);
         try {
-          const response = await fetch("http://15.165.135.23/sentence", {
+          const response = await fetch(`${apiBaseUrl}/sentence`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -62,15 +65,15 @@ const Description = ({ sentence }) => {
     );
   }
 
-  if (error) {
-    return (
-      <Box className="description-container">
-        <Typography color="error">
-          문장 데이터를 불러오는 데 실패했습니다. Mock 데이터가 사용됩니다.
-        </Typography>
-      </Box>
-    );
-  }
+  // if (error) {
+  //   return (
+  //     <Box className="description-container">
+  //       <Typography color="error">
+  //         문장 데이터를 불러오는 데 실패했습니다. Mock 데이터가 사용됩니다.
+  //       </Typography>
+  //     </Box>
+  //   );
+  // }
 
   // Fallback to mock data if no data is available
   const words = data?.word || mockDescriptionData.word;

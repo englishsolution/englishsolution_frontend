@@ -8,7 +8,7 @@ import Description from "./Description";
  * @param {Object} props - 컴포넌트의 속성
  * @param {Object} props.subtitle - 자막 정보 (영어 및 한국어 자막)
  */
-const DescriptionToggleButton = ({ subtitle }) => {
+const DescriptionToggleButton = ({ sentence }) => {
   const [showDescription, setShowDescription] = useState(false);
 
   const toggleDescription = () => {
@@ -38,7 +38,7 @@ const DescriptionToggleButton = ({ subtitle }) => {
             overflowY: "auto", // 내용이 많을 경우 스크롤 가능
           }}
         >
-          <Description subtitle={subtitle} />
+          <Description sentence={sentence} />
         </div>
       )}
     </div>
