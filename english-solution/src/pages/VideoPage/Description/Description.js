@@ -4,10 +4,7 @@ import axios from "axios";
 import DescriptionDetail from "./DescriptionDetail";
 import "../VideoPage.css";
 
-// Import mock data
-import mockDescriptionData from "../../../mock/mockDescriptionData.json";
-
-const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+const baseURL = "http://15.165.135.23";
 
 const Description = ({ sentence }) => {
   const [data, setData] = useState(null);
@@ -21,28 +18,26 @@ const Description = ({ sentence }) => {
         setLoading(true);
         try {
           const response = await axios.post(
-            "/sentence",
-            { sentence },
+            `${baseURL}/sentence`,
+            { setence: sentence }, // 여기서 'setence' 오타를 'sentence'로 수정
             {
               headers: {
                 "Content-Type": "application/json",
               },
             }
           );
+          console.log("서버 응답:", response);
 
-          const result = response.data;
+          const result = response.data.reply
+            ? JSON.parse(response.data.reply)
+            : {};
 
-          // If response data is empty or invalid, use mock data
-          if (!result || !result.word || !result.grammer || !result.idioms) {
-            setData(mockDescriptionData);
-          } else {
-            setData(result);
-          }
-
+          // result가 비어있거나 유효하지 않더라도 setData를 사용
+          setData(result);
           setError(null);
         } catch (error) {
           console.error("Fetching error:", error);
-          setData(mockDescriptionData);
+          setData({}); // 에러 발생 시에도 빈 객체를 설정
           setError(error.message);
         } finally {
           setLoading(false);
@@ -51,7 +46,7 @@ const Description = ({ sentence }) => {
 
       fetchData();
     } else {
-      setData(mockDescriptionData); // Default to mock data if no sentence is provided
+      setData({}); // 문장이 제공되지 않으면 빈 객체 설정
       setLoading(false);
     }
   }, [sentence]);
@@ -64,23 +59,18 @@ const Description = ({ sentence }) => {
     );
   }
 
-  // Uncomment this if you want to show an error message
-  /*
-  if (error) {
+  // 데이터가 없을 경우 아무것도 렌더링하지 않거나 기본 메시지 표시
+  if (!data || (Object.keys(data).length === 0 && !error)) {
     return (
       <Box className="description-container">
-        <Typography color="error">
-          문장 데이터를 불러오는 데 실패했습니다. Mock 데이터가 사용됩니다.
-        </Typography>
+        <Typography>데이터가 없습니다.</Typography>
       </Box>
     );
   }
-  */
 
-  // Fallback to mock data if no data is available
-  const words = data?.word || mockDescriptionData.word;
-  const grammar = data?.grammer || mockDescriptionData.grammer;
-  const idioms = data?.idioms || mockDescriptionData.idioms;
+  const words = data.word || [];
+  const grammar = data.grammar || [];
+  const idioms = data.idioms || [];
 
   return (
     <Box className="description-container">
