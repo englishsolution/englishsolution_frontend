@@ -1,5 +1,6 @@
 import { Box, CircularProgress, Typography } from "@mui/material";
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import DescriptionDetail from "./DescriptionDetail";
 import "../VideoPage.css";
 
@@ -19,19 +20,17 @@ const Description = ({ sentence }) => {
       const fetchData = async () => {
         setLoading(true);
         try {
-          const response = await fetch(`${apiBaseUrl}/sentence`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ sentence }),
-          });
+          const response = await axios.post(
+            "/sentence",
+            { sentence },
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
 
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-
-          const result = await response.json();
+          const result = response.data;
 
           // If response data is empty or invalid, use mock data
           if (!result || !result.word || !result.grammer || !result.idioms) {
@@ -65,15 +64,18 @@ const Description = ({ sentence }) => {
     );
   }
 
-  // if (error) {
-  //   return (
-  //     <Box className="description-container">
-  //       <Typography color="error">
-  //         문장 데이터를 불러오는 데 실패했습니다. Mock 데이터가 사용됩니다.
-  //       </Typography>
-  //     </Box>
-  //   );
-  // }
+  // Uncomment this if you want to show an error message
+  /*
+  if (error) {
+    return (
+      <Box className="description-container">
+        <Typography color="error">
+          문장 데이터를 불러오는 데 실패했습니다. Mock 데이터가 사용됩니다.
+        </Typography>
+      </Box>
+    );
+  }
+  */
 
   // Fallback to mock data if no data is available
   const words = data?.word || mockDescriptionData.word;
