@@ -1,20 +1,16 @@
-// src/components/VideoList.js
 import React, { useState } from "react";
 import Video from "./Video";
 import Pagination from "../../../../components/Pagination/Pagination";
 import { Box, Container } from "@mui/material";
-import mockData from "../../../../mockData";
 
-const VideoList = () => {
-  const [videos] = useState(mockData);
-
+const VideoList = ({ videos }) => {
   const [pageNumber, setPageNumber] = useState(0);
   const videosPerPage = 6;
   const pagesVisited = pageNumber * videosPerPage;
 
   const displayVideos = videos
     .slice(pagesVisited, pagesVisited + videosPerPage)
-    .map((video) => <Video key={video.video_id} video={video} />);
+    .map((video) => <Video key={video.title} video={video} />);
 
   const pageCount = Math.ceil(videos.length / videosPerPage);
 

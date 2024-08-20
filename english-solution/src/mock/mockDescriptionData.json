@@ -1,0 +1,12 @@
+{
+  "word": ["에러", "error", "brown", "갈색"],
+  "grammer": [
+    "임시 mock데이터",
+    "adjective",
+    "noun",
+    "verb",
+    "adjective",
+    "noun"
+  ],
+  "idioms": ["임시 데이터", "빠른 갈색 여우", "lazy dog", "게으른 개"]
+}

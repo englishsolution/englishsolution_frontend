@@ -8,7 +8,9 @@ import { fetchBackendSubtitles } from "./SubtitlesLoader/SubtitlesLoader";
 const validateSubtitleData = (subtitles) => {
   return subtitles.every(
     (sub) =>
-      sub.start !== undefined && sub.end !== undefined && sub.text !== undefined
+      sub.start !== undefined &&
+      sub.duration !== undefined &&
+      sub.text !== undefined
   );
 };
 
@@ -43,9 +45,15 @@ const Subtitles = ({ videoId, playerRef }) => {
           throw new Error("Invalid subtitle data structure");
         }
 
-        // 자막 데이터를 상태에 저장
-        setEnglishSubtitles(transcription_en);
-        setKoreanSubtitles(transcription_ko);
+        // 각 자막의 종료 시간 계산 후 상태에 저장
+        const processSubtitles = (subtitles) =>
+          subtitles.map((sub) => ({
+            ...sub,
+            end: sub.start + sub.duration,
+          }));
+
+        setEnglishSubtitles(processSubtitles(transcription_en));
+        setKoreanSubtitles(processSubtitles(transcription_ko));
       } catch (error) {
         console.error("Error fetching subtitles:", error);
         setApiError(true);
@@ -137,12 +145,16 @@ const Subtitles = ({ videoId, playerRef }) => {
       {/* 현재 시간에 맞는 영어 자막 표시 */}
       <Box bgcolor="#f1f3f5" padding={2} marginBottom={2}>
         {showEnglish && currentSubtitle && (
-          <Typography>
-            {currentSubtitle.englishSubtitle.split(" ").map((word, idx) => (
-              <WordSave key={idx} word={word} videoId={videoId} />
-            ))}
-            <SubtitleActions subtitle={currentSubtitle} videoId={videoId} />
-          </Typography>
+          <Box display="flex" alignItems="center">
+            <Typography>
+              {currentSubtitle.englishSubtitle.split(" ").map((word, idx) => (
+                <WordSave key={idx} word={word} videoId={videoId} />
+              ))}
+            </Typography>
+            <Box display="flex" alignItems="center" marginLeft={2}>
+              <SubtitleActions subtitle={currentSubtitle} videoId={videoId} />
+            </Box>
+          </Box>
         )}
       </Box>
 

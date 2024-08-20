@@ -58,7 +58,8 @@ const SentenceModal = ({ open, handleClose, sentence }) => {
         <Typography variant="body1" gutterBottom>
           <strong>한국어:</strong> {sentence.sentence_kr}
         </Typography>
-        <Description />
+        {/* Pass sentence.sentence_eg to Description component */}
+        <Description sentence={sentence.sentence_eg} />
       </Content>
       <DialogActions sx={{ padding: "16px", justifyContent: "center" }}>
         <CustomButton onClick={handleClose}>닫기</CustomButton>

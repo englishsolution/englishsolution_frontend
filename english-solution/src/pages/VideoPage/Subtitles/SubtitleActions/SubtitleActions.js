@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import Button from "@mui/material/Button";
 import SentenceConfirm from "../../../../components/ConfirmDialog/SentenceConfirm";
-import SpeakingTestButton from "../../SpeakingModal/SpeakingTestButton";
+import SpeakingTestButton from "./SpeakingTestButton";
+import DescriptionToggleButton from "../../Description/DescriptionToggleButton";
 
 /**
  * 자막 저장 및 스피킹 테스트 버튼을 관리하는 컴포넌트
@@ -10,7 +11,7 @@ import SpeakingTestButton from "../../SpeakingModal/SpeakingTestButton";
  * @param {Object} props.subtitle - 현재 자막 정보 (영어 및 한국어 자막)
  * @param {string} props.videoId - 현재 비디오 ID
  */
-const SubtitleActions = ({ subtitle = {}, videoId }) => {
+const SubtitleActions = ({ subtitle, videoId }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
 
@@ -45,18 +46,22 @@ const SubtitleActions = ({ subtitle = {}, videoId }) => {
 
   return (
     <>
-      <Button variant="outlined" onClick={openDialog} disabled={isSaved}>
-        {isSaved ? "Saved" : "Save"}
-      </Button>
+      <div style={{ display: "flex", gap: "8px" }}>
+        <Button variant="outlined" onClick={openDialog} disabled={isSaved}>
+          {isSaved ? "Saved" : "Save"}
+        </Button>
 
-      <SentenceConfirm
-        open={isOpen}
-        onClose={closeDialog}
-        onConfirm={saveSubtitlesToDatabase}
-        subtitle={subtitle} // 현재 자막 정보 전달
-      />
+        <SentenceConfirm
+          open={isOpen}
+          onClose={closeDialog}
+          onConfirm={saveSubtitlesToDatabase}
+          subtitle={subtitle} // 현재 자막 정보 전달
+        />
 
-      <SpeakingTestButton subtitle={subtitle} />
+        <SpeakingTestButton subtitle={subtitle.englishSubtitle} />
+
+        <DescriptionToggleButton sentence={subtitle.englishSubtitle} />
+      </div>
     </>
   );
 };
