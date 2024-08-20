@@ -1,15 +1,15 @@
-// MainPage.js
-
-import React from "react";
-import InsertLink from "../../components/InsertLink/InsertLink";
-import { useNavigate } from "react-router-dom";
-import "./MainPage.css";
+// src/pages/MainPage/MainPage.js
+import React from 'react';
+import { useAuth } from '../AuthContext/AuthContext'; // useAuth를 임포트합니다.
+import InsertLink from '../../components/InsertLink/InsertLink';
+import { useNavigate } from 'react-router-dom';
+import './MainPage.css';
 
 const MainPage = () => {
   const navigate = useNavigate();
+  const { auth } = useAuth(); // 로그인 상태를 가져옵니다.
 
   const handleLinkSubmit = (link) => {
-    // 링크를 사용하여 videoId를 추출하는 로직
     const videoId = extractVideoIdFromLink(link);
     if (videoId) {
       navigate(`/video/${videoId}`);
@@ -27,7 +27,13 @@ const MainPage = () => {
   return (
     <div className="main-page">
       <main>
-        <InsertLink onLinkSubmit={handleLinkSubmit} />
+        {auth ? (
+          <InsertLink onLinkSubmit={handleLinkSubmit} />
+        ) : (
+          <div className="login-prompt">
+            <p>로그인 후 이용해주세요.</p>
+          </div>
+        )}
       </main>
     </div>
   );

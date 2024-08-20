@@ -1,42 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./SignUp.css";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
     username: "",
+    firstName: "", // 추가된 필드
+    lastName: "",  // 추가된 필드
     email: "",
-    password: "",
-    confirmPassword: "",
-    userId: ""
+    password1: "", // 비밀번호 필드 이름 수정
+    password2: "", // 비밀번호 확인 필드 이름 수정
   });
 
   const [errors, setErrors] = useState({
     username: "",
+    firstName: "", // 추가된 필드의 에러
+    lastName: "",  // 추가된 필드의 에러
     email: "",
-    password: "",
-    confirmPassword: "",
-    userId: ""
+    password1: "", // 비밀번호 필드의 에러
+    password2: "", // 비밀번호 확인 필드의 에러
   });
-
-  // 네이버와 카카오 클라이언트 설정
-  const NAVER_CLIENT_ID = "YOUR_NAVER_CLIENT_ID"; // 네이버 클라이언트 ID
-  const NAVER_REDIRECT_URI = encodeURIComponent("https://yourdomain.com/naver/callback");
-  const KAKAO_CLIENT_ID = "YOUR_KAKAO_CLIENT_ID"; // 카카오 JavaScript 키
-  const KAKAO_REDIRECT_URI = "https://yourdomain.com/kakao/callback"; // 카카오 리디렉션 URI
-  const STATE = "YOUR_STATE"; // CSRF 방지용 임의 문자열
-
-  useEffect(() => {
-    // 카카오 SDK 로드
-    const script = document.createElement('script');
-    script.src = 'https://developers.kakao.com/sdk/js/kakao.min.js';
-    script.async = true;
-    script.onload = () => {
-      if (window.Kakao) {
-        window.Kakao.init(KAKAO_CLIENT_ID);
-      }
-    };
-    document.body.appendChild(script);
-  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -56,8 +38,8 @@ const SignUp = () => {
       isValid = false;
     }
 
-    if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = "비밀번호가 일치하지 않습니다.";
+    if (formData.password1 !== formData.password2) {
+      newErrors.password2 = "비밀번호가 일치하지 않습니다.";
       isValid = false;
     }
 
@@ -66,13 +48,23 @@ const SignUp = () => {
       isValid = false;
     }
 
-    if (formData.userId.trim() === "") {
-      newErrors.userId = "아이디를 입력하세요.";
+    if (formData.firstName.trim() === "") {
+      newErrors.firstName = "이름을 입력하세요.";
       isValid = false;
     }
 
-    if (formData.password.trim() === "") {
-      newErrors.password = "비밀번호를 입력하세요.";
+    if (formData.lastName.trim() === "") {
+      newErrors.lastName = "성씨를 입력하세요.";
+      isValid = false;
+    }
+
+    if (formData.email.trim() === "") {
+      newErrors.email = "이메일을 입력하세요.";
+      isValid = false;
+    }
+
+    if (formData.password1.trim() === "") {
+      newErrors.password1 = "비밀번호를 입력하세요.";
       isValid = false;
     }
 
@@ -87,11 +79,11 @@ const SignUp = () => {
       return;
     }
 
-    const isUserIdTaken = await checkUserIdAvailability(formData.userId);
+    const isUserIdTaken = await checkUserIdAvailability(formData.username);
     if (isUserIdTaken) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        userId: "이미 사용 중인 아이디입니다."
+        username: "이미 사용 중인 사용자 이름입니다."
       }));
       return;
     }
@@ -99,14 +91,14 @@ const SignUp = () => {
     console.log("회원가입 데이터:", formData);
   };
 
-  const checkUserIdAvailability = async (userId) => {
+  const checkUserIdAvailability = async (username) => {
     try {
-      const response = await fetch('/api/check-userid', {
+      const response = await fetch('http://127.0.0.1:8000/signup/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ userId })
+        body: JSON.stringify({ username })
       });
       const data = await response.json();
       return data.isTaken;
@@ -116,23 +108,9 @@ const SignUp = () => {
     }
   };
 
-  const handleNaverSignUp = () => {
-    const naverSignUpUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&redirect_uri=${NAVER_REDIRECT_URI}&state=${STATE}`;
-    window.location.href = naverSignUpUrl;
-  };
-
-  const handleKakaoSignUp = () => {
-    window.Kakao.Auth.login({
-      success: function (authObj) {
-        console.log(authObj);
-        // 로그인 성공 후 처리
-        // 예: 서버에 사용자 정보를 보내고 회원가입 처리
-      },
-      fail: function (err) {
-        console.error(err);
-        alert('카카오 회원가입 실패');
-      },
-    });
+  const handleSocialLoginClick = (e) => {
+    e.preventDefault();
+    alert("소셜 회원가입 기능은 현재 사용할 수 없습니다."); // 테스트용 알림, 추후 제거 가능
   };
 
   return (
@@ -140,16 +118,28 @@ const SignUp = () => {
       <h2>회원가입</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="username">사용자 이름:</label>
+          <label htmlFor="firstName">이름:</label>
           <input
             type="text"
-            id="username"
-            name="username"
-            value={formData.username}
+            id="firstName"
+            name="firstName"
+            value={formData.firstName}
             onChange={handleChange}
             required
           />
-          {errors.username && <p className="error-message">{errors.username}</p>}
+          {errors.firstName && <p className="error-message">{errors.firstName}</p>}
+        </div>
+        <div className="form-group">
+          <label htmlFor="lastName">성씨:</label>
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
+            required
+          />
+          {errors.lastName && <p className="error-message">{errors.lastName}</p>}
         </div>
         <div className="form-group">
           <label htmlFor="email">이메일:</label>
@@ -164,47 +154,47 @@ const SignUp = () => {
           {errors.email && <p className="error-message">{errors.email}</p>}
         </div>
         <div className="form-group">
-          <label htmlFor="userId">아이디:</label>
+          <label htmlFor="username">아이디:</label>
           <input
             type="text"
-            id="userId"
-            name="userId"
-            value={formData.userId}
+            id="username"
+            name="username"
+            value={formData.username}
             onChange={handleChange}
             required
           />
-          {errors.userId && <p className="error-message">{errors.userId}</p>}
+          {errors.username && <p className="error-message">{errors.username}</p>}
         </div>
         <div className="form-group">
-          <label htmlFor="password">비밀번호:</label>
+          <label htmlFor="password1">비밀번호:</label>
           <input
             type="password"
-            id="password"
-            name="password"
-            value={formData.password}
+            id="password1"
+            name="password1"
+            value={formData.password1}
             onChange={handleChange}
             required
           />
-          {errors.password && <p className="error-message">{errors.password}</p>}
+          {errors.password1 && <p className="error-message">{errors.password1}</p>}
         </div>
         <div className="form-group">
-          <label htmlFor="confirmPassword">비밀번호 확인:</label>
+          <label htmlFor="password2">비밀번호 확인:</label>
           <input
             type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            value={formData.confirmPassword}
+            id="password2"
+            name="password2"
+            value={formData.password2}
             onChange={handleChange}
             required
           />
-          {errors.confirmPassword && <p className="error-message">{errors.confirmPassword}</p>}
+          {errors.password2 && <p className="error-message">{errors.password2}</p>}
         </div>
         <button type="submit">회원가입</button>
         <div className="divider"></div> {/* 구분선 추가 */}
       </form>
       <div className="social-login">
-        <button className="naver-login" onClick={handleNaverSignUp}>네이버 회원가입</button>
-        <button className="kakao-login" onClick={handleKakaoSignUp}>카카오 회원가입</button>
+        <button className="naver-login" onClick={handleSocialLoginClick}>네이버 회원가입</button>
+        <button className="kakao-login" onClick={handleSocialLoginClick}>카카오 회원가입</button>
       </div>
     </div>
   );

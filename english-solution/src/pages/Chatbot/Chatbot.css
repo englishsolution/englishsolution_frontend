@@ -90,3 +90,14 @@
   background-color: #007bff;
   color: white;
 }
+
+.error-message {
+  color: red;
+  font-weight: bold;
+  padding: 10px;
+  background-color: #fdd;
+  border: 1px solid #f00;
+  border-radius: 5px;
+  margin: 10px;
+}
+

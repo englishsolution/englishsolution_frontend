@@ -7,14 +7,25 @@ const Chatbot = () => {
   const [inputText, setInputText] = useState("");
   const [csrftoken, setCsrfToken] = useState("");
   const [currentMode, setCurrentMode] = useState("general");
-  const [difficulty, setDifficulty] = useState("easy"); // 기본 난이도를 easy로 설정
+  const [difficulty, setDifficulty] = useState("easy");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false); // 로딩 상태 추가
 
   useEffect(() => {
     setCsrfToken(Cookies.get("csrftoken"));
   }, []);
 
+  useEffect(() => {
+    const messagesEnd = document.getElementById("messages-end");
+    if (messagesEnd) {
+      messagesEnd.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
+
   const sendMessage = () => {
     if (inputText.trim() === "") return;
+
+    setLoading(true); // 로딩 시작
 
     const requestData = {
       method: "post",
@@ -39,11 +50,9 @@ const Chatbot = () => {
       })
       .then((data) => {
         if (data.error) {
-          // 서버에서 오류가 발생한 경우
-          console.error("Server error:", data.error);
-          // 사용자에게 오류를 알려줄 수 있는 UI 처리 필요
+          setError("서버 오류가 발생했습니다. 나중에 다시 시도해 주세요.");
         } else {
-          const botReplies = data.reply; // 서버에서 응답을 받아옴
+          const botReplies = Array.isArray(data.reply) ? data.reply : [];
           setMessages((prevMessages) => [
             ...prevMessages,
             { text: inputText, sender: "user" },
@@ -54,11 +63,14 @@ const Chatbot = () => {
             })),
           ]);
           setInputText(""); // 입력 필드 초기화
+          setError(""); // 오류 메시지 초기화
         }
+        setLoading(false); // 로딩 종료
       })
       .catch((error) => {
         console.error("Error sending message:", error);
-        // 사용자에게 네트워크 오류를 알려줄 수 있는 UI 처리 필요
+        setError("네트워크 오류가 발생했습니다. 다시 시도해 주세요.");
+        setLoading(false); // 로딩 종료
       });
   };
 
@@ -76,7 +88,11 @@ const Chatbot = () => {
             <div className="message-bubble">{msg.text}</div>
           </div>
         ))}
+        <div id="messages-end" />
       </div>
+
+      {error && <div className="error-message">{error}</div>}
+      {loading && <div className="loading-message">로딩 중...</div>} {/* 로딩 메시지 추가 */}
 
       <div className="button-container">
         <button

@@ -9,13 +9,12 @@ const LogIn = ({ onLogin }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // 카카오 SDK 로드
     const script = document.createElement('script');
     script.src = 'https://developers.kakao.com/sdk/js/kakao.min.js';
     script.async = true;
     script.onload = () => {
       if (window.Kakao) {
-        window.Kakao.init('YOUR_JAVASCRIPT_KEY'); // 카카오 JavaScript SDK 키
+        window.Kakao.init('YOUR_JAVASCRIPT_KEY');
       }
     };
     document.body.appendChild(script);
@@ -28,14 +27,14 @@ const LogIn = ({ onLogin }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password }), // 서버에서 기대하는 필드
+        body: JSON.stringify({ username, password }),
       });
 
       const data = await response.json();
 
       if (response.ok && data.success) {
-        onLogin();
-        navigate('/');
+        onLogin(); // 로그인 상태를 설정
+        navigate('/'); // 메인 페이지로 리다이렉션
       } else {
         setError(data.message || '로그인 실패. 다시 시도해 주세요.');
       }

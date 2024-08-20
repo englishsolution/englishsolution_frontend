@@ -1,10 +1,11 @@
+// src/App.js
 import "./App.css";
-import React, { useState } from "react";
+import React from "react";
 import {
-  useParams,
   BrowserRouter as Router,
   Routes,
   Route,
+  useParams // useParams를 추가합니다.
 } from "react-router-dom";
 
 import MainPage from "./pages/MainPage/MainPage";
@@ -27,60 +28,50 @@ import QuizTemplate from "./pages/Learning/Quiz/QuizTemplate";
 import QuizResult from "./pages/Learning/Quiz/QuizResult";
 
 import mockData from "./mockData";
+import { AuthProvider, useAuth } from './pages/AuthContext/AuthContext'; // useAuth를 추가합니다.
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  return (
+    <AuthProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </AuthProvider>
+  );
+};
 
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-  };
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-  };
+const AppContent = () => {
+  const { auth } = useAuth(); // useAuth를 사용합니다.
 
   return (
-    <Router>
-      <div>
-        <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />
-        <ServiceMenu />
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/video/:videoId" element={<VideoPage />} />
-          <Route path="/service-intro" element={<ServiceIntro />} />
-          <Route path="/usage-guide" element={<UsageGuide />} />
-          <Route path="/learning" element={<Learning />} />
-          <Route path="/chatbot" element={<Chatbot />} />
-          <Route path="/save-list" element={<SavelistPage />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/sign-up-complete" element={<SignUpComplete />} />
-          <Route path="/log-in" element={<LogIn onLogin={handleLogin} />} />
-          <Route path="/find-id" element={<FindId />} />
-          <Route path="/find-password" element={<FindPassword />} />
-          <Route
-            path="/save-list/sentences/:videoId"
-            element={<SentenceListWrapper />}
-          />
-          <Route
-            path="/save-list/words/:videoId"
-            element={<WordListWrapper />}
-          />
-          <Route
-            path="/learning/Quiz/:quizType/:videoId"
-            element={<QuizTemplate />}
-          />
-          <Route
-            path="/learning/Quiz/:quizType/:videoId/quiz-result"
-            element={<QuizResult />}
-          />
-        </Routes>
-      </div>
-    </Router>
+    <div>
+      <Header isLoggedIn={!!auth} />
+      <ServiceMenu />
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/video/:videoId" element={<VideoPage />} />
+        <Route path="/service-intro" element={<ServiceIntro />} />
+        <Route path="/usage-guide" element={<UsageGuide />} />
+        <Route path="/learning" element={<PrivateRoute element={Learning} />} />
+        <Route path="/chatbot" element={<PrivateRoute element={Chatbot} />} />
+        <Route path="/save-list" element={<PrivateRoute element={SavelistPage} />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/sign-up-complete" element={<SignUpComplete />} />
+        <Route path="/log-in" element={<LogIn />} />
+        <Route path="/find-id" element={<FindId />} />
+        <Route path="/find-password" element={<FindPassword />} />
+        <Route path="/save-list/sentences/:videoId" element={<SentenceListWrapper />} />
+        <Route path="/save-list/words/:videoId" element={<WordListWrapper />} />
+        <Route path="/learning/Quiz/:quizType/:videoId" element={<QuizTemplate />} />
+        <Route path="/learning/Quiz/:quizType/:videoId/quiz-result" element={<QuizResult />} />
+      </Routes>
+    </div>
   );
 };
 
 const SentenceListWrapper = () => {
-  const { videoId } = useParams();
+  const { videoId } = useParams(); // useParams를 사용합니다.
   const video = mockData.find((video) => video.video_id === videoId);
 
   if (!video) {
@@ -96,7 +87,7 @@ const SentenceListWrapper = () => {
 };
 
 const WordListWrapper = () => {
-  const { videoId } = useParams();
+  const { videoId } = useParams(); // useParams를 사용합니다.
   const video = mockData.find((video) => video.video_id === videoId);
 
   if (!video) {
