@@ -47,24 +47,9 @@ const LogIn = () => {
     }
   };
 
-  const handleKakaoLogin = () => {
-    if (window.Kakao) {
-      window.Kakao.Auth.login({
-        success: function (authObj) {
-          console.log(authObj);
-          // 로그인 성공 후 처리
-          // 예: 서버에 authObj.access_token을 보내서 사용자 인증
-          login(); // 로그인 상태 설정
-          navigate('/'); // 메인 페이지로 리다이렉션
-        },
-        fail: function (err) {
-          console.error(err);
-          setError('카카오 로그인 실패');
-        },
-      });
-    } else {
-      console.error('Kakao SDK not loaded');
-    }
+  const handleSocialLoginClick = (e) => {
+    e.preventDefault();
+    alert("소셜 회원가입 기능은 현재 사용할 수 없습니다."); // 테스트용 알림, 추후 제거 가능
   };
 
   return (
@@ -113,9 +98,15 @@ const LogIn = () => {
       <div className="divider"></div>
       <button
         className="kakao-button"
-        onClick={handleKakaoLogin}
+        onClick={handleSocialLoginClick}
       >
         카카오 로그인
+      </button>
+      <button
+        className="naver-button"
+        onClick={handleSocialLoginClick}
+      >
+        네이버 로그인
       </button>
       {error && <p className="error-message">{error}</p>}
     </div>
