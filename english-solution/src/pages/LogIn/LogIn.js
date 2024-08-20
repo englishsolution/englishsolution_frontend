@@ -1,21 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LogIn.css';
 
 const LogIn = ({ onLogin }) => {
-  const [id, setId] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  useEffect(() => {
+    // 카카오 SDK 로드
+    const script = document.createElement('script');
+    script.src = 'https://developers.kakao.com/sdk/js/kakao.min.js';
+    script.async = true;
+    script.onload = () => {
+      if (window.Kakao) {
+        window.Kakao.init('YOUR_JAVASCRIPT_KEY'); // 카카오 JavaScript SDK 키
+      }
+    };
+    document.body.appendChild(script);
+  }, []);
+
   const handleLogin = async () => {
     try {
-      const response = await fetch('/api/login', {
+      const response = await fetch('http://15.165.135.23/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ id, password }),
+        body: JSON.stringify({ username, password }), // 서버에서 기대하는 필드
       });
 
       const data = await response.json();
@@ -32,14 +45,37 @@ const LogIn = ({ onLogin }) => {
     }
   };
 
+  const handleNaverLogin = () => {
+    const naverLoginUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&state=YOUR_STATE`;
+    window.location.href = naverLoginUrl;
+  };
+
+  const handleKakaoLogin = () => {
+    if (window.Kakao) {
+      window.Kakao.Auth.login({
+        success: function (authObj) {
+          console.log(authObj);
+          // 로그인 성공 후 처리
+          // 예: 서버에 authObj.access_token을 보내서 사용자 인증
+        },
+        fail: function (err) {
+          console.error(err);
+          setError('카카오 로그인 실패');
+        },
+      });
+    } else {
+      console.error('Kakao SDK not loaded');
+    }
+  };
+
   return (
     <div className="login-container">
       <h2 className="login-title">로그인</h2>
       <input
         type="text"
         placeholder="아이디"
-        value={id}
-        onChange={(e) => setId(e.target.value)}
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
         className="login-input"
       />
       <input
@@ -56,8 +92,8 @@ const LogIn = ({ onLogin }) => {
         <a
           href="#"
           onClick={(e) => {
-            e.preventDefault(); // 기본 링크 동작 방지
-            navigate('/find-id'); // 아이디 찾기 페이지로 이동
+            e.preventDefault();
+            navigate('/find-id');
           }}
         >
           아이디 찾기
@@ -65,8 +101,8 @@ const LogIn = ({ onLogin }) => {
         <a
           href="#"
           onClick={(e) => {
-            e.preventDefault(); // 기본 링크 동작 방지
-            navigate('/find-password'); // 비밀번호 찾기 페이지로 이동
+            e.preventDefault();
+            navigate('/find-password');
           }}
         >
           비밀번호 찾기
@@ -76,8 +112,18 @@ const LogIn = ({ onLogin }) => {
         </button>
       </div>
       <div className="divider"></div>
-      <button className="naver-button">네이버 로그인</button>
-      <button className="kakao-button">카카오 로그인</button>
+      <button
+        className="naver-button"
+        onClick={handleNaverLogin}
+      >
+        네이버 로그인
+      </button>
+      <button
+        className="kakao-button"
+        onClick={handleKakaoLogin}
+      >
+        카카오 로그인
+      </button>
       {error && <p className="error-message">{error}</p>}
     </div>
   );

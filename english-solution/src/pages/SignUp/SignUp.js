@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./SignUp.css";
 
 const SignUp = () => {
@@ -17,6 +17,26 @@ const SignUp = () => {
     confirmPassword: "",
     userId: ""
   });
+
+  // 네이버와 카카오 클라이언트 설정
+  const NAVER_CLIENT_ID = "YOUR_NAVER_CLIENT_ID"; // 네이버 클라이언트 ID
+  const NAVER_REDIRECT_URI = encodeURIComponent("https://yourdomain.com/naver/callback");
+  const KAKAO_CLIENT_ID = "YOUR_KAKAO_CLIENT_ID"; // 카카오 JavaScript 키
+  const KAKAO_REDIRECT_URI = "https://yourdomain.com/kakao/callback"; // 카카오 리디렉션 URI
+  const STATE = "YOUR_STATE"; // CSRF 방지용 임의 문자열
+
+  useEffect(() => {
+    // 카카오 SDK 로드
+    const script = document.createElement('script');
+    script.src = 'https://developers.kakao.com/sdk/js/kakao.min.js';
+    script.async = true;
+    script.onload = () => {
+      if (window.Kakao) {
+        window.Kakao.init(KAKAO_CLIENT_ID);
+      }
+    };
+    document.body.appendChild(script);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -96,10 +116,23 @@ const SignUp = () => {
     }
   };
 
-  // 소셜 로그인 버튼 클릭 시 동작하지 않도록 처리
-  const handleSocialLoginClick = (e) => {
-    e.preventDefault();
-    alert("소셜 회원가입 기능은 현재 사용할 수 없습니다."); // 테스트용 알림, 추후 제거 가능
+  const handleNaverSignUp = () => {
+    const naverSignUpUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&redirect_uri=${NAVER_REDIRECT_URI}&state=${STATE}`;
+    window.location.href = naverSignUpUrl;
+  };
+
+  const handleKakaoSignUp = () => {
+    window.Kakao.Auth.login({
+      success: function (authObj) {
+        console.log(authObj);
+        // 로그인 성공 후 처리
+        // 예: 서버에 사용자 정보를 보내고 회원가입 처리
+      },
+      fail: function (err) {
+        console.error(err);
+        alert('카카오 회원가입 실패');
+      },
+    });
   };
 
   return (
@@ -170,8 +203,8 @@ const SignUp = () => {
         <div className="divider"></div> {/* 구분선 추가 */}
       </form>
       <div className="social-login">
-          <button className="naver-login" onClick={handleSocialLoginClick}>네이버 회원가입</button>
-          <button className="kakao-login" onClick={handleSocialLoginClick}>카카오 회원가입</button>
+        <button className="naver-login" onClick={handleNaverSignUp}>네이버 회원가입</button>
+        <button className="kakao-login" onClick={handleKakaoSignUp}>카카오 회원가입</button>
       </div>
     </div>
   );
