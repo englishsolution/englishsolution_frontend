@@ -11,6 +11,7 @@ import Learning from "./pages/Learning/Learning";
 import Chatbot from "./pages/Chatbot/Chatbot";
 import Header from "./components/Header/Header";
 import SignUp from "./pages/SignUp/SignUp";
+import SignUpComplete from "./pages/SignUp/SignUpComplete";
 import LogIn from "./pages/LogIn/LogIn";
 import FindId from "./pages/FindId/FindId";
 import FindPassword from "./pages/FindPassword/FindPassword";
@@ -49,6 +50,7 @@ const App = () => {
           <Route path="/chatbot" element={<Chatbot />} />
           <Route path="/save-list" element={<SavelistPage />} />
           <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/sign-up-complete" element={<SignUpComplete />} />
           <Route path="/log-in" element={<LogIn onLogin={handleLogin} />} />
           <Route path="/find-id" element={<FindId />} />
           <Route path="/find-password" element={<FindPassword />} />
