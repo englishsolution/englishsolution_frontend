@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../AuthContext/AuthContext'; // useAuth import
 import './LogIn.css';
 
-const LogIn = ({ onLogin }) => {
+const LogIn = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { login } = useAuth(); // useAuth를 통해 login 함수 가져오기
 
   useEffect(() => {
+    // Kakao SDK 로드 및 초기화
     const script = document.createElement('script');
     script.src = 'https://developers.kakao.com/sdk/js/kakao.min.js';
     script.async = true;
     script.onload = () => {
       if (window.Kakao) {
-        window.Kakao.init('YOUR_JAVASCRIPT_KEY');
+        window.Kakao.init('YOUR_JAVASCRIPT_KEY'); // Kakao JavaScript SDK 키를 입력하세요
       }
     };
     document.body.appendChild(script);
@@ -33,7 +36,7 @@ const LogIn = ({ onLogin }) => {
       const data = await response.json();
 
       if (response.ok && data.success) {
-        onLogin(); // 로그인 상태를 설정
+        login(); // 로그인 상태 설정
         navigate('/'); // 메인 페이지로 리다이렉션
       } else {
         setError(data.message || '로그인 실패. 다시 시도해 주세요.');
@@ -44,11 +47,6 @@ const LogIn = ({ onLogin }) => {
     }
   };
 
-  const handleNaverLogin = () => {
-    const naverLoginUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&state=YOUR_STATE`;
-    window.location.href = naverLoginUrl;
-  };
-
   const handleKakaoLogin = () => {
     if (window.Kakao) {
       window.Kakao.Auth.login({
@@ -56,6 +54,8 @@ const LogIn = ({ onLogin }) => {
           console.log(authObj);
           // 로그인 성공 후 처리
           // 예: 서버에 authObj.access_token을 보내서 사용자 인증
+          login(); // 로그인 상태 설정
+          navigate('/'); // 메인 페이지로 리다이렉션
         },
         fail: function (err) {
           console.error(err);
@@ -111,12 +111,6 @@ const LogIn = ({ onLogin }) => {
         </button>
       </div>
       <div className="divider"></div>
-      <button
-        className="naver-button"
-        onClick={handleNaverLogin}
-      >
-        네이버 로그인
-      </button>
       <button
         className="kakao-button"
         onClick={handleKakaoLogin}

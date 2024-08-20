@@ -1,17 +1,12 @@
 // src/components/PrivateRoute/PrivateRoute.js
 import React from 'react';
-import { Route, Navigate } from 'react-router-dom';
-import { useAuth } from '../../pages/AuthContext/AuthContext'; // 올바른 경로 확인
+import { Navigate } from 'react-router-dom';
+import { useAuth } from '../../pages/AuthContext/AuthContext';
 
-const PrivateRoute = ({ element: Element, ...rest }) => {
-  const { auth } = useAuth(); // useAuth 훅 사용
+const PrivateRoute = ({ element: Component, ...rest }) => {
+  const { auth } = useAuth();
 
-  return (
-    <Route
-      {...rest}
-      element={auth ? <Element /> : <Navigate to="/log-in" />}
-    />
-  );
+  return auth ? <Component {...rest} /> : <Navigate to="/log-in" />;
 };
 
 export default PrivateRoute;

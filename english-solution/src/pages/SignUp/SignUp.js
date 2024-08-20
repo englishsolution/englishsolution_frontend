@@ -1,23 +1,25 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // 추가
 import "./SignUp.css";
 
 const SignUp = () => {
+  const navigate = useNavigate(); // 추가
   const [formData, setFormData] = useState({
     username: "",
-    firstName: "", // 추가된 필드
-    lastName: "",  // 추가된 필드
+    firstName: "",
+    lastName: "",
     email: "",
-    password1: "", // 비밀번호 필드 이름 수정
-    password2: "", // 비밀번호 확인 필드 이름 수정
+    password1: "",
+    password2: "",
   });
 
   const [errors, setErrors] = useState({
     username: "",
-    firstName: "", // 추가된 필드의 에러
-    lastName: "",  // 추가된 필드의 에러
+    firstName: "",
+    lastName: "",
     email: "",
-    password1: "", // 비밀번호 필드의 에러
-    password2: "", // 비밀번호 확인 필드의 에러
+    password1: "",
+    password2: "",
   });
 
   const handleChange = (e) => {
@@ -79,32 +81,33 @@ const SignUp = () => {
       return;
     }
 
-    const isUserIdTaken = await checkUserIdAvailability(formData.username);
-    if (isUserIdTaken) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        username: "이미 사용 중인 사용자 이름입니다."
-      }));
-      return;
-    }
-
-    console.log("회원가입 데이터:", formData);
-  };
-
-  const checkUserIdAvailability = async (username) => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/signup/', {
+      const response = await fetch('http://15.165.135.23/signup/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username })
+        body: JSON.stringify({
+          username: formData.username,
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          email: formData.email,
+          password1: formData.password1,
+          password2: formData.password2,
+        }),
       });
-      const data = await response.json();
-      return data.isTaken;
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("회원가입 성공:", data);
+        navigate('/sign-up-complete'); // 회원가입 성공 후 리디렉션
+      } else {
+        const errorData = await response.json();
+        console.error("회원가입 실패:", errorData);
+        // 서버에서 반환한 에러 메시지 처리
+      }
     } catch (error) {
-      console.error("아이디 중복 확인 중 오류 발생:", error);
-      return false;
+      console.error("회원가입 중 오류 발생:", error);
     }
   };
 

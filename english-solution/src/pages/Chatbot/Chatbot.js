@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
-import "./Chatbot.css"; // Chatbot 스타일링 파일
+import "./Chatbot.css";
 
 const Chatbot = () => {
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState("");
   const [csrftoken, setCsrfToken] = useState("");
-  const [currentMode, setCurrentMode] = useState("general");
-  const [difficulty, setDifficulty] = useState("easy");
+  const [currentMode, setCurrentMode] = useState("");
+  const [difficulty, setDifficulty] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false); // 로딩 상태 추가
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setCsrfToken(Cookies.get("csrftoken"));
+    const token = Cookies.get("csrftoken");
+    setCsrfToken(token);
   }, []);
 
   useEffect(() => {
@@ -22,13 +23,21 @@ const Chatbot = () => {
     }
   }, [messages]);
 
-  const sendMessage = () => {
-    if (inputText.trim() === "") return;
+  // 상태가 변경될 때마다 메시지를 전송합니다.
+  useEffect(() => {
+    if (currentMode) {
+      const userMessage = currentMode === "word" ? `Word (${difficulty})` : `${currentMode} 선택`;
+      sendMessage(userMessage);
+    }
+  }, [currentMode, difficulty]);
 
-    setLoading(true); // 로딩 시작
+  const sendMessage = (userMessage = null) => {
+    if (inputText.trim() === "" && currentMode === "general" && !userMessage) return;
+
+    setLoading(true);
 
     const requestData = {
-      method: "post",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         "X-CSRFToken": csrftoken,
@@ -52,26 +61,31 @@ const Chatbot = () => {
         if (data.error) {
           setError("서버 오류가 발생했습니다. 나중에 다시 시도해 주세요.");
         } else {
-          const botReplies = Array.isArray(data.reply) ? data.reply : [];
+          const botReplies = Array.isArray(data.reply) ? data.reply : [data.reply];
           setMessages((prevMessages) => [
             ...prevMessages,
-            { text: inputText, sender: "user" },
+            ...(userMessage ? [{ text: userMessage, sender: "user" }] : [{ text: inputText, sender: "user" }]),
             ...botReplies.map((reply, index) => ({
               text: reply,
-              sender: "bot",
+              sender: "reply",
               key: index,
             })),
           ]);
-          setInputText(""); // 입력 필드 초기화
-          setError(""); // 오류 메시지 초기화
+          setInputText("");
+          setError("");
         }
-        setLoading(false); // 로딩 종료
+        setLoading(false);
       })
       .catch((error) => {
         console.error("Error sending message:", error);
         setError("네트워크 오류가 발생했습니다. 다시 시도해 주세요.");
-        setLoading(false); // 로딩 종료
+        setLoading(false);
       });
+  };
+
+  const handleButtonClick = (mode, difficulty = "") => {
+    setCurrentMode(mode);
+    setDifficulty(difficulty);
   };
 
   const handleKeyPress = (event) => {
@@ -92,42 +106,30 @@ const Chatbot = () => {
       </div>
 
       {error && <div className="error-message">{error}</div>}
-      {loading && <div className="loading-message">로딩 중...</div>} {/* 로딩 메시지 추가 */}
+      {loading && <div className="loading-message">로딩 중...</div>}
 
       <div className="button-container">
         <button
           className="chatbot-button wordbutton"
-          onClick={() => {
-            setCurrentMode("word");
-            setDifficulty("advanced");
-          }}
+          onClick={() => handleButtonClick("word", "advanced")}
         >
           Word (상)
         </button>
         <button
           className="chatbot-button wordbutton"
-          onClick={() => {
-            setCurrentMode("word");
-            setDifficulty("intermediate");
-          }}
+          onClick={() => handleButtonClick("word", "intermediate")}
         >
           Word (중)
         </button>
         <button
           className="chatbot-button wordbutton"
-          onClick={() => {
-            setCurrentMode("word");
-            setDifficulty("easy");
-          }}
+          onClick={() => handleButtonClick("word", "easy")}
         >
           Word (하)
         </button>
         <button
           className="chatbot-button speakingbutton"
-          onClick={() => {
-            setCurrentMode("topic");
-            sendMessage();
-          }}
+          onClick={() => handleButtonClick("topic")}
         >
           영상주제
         </button>
@@ -143,10 +145,7 @@ const Chatbot = () => {
         />
         <button
           className="chatbot-button"
-          onClick={() => {
-            setCurrentMode("general");
-            sendMessage();
-          }}
+          onClick={() => handleButtonClick("general")}
         >
           Send
         </button>

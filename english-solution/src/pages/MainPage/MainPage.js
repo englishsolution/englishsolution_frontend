@@ -1,6 +1,5 @@
-// src/pages/MainPage/MainPage.js
 import React from 'react';
-import { useAuth } from '../AuthContext/AuthContext'; // useAuth를 임포트합니다.
+import { useAuth } from '../AuthContext/AuthContext'; // useAuth import
 import InsertLink from '../../components/InsertLink/InsertLink';
 import { useNavigate } from 'react-router-dom';
 import './MainPage.css';

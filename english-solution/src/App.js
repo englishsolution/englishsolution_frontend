@@ -1,11 +1,10 @@
-// src/App.js
 import "./App.css";
 import React from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
-  useParams // useParams를 추가합니다.
+  useParams
 } from "react-router-dom";
 
 import MainPage from "./pages/MainPage/MainPage";
@@ -28,7 +27,7 @@ import QuizTemplate from "./pages/Learning/Quiz/QuizTemplate";
 import QuizResult from "./pages/Learning/Quiz/QuizResult";
 
 import mockData from "./mockData";
-import { AuthProvider, useAuth } from './pages/AuthContext/AuthContext'; // useAuth를 추가합니다.
+import { AuthProvider, useAuth } from './pages/AuthContext/AuthContext'; 
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 const App = () => {
@@ -42,11 +41,11 @@ const App = () => {
 };
 
 const AppContent = () => {
-  const { auth } = useAuth(); // useAuth를 사용합니다.
+  const { auth, logout } = useAuth(); 
 
   return (
     <div>
-      <Header isLoggedIn={!!auth} />
+      <Header isLoggedIn={!!auth} onLogout={logout} />
       <ServiceMenu />
       <Routes>
         <Route path="/" element={<MainPage />} />
@@ -71,7 +70,7 @@ const AppContent = () => {
 };
 
 const SentenceListWrapper = () => {
-  const { videoId } = useParams(); // useParams를 사용합니다.
+  const { videoId } = useParams(); 
   const video = mockData.find((video) => video.video_id === videoId);
 
   if (!video) {
@@ -87,7 +86,7 @@ const SentenceListWrapper = () => {
 };
 
 const WordListWrapper = () => {
-  const { videoId } = useParams(); // useParams를 사용합니다.
+  const { videoId } = useParams(); 
   const video = mockData.find((video) => video.video_id === videoId);
 
   if (!video) {
