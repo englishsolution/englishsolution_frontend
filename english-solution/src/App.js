@@ -20,12 +20,8 @@ import LogIn from "./pages/LogIn/LogIn";
 import FindId from "./pages/FindId/FindId";
 import FindPassword from "./pages/FindPassword/FindPassword";
 import SavelistPage from "./pages/SavelistPage/SavelistPage";
-import SentenceList from "./pages/SavelistPage/Savelist-components/SentenceList/SentenceList";
-import WordList from "./pages/SavelistPage/Savelist-components/WordList/WordList";
 import QuizTemplate from "./pages/Learning/Quiz/QuizTemplate";
 import QuizResult from "./pages/Learning/Quiz/QuizResult";
-
-import mockData from "./mockData";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -55,14 +51,7 @@ const App = () => {
           <Route path="/log-in" element={<LogIn onLogin={handleLogin} />} />
           <Route path="/find-id" element={<FindId />} />
           <Route path="/find-password" element={<FindPassword />} />
-          <Route
-            path="/save-list/sentences/:videoId"
-            element={<SentenceListWrapper />}
-          />
-          <Route
-            path="/save-list/words/:videoId"
-            element={<WordListWrapper />}
-          />
+
           <Route
             path="/learning/Quiz/:quizType/:videoId"
             element={<QuizTemplate />}
@@ -74,38 +63,6 @@ const App = () => {
         </Routes>
       </div>
     </Router>
-  );
-};
-
-const SentenceListWrapper = () => {
-  const { videoId } = useParams();
-  const video = mockData.find((video) => video.video_id === videoId);
-
-  if (!video) {
-    return <div>Video not found</div>;
-  }
-
-  return (
-    <div>
-      <h1>{video.title} - 문장 모음</h1>
-      <SentenceList sentences={video.sentences} />
-    </div>
-  );
-};
-
-const WordListWrapper = () => {
-  const { videoId } = useParams();
-  const video = mockData.find((video) => video.video_id === videoId);
-
-  if (!video) {
-    return <div>Video not found</div>;
-  }
-
-  return (
-    <div>
-      <h1>{video.title} - 단어 모음</h1>
-      <WordList words={video.words} />
-    </div>
   );
 };
 

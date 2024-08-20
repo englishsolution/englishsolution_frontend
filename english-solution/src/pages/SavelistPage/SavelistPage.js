@@ -9,6 +9,8 @@ import mockVideos from "../../mock/mockSaveVideoData.json";
 import mockSentences from "../../mock/mockSaveSentenceData.json";
 import mockWords from "../../mock/mockSaveWordData.json";
 
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+
 const SavelistPage = () => {
   const [selectedList, setSelectedList] = useState("video");
   const [allSentences, setAllSentences] = useState([]);
@@ -21,7 +23,7 @@ const SavelistPage = () => {
     // 비디오 데이터를 가져옵니다.
     const fetchVideos = async () => {
       try {
-        const response = await fetch("http://15.165.135.23/save"); // 백엔드 API 주소
+        const response = await fetch(`${apiBaseUrl}/save`); // 백엔드 API 주소
         if (!response.ok) {
           throw new Error("네트워크 응답이 올바르지 않습니다.");
         }
@@ -38,7 +40,7 @@ const SavelistPage = () => {
     // 문장 데이터를 가져옵니다.
     const fetchSentences = async () => {
       try {
-        const response = await fetch("http://15.165.135.23/realtime/sentences"); // 백엔드 API 주소
+        const response = await fetch(`${apiBaseUrl}/realtime/sentences`); // 백엔드 API 주소
         if (!response.ok) {
           throw new Error("네트워크 응답이 올바르지 않습니다.");
         }
@@ -53,7 +55,7 @@ const SavelistPage = () => {
     // 단어 데이터를 가져옵니다.
     const fetchWords = async () => {
       try {
-        const response = await fetch("http://15.165.135.23/realtime/words"); // 백엔드 API 주소
+        const response = await fetch(`${apiBaseUrl}/realtime/words`); // 백엔드 API 주소
         if (!response.ok) {
           throw new Error("네트워크 응답이 올바르지 않습니다.");
         }
@@ -81,7 +83,7 @@ const SavelistPage = () => {
 
     switch (selectedList) {
       case "video":
-        return <VideoList />;
+        return <VideoList videos={videos} />;
       case "sentence":
         return <SentenceList sentences={allSentences} />;
       case "word":

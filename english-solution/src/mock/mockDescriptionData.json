@@ -1,0 +1,5 @@
+{
+  "word": ["quick", "빠른", "brown", "갈색"],
+  "grammer": ["adjective", "adjective", "noun", "verb", "adjective", "noun"],
+  "idioms": ["quick brown fox", "빠른 갈색 여우", "lazy dog", "게으른 개"]
+}

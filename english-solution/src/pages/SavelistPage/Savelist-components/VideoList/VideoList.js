@@ -1,13 +1,10 @@
-// src/components/VideoList.js
 import React, { useState } from "react";
 import Video from "./Video";
 import Pagination from "../../../../components/Pagination/Pagination";
 import { Box, Container } from "@mui/material";
-import mockData from "../../../../mockData";
 
-const VideoList = () => {
-  const [videos] = useState(mockData);
-
+const VideoList = ({ videos }) => {
+  // 이제 mockData를 사용하지 않고, 부모 컴포넌트로부터 전달된 videos를 사용합니다.
   const [pageNumber, setPageNumber] = useState(0);
   const videosPerPage = 6;
   const pagesVisited = pageNumber * videosPerPage;

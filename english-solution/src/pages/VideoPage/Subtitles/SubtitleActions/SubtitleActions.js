@@ -60,7 +60,7 @@ const SubtitleActions = ({ subtitle, videoId }) => {
 
         <SpeakingTestButton subtitle={subtitle.englishSubtitle} />
 
-        <DescriptionToggleButton subtitle={subtitle} />
+        <DescriptionToggleButton sentence={subtitle.englishSubtitle} />
       </div>
     </>
   );

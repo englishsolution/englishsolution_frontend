@@ -12,10 +12,21 @@ const Sentence = ({ sentence }) => {
     setOpen(false);
   };
 
+  const formattedDate = new Date(sentence.save_date).toLocaleDateString(
+    "ko-KR",
+    {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    }
+  );
+
   return (
     <div>
       <div className="sentence" onClick={handleClickOpen}>
-        <span className="sentence-date">{sentence.save_date}</span>
+        <span className="sentence-date">{formattedDate}</span>
         <span className="sentence-text">{sentence.sentence_eg}</span>
       </div>
       <SentenceModal
