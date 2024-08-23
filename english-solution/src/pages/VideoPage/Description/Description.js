@@ -18,7 +18,7 @@ const Description = ({ sentence }) => {
         setLoading(true);
         try {
           const response = await axios.post(
-            `${baseURL}/sentence`,
+            `/sentence`,
             { setence: sentence }, // 여기서 'setence' 오타를 'sentence'로 수정
             {
               headers: {

@@ -17,16 +17,36 @@ const WordSave = ({ word, videoId }) => {
 
   // 단어를 데이터베이스에 저장
   const saveWordToDatabase = async () => {
-    const cleanedWord = word.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").trim();
+    const cleanedWord = word.replace(/[.,/#!$%&;:{}=\-_`~()]/g, "").trim();
+
+    const videoLink = `https://www.youtube.com/watch?v=${videoId}`;
+
+    // 요청 데이터 로그 출력
+    console.log("Sending request with data:", {
+      category: "word",
+      word: cleanedWord,
+      video_link: "www",
+    });
 
     try {
-      await axios.post("/api/save-word", {
-        word: cleanedWord,
-        save_date: new Date().toISOString(),
-        video: videoId,
-      });
-      console.log("저장된 단어:", cleanedWord);
-      handleCloseDialog();
+      const response = await axios.post(
+        "/save",
+        {
+          category: "word",
+          word: cleanedWord,
+          video_link: "www", // 실제 비디오링크로 수정 필요 -> video_link
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.data.message === "Word saved successfully") {
+        console.log("저장된 단어:", cleanedWord);
+        handleCloseDialog();
+      }
     } catch (error) {
       console.error("Error saving word:", error);
       alert("Failed to save word. Please try again.");

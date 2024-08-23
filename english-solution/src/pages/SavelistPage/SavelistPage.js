@@ -14,6 +14,7 @@ import mockWords from "../../mock/mockSaveWordData.json";
 // import mockVideos from "../../mock/mockSaveVideoData.json";
 
 // const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+const baseURL = "http://15.165.135.23";
 
 const SavelistPage = () => {
   const [selectedList, setSelectedList] = useState("sentence");
@@ -54,7 +55,7 @@ const SavelistPage = () => {
   useEffect(() => {
     const fetchSentences = async () => {
       try {
-        const response = await axios.get("/realtime/sentences");
+        const response = await axios.get(`/realtime/sentences`);
         setAllSentences(response.data);
       } catch (error) {
         setSentenceError(error.message);
@@ -72,7 +73,7 @@ const SavelistPage = () => {
   useEffect(() => {
     const fetchWords = async () => {
       try {
-        const response = await axios.get("/realtime/words");
+        const response = await axios.get(`/realtime/words`);
         setAllWords(response.data);
       } catch (error) {
         setWordError(error.message);
