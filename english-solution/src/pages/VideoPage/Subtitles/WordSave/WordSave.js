@@ -21,13 +21,6 @@ const WordSave = ({ word, videoId }) => {
 
     const videoLink = `https://www.youtube.com/watch?v=${videoId}`;
 
-    // 요청 데이터 로그 출력
-    console.log("Sending request with data:", {
-      category: "word",
-      word: cleanedWord,
-      video_link: "www",
-    });
-
     try {
       const response = await axios.post(
         "/save",
