@@ -18,3 +18,15 @@
   height: 50px;
   z-index: 1000;
 }
+
+.sentence-container {
+  background-color: white;
+  border-radius: 8px; /* 둥근 모서리 */
+  padding: 8px 16px; /* 내부 여백 */
+  margin-bottom: 16px; /* 아래 여백 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+  font-size: 1.25rem; /* 글자 크기 */
+  font-weight: 500; /* 글자 두께 */
+
+  text-align: center; /* 텍스트 중앙 정렬 */
+}

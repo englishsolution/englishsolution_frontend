@@ -74,6 +74,7 @@ const Description = ({ sentence }) => {
 
   return (
     <Box className="description-container">
+      <div className="sentence-container">{sentence}</div>
       <DescriptionDetail title="주요 단어" items={words} columns={2} />
       <DescriptionDetail title="문법" items={grammar} columns={1} />
       <DescriptionDetail title="관용어구" items={idioms} columns={1} />

@@ -5,6 +5,8 @@ import WordConfirm from "../../../../components/ConfirmDialog/WordConfirm";
 const WordSave = ({ word, videoId }) => {
   const [openDialog, setOpenDialog] = useState(false);
 
+  const [isHovered, setIsHovered] = useState(false);
+
   // 다이얼로그 열기
   const handleOpenDialog = () => {
     setOpenDialog(true);
@@ -51,13 +53,22 @@ const WordSave = ({ word, videoId }) => {
     handleOpenDialog();
   };
 
+  const spanStyle = {
+    cursor: "pointer",
+    marginRight: "2px",
+    padding: "2px 4px",
+    borderRadius: "4px",
+    backgroundColor: isHovered ? "#007bff" : "transparent",
+    color: isHovered ? "#fff" : "#000",
+    transition: "background-color 0.3s, color 0.3s",
+  };
+
   return (
     <>
       <span
-        style={{
-          cursor: "pointer",
-          marginRight: "10px",
-        }}
+        style={spanStyle}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         onClick={handleWordClick}
       >
         {word}
