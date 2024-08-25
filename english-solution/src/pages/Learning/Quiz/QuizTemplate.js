@@ -38,10 +38,14 @@ const QuizTemplate = () => {
     });
   };
 
-  if (!quizData.length) {
+  const handleDataLoaded = (data) => {
+    setQuizData(data);
+  };
+
+  if (!quizData.length && !showResults) {
     return (
       <div>
-        <QuizDataLoader onDataLoaded={setQuizData} />
+        <QuizDataLoader onDataLoaded={handleDataLoaded} />
         Loading... 퀴즈데이터 없음
       </div>
     );

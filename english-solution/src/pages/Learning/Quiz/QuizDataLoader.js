@@ -4,6 +4,7 @@ import axios from "axios";
 
 const QuizDataLoader = ({ onDataLoaded }) => {
   const { quizType, videoId } = useParams();
+
   const user_id = 1; // 임시 하드코딩, 로그인 연동 필요
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -13,7 +14,6 @@ const QuizDataLoader = ({ onDataLoaded }) => {
       try {
         let url = "";
         let postData = { user_id: user_id, video_id: videoId };
-
         let transformData = (data) => data.json_quiz.questions;
 
         if (quizType === "word") {
@@ -26,11 +26,11 @@ const QuizDataLoader = ({ onDataLoaded }) => {
             const { word_quiz, sentence_quiz } = data;
             const combinedQuizzes = [
               ...word_quiz.map((q) => ({
-                ...q.quiz,
+                ...q[0], // 첫 번째 요소는 퀴즈 데이터
                 type: "word",
               })),
               ...sentence_quiz.map((q) => ({
-                ...q.quiz,
+                ...q[0], // 첫 번째 요소는 퀴즈 데이터
                 type: "sentence",
               })),
             ];
