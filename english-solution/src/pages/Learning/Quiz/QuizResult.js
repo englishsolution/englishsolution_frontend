@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./QuizResult.css";
 
 const QuizResult = () => {
@@ -7,31 +8,93 @@ const QuizResult = () => {
   const { quizType, quizData, selectedOptions } = location.state || {};
   const navigate = useNavigate();
 
-  const getResults = () => {
-    const correctAnswers = [];
-    const incorrectAnswers = [];
+  const [results, setResults] = useState(null);
 
-    quizData.forEach((question, index) => {
-      if (selectedOptions[index] === question.answer) {
-        correctAnswers.push(question);
-      } else {
-        incorrectAnswers.push(question);
-      }
-    });
+  useEffect(() => {
+    if (!quizData || !selectedOptions) {
+      return;
+    }
 
-    return {
-      correctCount: correctAnswers.length,
-      incorrectCount: incorrectAnswers.length,
-      correctAnswers,
-      incorrectAnswers,
+    const getResults = () => {
+      const correctAnswers = [];
+      const incorrectAnswers = [];
+      const incorrectIds = [];
+
+      quizData.forEach((question, index) => {
+        if (selectedOptions[index] === question.answer) {
+          correctAnswers.push(question);
+        } else {
+          incorrectAnswers.push(question);
+          incorrectIds.push(question.id); // 오답의 문제 ID를 저장
+        }
+      });
+
+      console.log("퀴즈 문제 데이터:", quizData);
+      console.log("선택된 옵션:", selectedOptions);
+      console.log("오답 문제 ID:", incorrectIds);
+
+      return {
+        correctCount: correctAnswers.length,
+        incorrectCount: incorrectAnswers.length,
+        correctAnswers,
+        incorrectAnswers,
+        incorrectIds,
+      };
     };
-  };
 
-  if (!quizData || !selectedOptions) {
+    const calculatedResults = getResults();
+    setResults(calculatedResults);
+  }, [quizData, selectedOptions]);
+
+  // 오답 ID 리스트 서버로 전송
+  useEffect(() => {
+    if (results && results.incorrectIds.length > 0) {
+      const sendIncorrectIds = async () => {
+        try {
+          const payload = {
+            sentence_id_list: [],
+            word_id_list: [],
+          };
+
+          // quizType에 따라 올바른 배열에 ID 추가
+          results.incorrectIds.forEach((id) => {
+            if (
+              quizData.some(
+                (question) => question.id === id && question.sentence
+              )
+            ) {
+              payload.sentence_id_list.push(id);
+            } else {
+              payload.word_id_list.push(id);
+            }
+          });
+
+          // 데이터 전송 전 콘솔 로그로 확인
+          console.log("전송할 데이터:", payload);
+
+          if (
+            payload.sentence_id_list.length > 0 ||
+            payload.word_id_list.length > 0
+          ) {
+            await axios.post("/quiz_result/", payload, {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            });
+            console.log("오답 ID 리스트 전송 완료:", payload);
+          }
+        } catch (error) {
+          console.error("오답 ID 리스트 전송 중 오류 발생:", error);
+        }
+      };
+
+      sendIncorrectIds();
+    }
+  }, [results, quizType]);
+
+  if (!results) {
     return <div>잘못된 접근입니다.</div>;
   }
-
-  const results = getResults();
 
   // 학습 페이지로 돌아가는 핸들러
   const handleGoToLearning = () => {

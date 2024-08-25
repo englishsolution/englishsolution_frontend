@@ -18,20 +18,31 @@ const QuizDataLoader = ({ onDataLoaded }) => {
 
         if (quizType === "word") {
           url = "/all_word_quiz/";
+          transformData = (data) =>
+            data.json_quiz.questions.map((question, index) => ({
+              ...question,
+              id: data.quiz_id_list[index],
+            }));
         } else if (quizType === "sentence") {
           url = "/all_sentence_quiz/";
+          transformData = (data) =>
+            data.json_quiz.questions.map((question, index) => ({
+              ...question,
+              id: data.quiz_id_list[index],
+            }));
         } else if (quizType === "replay") {
           url = "/replay_quiz/";
           transformData = (data) => {
-            const { word_quiz, sentence_quiz } = data;
             const combinedQuizzes = [
-              ...word_quiz.map((q) => ({
-                ...q[0], // 첫 번째 요소는 퀴즈 데이터
+              ...data.word_quiz.map(([question, id]) => ({
+                ...question,
                 type: "word",
+                id: id,
               })),
-              ...sentence_quiz.map((q) => ({
-                ...q[0], // 첫 번째 요소는 퀴즈 데이터
+              ...data.sentence_quiz.map(([question, id]) => ({
+                ...question,
                 type: "sentence",
+                id: id,
               })),
             ];
             return combinedQuizzes.sort(() => Math.random() - 0.5);

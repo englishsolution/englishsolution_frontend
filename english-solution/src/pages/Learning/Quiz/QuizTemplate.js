@@ -46,7 +46,7 @@ const QuizTemplate = () => {
     return (
       <div>
         <QuizDataLoader onDataLoaded={handleDataLoaded} />
-        Loading... 퀴즈데이터 없음
+        퀴즈 데이터를 불러오는 중입니다.
       </div>
     );
   }
