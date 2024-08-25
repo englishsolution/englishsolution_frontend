@@ -71,6 +71,7 @@ const Subtitles = ({ videoId, playerRef }) => {
         setEnglishSubtitles(processSubtitles(transcription_en));
         setKoreanSubtitles(processSubtitles(transcription_ko));
         setApiError(false);
+        console.log(transcription_en);
       } catch (error) {
         console.error("Error fetching subtitles:", error);
         setApiError(true);
@@ -104,43 +105,33 @@ const Subtitles = ({ videoId, playerRef }) => {
 
   // 비디오 재생 시간에 따라 현재 자막을 업데이트
   useEffect(() => {
-    let animationFrameId;
-    let lastUpdateTime = 0;
-
     const updateSubtitles = () => {
       if (playerRef.current) {
         const currentTime = playerRef.current.getCurrentTime();
 
-        // 자막 업데이트가 필요한지 확인 (예: 0.1초 이상 변화가 있을 때만 업데이트)
-        if (currentTime - lastUpdateTime > 0.1) {
-          lastUpdateTime = currentTime;
+        // 현재 시간에 맞는 영어 자막 찾기
+        const currentEnSubtitle = englishSubtitles.find(
+          (sub) => currentTime >= sub.start && currentTime <= sub.end
+        );
 
-          // 현재 시간에 맞는 영어 자막 찾기
-          const currentEnSubtitle = englishSubtitles.find(
-            (sub) => currentTime >= sub.start && currentTime <= sub.end
-          );
+        // 현재 시간에 맞는 한국어 자막 찾기
+        const currentKoSubtitle = koreanSubtitles.find(
+          (sub) => currentTime >= sub.start && currentTime <= sub.end
+        );
 
-          // 현재 시간에 맞는 한국어 자막 찾기
-          const currentKoSubtitle = koreanSubtitles.find(
-            (sub) => currentTime >= sub.start && currentTime <= sub.end
-          );
-
-          // 현재 시간에 맞는 자막 상태 업데이트
-          setCurrentSubtitle({
-            start: currentTime,
-            end: currentTime + 1, // 현재 시간 + 1초를 종료 시간으로 설정
-            englishSubtitle: currentEnSubtitle ? currentEnSubtitle.text : "",
-            koreanSubtitle: currentKoSubtitle ? currentKoSubtitle.text : "",
-          });
-        }
+        // 현재 시간에 맞는 자막 상태 업데이트
+        setCurrentSubtitle({
+          start: currentTime,
+          end: currentEnSubtitle ? currentEnSubtitle.end : currentTime, // 자막 데이터에서 종료 시간을 가져옴
+          englishSubtitle: currentEnSubtitle ? currentEnSubtitle.text : "",
+          koreanSubtitle: currentKoSubtitle ? currentKoSubtitle.text : "",
+        });
       }
-
-      animationFrameId = requestAnimationFrame(updateSubtitles);
     };
 
-    updateSubtitles();
+    const intervalId = setInterval(updateSubtitles, 100); // 100ms 간격으로 자막 업데이트
 
-    return () => cancelAnimationFrame(animationFrameId);
+    return () => clearInterval(intervalId); // 클린업 함수
   }, [englishSubtitles, koreanSubtitles, playerRef]);
 
   // 영어 자막 표시 토글 핸들러
