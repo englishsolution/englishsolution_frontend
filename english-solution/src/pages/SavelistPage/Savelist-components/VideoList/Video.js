@@ -5,7 +5,7 @@ const Video = ({ video }) => {
   const navigate = useNavigate();
 
   const handleImgClick = () => {
-    navigate(`/video/${video.video_id}`);
+    navigate(`/video/${video.video_identify}`);
   };
 
   const formattedDate = new Date(video.save_date).toLocaleDateString("ko-KR", {
@@ -15,6 +15,8 @@ const Video = ({ video }) => {
     hour: "2-digit",
     minute: "2-digit",
   });
+
+  console.log(video);
 
   return (
     <div className="video">

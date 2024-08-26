@@ -18,7 +18,7 @@ const Description = ({ sentence }) => {
         setLoading(true);
         try {
           const response = await axios.post(
-            `${baseURL}/sentence`,
+            `/sentence`,
             { setence: sentence }, // 여기서 'setence' 오타를 'sentence'로 수정
             {
               headers: {
@@ -74,9 +74,10 @@ const Description = ({ sentence }) => {
 
   return (
     <Box className="description-container">
-      <DescriptionDetail title="주요 단어" items={words} />
-      <DescriptionDetail title="문법" items={grammar} />
-      <DescriptionDetail title="관용어구" items={idioms} />
+      <div className="sentence-container">{sentence}</div>
+      <DescriptionDetail title="주요 단어" items={words} columns={2} />
+      <DescriptionDetail title="문법" items={grammar} columns={1} />
+      <DescriptionDetail title="관용어구" items={idioms} columns={1} />
     </Box>
   );
 };
