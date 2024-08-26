@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography, List, ListItem, ListItemText } from "@mui/material";
 
-const BoxComponent = ({ title, items }) => {
+const BoxComponent = ({ title, items, columns = 1 }) => {
   return (
     <Box
       sx={{
@@ -32,28 +32,17 @@ const BoxComponent = ({ title, items }) => {
         }}
       />
 
-      <List
-        sx={{
-          paddingLeft: "0",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          listStyleType: "none",
-        }}
+      <Box
+        display="grid"
+        gridTemplateColumns={`repeat(${columns}, 1fr)`}
+        gap={2}
       >
         {items.map((item, index) => (
-          <ListItem
-            key={index}
-            sx={{
-              width: "100%",
-              padding: "0px",
-              marginBottom: "5px",
-            }}
-          >
-            <ListItemText primary={item} />
-          </ListItem>
+          <Box key={index} padding={1}>
+            {item}
+          </Box>
         ))}
-      </List>
+      </Box>
     </Box>
   );
 };

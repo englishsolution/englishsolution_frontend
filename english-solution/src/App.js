@@ -21,8 +21,6 @@ import LogIn from "./pages/LogIn/LogIn";
 import FindId from "./pages/FindId/FindId";
 import FindPassword from "./pages/FindPassword/FindPassword";
 import SavelistPage from "./pages/SavelistPage/SavelistPage";
-import SentenceList from "./pages/SavelistPage/Savelist-components/SentenceList/SentenceList";
-import WordList from "./pages/SavelistPage/Savelist-components/WordList/WordList";
 import QuizTemplate from "./pages/Learning/Quiz/QuizTemplate";
 import QuizResult from "./pages/Learning/Quiz/QuizResult";
 
@@ -44,6 +42,7 @@ const AppContent = () => {
   const { auth, logout } = useAuth(); 
 
   return (
+
     <div>
       <Header isLoggedIn={!!auth} onLogout={logout} />
       <ServiceMenu />
@@ -100,5 +99,6 @@ const WordListWrapper = () => {
     </div>
   );
 };
+
 
 export default App;

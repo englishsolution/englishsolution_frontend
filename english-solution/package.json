@@ -1,6 +1,7 @@
 {
   "name": "english-solution",
   "version": "0.1.0",
+  "proxy": "http://15.165.135.23",
   "private": true,
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
@@ -20,7 +21,7 @@
     "react-paginate": "^8.2.0",
     "react-player": "^2.16.0",
     "react-router-dom": "^6.24.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

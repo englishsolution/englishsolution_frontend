@@ -1,0 +1,27 @@
+[
+  {
+    "word_eg": "mock",
+    "word_kr": "목",
+    "save_date": "2024-08-19T10:15:30.123456Z"
+  },
+  {
+    "word_eg": "computer",
+    "word_kr": "컴퓨터",
+    "save_date": "2024-08-19T11:20:45.654321Z"
+  },
+  {
+    "word_eg": "book",
+    "word_kr": "책",
+    "save_date": "2024-08-19T12:35:50.987654Z"
+  },
+  {
+    "word_eg": "school",
+    "word_kr": "학교",
+    "save_date": "2024-08-19T13:40:55.456789Z"
+  },
+  {
+    "word_eg": "car",
+    "word_kr": "자동차",
+    "save_date": "2024-08-19T14:50:25.345678Z"
+  }
+]
