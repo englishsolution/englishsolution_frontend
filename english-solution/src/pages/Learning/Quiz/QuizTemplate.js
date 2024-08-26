@@ -58,6 +58,8 @@ const QuizTemplate = () => {
   const currentQuestion = quizData[currentQuestionIndex];
   const selectedOption = selectedOptions[currentQuestionIndex];
 
+  console.log(quizData);
+
   return (
     <div className="quiz-box">
       <h2>

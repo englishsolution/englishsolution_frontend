@@ -10,38 +10,34 @@ import mockSentences from "../../mock/mockSaveSentenceData.json";
 import mockWords from "../../mock/mockSaveWordData.json";
 
 // Uncomment this if you later want to use video-related functionality
-// import VideoList from "./Savelist-components/VideoList/VideoList";
-// import mockVideos from "../../mock/mockSaveVideoData.json";
-
-// const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
-const baseURL = "http://15.165.135.23";
+import VideoList from "./Savelist-components/VideoList/VideoList";
+import mockVideos from "../../mock/mockSaveVideoData.json";
 
 const SavelistPage = () => {
-  const [selectedList, setSelectedList] = useState("sentence");
+  const [selectedList, setSelectedList] = useState("video");
   const [allSentences, setAllSentences] = useState([]);
   const [allWords, setAllWords] = useState([]);
   // Uncomment these if you later want to use video-related functionality
-  // const [videos, setVideos] = useState([]);
-  // const [loadingVideos, setLoadingVideos] = useState(true);
+  const [videos, setVideos] = useState([]);
+  const [loadingVideos, setLoadingVideos] = useState(true);
   const [loadingSentences, setLoadingSentences] = useState(true);
   const [loadingWords, setLoadingWords] = useState(true);
   // Uncomment these if you later want to use video-related functionality
-  // const [videoError, setVideoError] = useState(null);
+  const [videoError, setVideoError] = useState(null);
   const [sentenceError, setSentenceError] = useState(null);
   const [wordError, setWordError] = useState(null);
 
   // 비디오 데이터 가져오기
-  // Uncomment this useEffect block if you later want to use video-related functionality
-  /*
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const response = await axios.get(`${apiBaseUrl}/realtime/videos`);
+        const response = await axios.get(`/realtime/videos`);
         setVideos(response.data);
       } catch (error) {
         setVideoError(error.message);
         setVideos(mockVideos); // 오류 발생 시 목 데이터로 대체
         console.log(error.message);
+        console.log("비디오 목록 오류");
       } finally {
         setLoadingVideos(false);
       }
@@ -49,7 +45,6 @@ const SavelistPage = () => {
 
     fetchVideos();
   }, []);
-  */
 
   // 문장 데이터 가져오기
   useEffect(() => {
@@ -92,7 +87,7 @@ const SavelistPage = () => {
   };
 
   const renderList = () => {
-    if (loadingSentences || loadingWords) {
+    if (loadingSentences || loadingSentences || loadingWords) {
       return <p>Loading...</p>; // 로딩 중 표시
     }
 
@@ -102,12 +97,12 @@ const SavelistPage = () => {
       case "word":
         return <WordList words={allWords} />;
       // Uncomment this case if you later want to use video-related functionality
-      /*
+
       case "video":
         return <VideoList videos={videos} />;
-      */
+
       default:
-        return <SentenceList sentences={allSentences} />; // 기본값으로 SentenceList를 보여줍니다.
+        return <VideoList videos={videos} />;
     }
   };
 
@@ -117,7 +112,7 @@ const SavelistPage = () => {
       <Box className="savelistPage-container">
         <Box className="SavelistPage__btns">
           {/* Uncomment this button if you later want to use video-related functionality */}
-          {/* <Button
+          <Button
             className="youtube-list-btn"
             variant="contained"
             color="primary"
@@ -125,7 +120,7 @@ const SavelistPage = () => {
             onClick={() => handleButtonClick("video")}
           >
             전체 영상 기록
-          </Button> */}
+          </Button>
           <Button
             className="sentence-list-btn"
             variant="contained"

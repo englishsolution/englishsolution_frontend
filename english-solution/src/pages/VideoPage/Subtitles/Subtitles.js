@@ -121,8 +121,8 @@ const Subtitles = ({ videoId, playerRef }) => {
 
         // 현재 시간에 맞는 자막 상태 업데이트
         setCurrentSubtitle({
-          start: currentTime,
-          end: currentEnSubtitle ? currentEnSubtitle.end : currentTime, // 자막 데이터에서 종료 시간을 가져옴
+          start: currentEnSubtitle ? currentEnSubtitle.start : undefined,
+          end: currentEnSubtitle ? currentEnSubtitle.end : undefined, // 자막 데이터에서 종료 시간을 가져옴
           englishSubtitle: currentEnSubtitle ? currentEnSubtitle.text : "",
           koreanSubtitle: currentKoSubtitle ? currentKoSubtitle.text : "",
         });
