@@ -1,11 +1,6 @@
 import "./App.css";
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useParams
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import MainPage from "./pages/MainPage/MainPage";
 import VideoPage from "./pages/VideoPage/VideoPage";
@@ -24,9 +19,8 @@ import SavelistPage from "./pages/SavelistPage/SavelistPage";
 import QuizTemplate from "./pages/Learning/Quiz/QuizTemplate";
 import QuizResult from "./pages/Learning/Quiz/QuizResult";
 
-import mockData from "./mockData";
-import { AuthProvider, useAuth } from './pages/AuthContext/AuthContext'; 
-import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import { AuthProvider, useAuth } from "./pages/AuthContext/AuthContext";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 const App = () => {
   return (
@@ -39,10 +33,9 @@ const App = () => {
 };
 
 const AppContent = () => {
-  const { auth, logout } = useAuth(); 
+  const { auth, logout } = useAuth();
 
   return (
-
     <div>
       <Header isLoggedIn={!!auth} onLogout={logout} />
       <ServiceMenu />
@@ -53,52 +46,26 @@ const AppContent = () => {
         <Route path="/usage-guide" element={<UsageGuide />} />
         <Route path="/learning" element={<PrivateRoute element={Learning} />} />
         <Route path="/chatbot" element={<PrivateRoute element={Chatbot} />} />
-        <Route path="/save-list" element={<PrivateRoute element={SavelistPage} />} />
+        <Route
+          path="/save-list"
+          element={<PrivateRoute element={SavelistPage} />}
+        />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/sign-up-complete" element={<SignUpComplete />} />
         <Route path="/log-in" element={<LogIn />} />
         <Route path="/find-id" element={<FindId />} />
         <Route path="/find-password" element={<FindPassword />} />
-        <Route path="/save-list/sentences/:videoId" element={<SentenceListWrapper />} />
-        <Route path="/save-list/words/:videoId" element={<WordListWrapper />} />
-        <Route path="/learning/Quiz/:quizType/:videoId" element={<QuizTemplate />} />
-        <Route path="/learning/Quiz/:quizType/:videoId/quiz-result" element={<QuizResult />} />
+        <Route
+          path="/learning/Quiz/:quizType/:videoId"
+          element={<QuizTemplate />}
+        />
+        <Route
+          path="/learning/Quiz/:quizType/:videoId/quiz-result"
+          element={<QuizResult />}
+        />
       </Routes>
     </div>
   );
 };
-
-const SentenceListWrapper = () => {
-  const { videoId } = useParams(); 
-  const video = mockData.find((video) => video.video_id === videoId);
-
-  if (!video) {
-    return <div>Video not found</div>;
-  }
-
-  return (
-    <div>
-      <h1>{video.title} - 문장 모음</h1>
-      <SentenceList sentences={video.sentences} />
-    </div>
-  );
-};
-
-const WordListWrapper = () => {
-  const { videoId } = useParams(); 
-  const video = mockData.find((video) => video.video_id === videoId);
-
-  if (!video) {
-    return <div>Video not found</div>;
-  }
-
-  return (
-    <div>
-      <h1>{video.title} - 단어 모음</h1>
-      <WordList words={video.words} />
-    </div>
-  );
-};
-
 
 export default App;

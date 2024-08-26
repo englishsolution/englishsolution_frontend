@@ -1,16 +1,13 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
-
 
 const Header = ({ isLoggedIn, onLogout }) => {
   return (
     <header className="header">
       <div className="logo">
         <Link to="/" className="logo-link">
-
-          {/* <img src="/path/to/logo.png" alt="Logo" /> */}
+          <img src="/logo.png" alt="Logo" />
 
           <span>영솔</span>
         </Link>
@@ -18,7 +15,6 @@ const Header = ({ isLoggedIn, onLogout }) => {
       <nav className="navigation">
         <ul>
           {isLoggedIn ? (
-
             <>
               <li>
                 <a
@@ -35,10 +31,17 @@ const Header = ({ isLoggedIn, onLogout }) => {
             </>
           ) : (
             <>
-              <li><Link to="/log-in" aria-label="로그인">로그인</Link></li>
-              <li><Link to="/sign-up" aria-label="회원가입">회원가입</Link></li>
+              <li>
+                <Link to="/log-in" aria-label="로그인">
+                  로그인
+                </Link>
+              </li>
+              <li>
+                <Link to="/sign-up" aria-label="회원가입">
+                  회원가입
+                </Link>
+              </li>
             </>
-
           )}
         </ul>
       </nav>
