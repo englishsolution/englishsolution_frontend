@@ -5,13 +5,13 @@ import WordList from "./Savelist-components/WordList/WordList";
 import Button from "@mui/material/Button";
 import { Box, Container } from "@mui/material";
 import "./SavelistPage.css";
-// Mock data imports
-import mockSentences from "../../mock/mockSaveSentenceData.json";
-import mockWords from "../../mock/mockSaveWordData.json";
+// // Mock data imports
+// import mockSentences from "../../mock/mockSaveSentenceData.json";
+// import mockWords from "../../mock/mockSaveWordData.json";
+// import mockVideos from "../../mock/mockSaveVideoData.json";
 
 // Uncomment this if you later want to use video-related functionality
 import VideoList from "./Savelist-components/VideoList/VideoList";
-import mockVideos from "../../mock/mockSaveVideoData.json";
 
 const SavelistPage = () => {
   const [selectedList, setSelectedList] = useState("video");
@@ -35,9 +35,7 @@ const SavelistPage = () => {
         setVideos(response.data);
       } catch (error) {
         setVideoError(error.message);
-        setVideos(mockVideos); // 오류 발생 시 목 데이터로 대체
-        console.log(error.message);
-        console.log("비디오 목록 오류");
+        console.log("비디오 데이터를 불러올 수 없음");
       } finally {
         setLoadingVideos(false);
       }
@@ -54,8 +52,7 @@ const SavelistPage = () => {
         setAllSentences(response.data);
       } catch (error) {
         setSentenceError(error.message);
-        setAllSentences(mockSentences); // 오류 발생 시 목 데이터로 대체
-        console.log(error.message);
+        console.log("문장 데이터를 불러올 수 없음");
       } finally {
         setLoadingSentences(false);
       }
@@ -72,8 +69,7 @@ const SavelistPage = () => {
         setAllWords(response.data);
       } catch (error) {
         setWordError(error.message);
-        setAllWords(mockWords); // 오류 발생 시 목 데이터로 대체
-        console.log(error.message);
+        console.log("단어 데이터를 불러올 수 없음");
       } finally {
         setLoadingWords(false);
       }
@@ -87,18 +83,24 @@ const SavelistPage = () => {
   };
 
   const renderList = () => {
-    if (loadingSentences || loadingSentences || loadingWords) {
+    if (loadingVideos || loadingSentences || loadingWords) {
       return <p>Loading...</p>; // 로딩 중 표시
     }
 
     switch (selectedList) {
       case "sentence":
+        if (sentenceError) return <p>{sentenceError}</p>;
+        if (allSentences.length === 0) return <p>저장된 문장이 없습니다.</p>;
         return <SentenceList sentences={allSentences} />;
       case "word":
+        if (wordError) return <p>{wordError}</p>;
+        if (allWords.length === 0) return <p>저장된 단어가 없습니다.</p>;
         return <WordList words={allWords} />;
       // Uncomment this case if you later want to use video-related functionality
 
       case "video":
+        if (videoError) return <p>{videoError}</p>;
+        if (videos.length === 0) return <p>저장된 비디오가 없습니다.</p>;
         return <VideoList videos={videos} />;
 
       default:
