@@ -1,3 +1,4 @@
+/* 기본 페이지 스타일 */
 .signup-page {
   width: 100%;
   max-width: 400px;
@@ -16,16 +17,19 @@ h2 {
   font-weight: bold;
 }
 
+/* 폼 그룹 스타일 */
 .form-group {
   margin-bottom: 15px;
 }
 
+/* 레이블 스타일 */
 label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
 }
 
+/* 입력 필드 스타일 */
 input[type="text"],
 input[type="email"],
 input[type="password"] {
@@ -43,6 +47,7 @@ input[type="password"] {
   margin-top: 5px;
 }
 
+/* 제출 버튼 스타일 */
 button[type="submit"] {
   width: 100%;
   padding: 12px;
@@ -59,6 +64,7 @@ button[type="submit"]:hover {
   background-color: #0056b3;
 }
 
+/* 소셜 로그인 버튼 스타일 */
 .social-login {
   display: flex;
   justify-content: space-around;
@@ -94,4 +100,20 @@ button[type="submit"]:hover {
   height: 1px;
   background-color: #ccc;
   margin: 20px 0;
+}
+
+/* 약관 동의 체크박스 및 레이블 스타일 */
+.terms-group {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.terms-group input[type="checkbox"] {
+  margin: 0;
+}
+
+.terms-group label {
+  margin: 0;
+  font-size: 14px;
 }

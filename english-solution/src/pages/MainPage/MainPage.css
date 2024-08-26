@@ -1,0 +1,15 @@
+/* src/pages/MainPage/MainPage.css */
+.main-page {
+    padding: 20px;
+  }
+  
+  .login-prompt {
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: #ff0000; /* 로그인 유도 메시지 색상 */
+  }
+  
+  .video-upload-section {
+    margin-top: 20px;
+  }
+  

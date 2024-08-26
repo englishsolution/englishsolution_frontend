@@ -55,7 +55,7 @@ const FindId = () => {
       {message && (
         <div>
           <p>{message}</p>
-          <button onClick={() => navigate('/LogIn')} className="login-button">
+          <button onClick={() => navigate('/log-in')} className="login-button">
             로그인 하러 가기
           </button>
         </div>

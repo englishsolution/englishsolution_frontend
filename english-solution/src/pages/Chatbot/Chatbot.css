@@ -29,25 +29,53 @@
   justify-content: flex-end;
 }
 
-.message.bot {
+.message.reply {
   justify-content: flex-start;
 }
 
 .message-bubble {
-  max-width: 100%;
-  padding: 10px;
-  border-radius: 10px;
+  max-width: 80%;
+  padding: 10px 15px;
+  border-radius: 20px;
   word-wrap: break-word;
   white-space: pre-wrap; /* Preserve whitespace and line breaks */
+  position: relative;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
 }
 
 .message.user .message-bubble {
   background-color: #007bff;
   color: white;
+  border-bottom-right-radius: 0;
 }
 
-.message.bot .message-bubble {
+.message.reply .message-bubble {
   background-color: #f1f0f0;
+  color: #333;
+  border-bottom-left-radius: 0;
+}
+
+.message.user .message-bubble::after,
+.message.reply .message-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 0;
+  height: 0;
+}
+
+.message.user .message-bubble::after {
+  right: -10px;
+  border-left: 10px solid #007bff;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+}
+
+.message.reply .message-bubble::after {
+  left: -10px;
+  border-right: 10px solid #f1f0f0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
 }
 
 .button-container {
@@ -89,4 +117,25 @@
   margin-left: 10px;
   background-color: #007bff;
   color: white;
+}
+
+.error-message {
+  color: red;
+  font-weight: bold;
+  padding: 10px;
+  background-color: #fdd;
+  border: 1px solid #f00;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+.loading-message {
+  color: #007bff;
+  font-weight: bold;
+  padding: 10px;
+  background-color: #eef;
+  border: 1px solid #00f;
+  border-radius: 5px;
+  margin: 10px;
+  text-align: center;
 }

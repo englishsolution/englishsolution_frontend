@@ -1,21 +1,25 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // 추가
 import "./SignUp.css";
 
 const SignUp = () => {
+  const navigate = useNavigate(); // 추가
   const [formData, setFormData] = useState({
     username: "",
+    firstName: "",
+    lastName: "",
     email: "",
-    password: "",
-    confirmPassword: "",
-    userId: ""
+    password1: "",
+    password2: "",
   });
 
   const [errors, setErrors] = useState({
     username: "",
+    firstName: "",
+    lastName: "",
     email: "",
-    password: "",
-    confirmPassword: "",
-    userId: ""
+    password1: "",
+    password2: "",
   });
 
   const handleChange = (e) => {
@@ -36,8 +40,8 @@ const SignUp = () => {
       isValid = false;
     }
 
-    if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = "비밀번호가 일치하지 않습니다.";
+    if (formData.password1 !== formData.password2) {
+      newErrors.password2 = "비밀번호가 일치하지 않습니다.";
       isValid = false;
     }
 
@@ -46,13 +50,23 @@ const SignUp = () => {
       isValid = false;
     }
 
-    if (formData.userId.trim() === "") {
-      newErrors.userId = "아이디를 입력하세요.";
+    if (formData.firstName.trim() === "") {
+      newErrors.firstName = "이름을 입력하세요.";
       isValid = false;
     }
 
-    if (formData.password.trim() === "") {
-      newErrors.password = "비밀번호를 입력하세요.";
+    if (formData.lastName.trim() === "") {
+      newErrors.lastName = "성씨를 입력하세요.";
+      isValid = false;
+    }
+
+    if (formData.email.trim() === "") {
+      newErrors.email = "이메일을 입력하세요.";
+      isValid = false;
+    }
+
+    if (formData.password1.trim() === "") {
+      newErrors.password1 = "비밀번호를 입력하세요.";
       isValid = false;
     }
 
@@ -67,36 +81,36 @@ const SignUp = () => {
       return;
     }
 
-    const isUserIdTaken = await checkUserIdAvailability(formData.userId);
-    if (isUserIdTaken) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        userId: "이미 사용 중인 아이디입니다."
-      }));
-      return;
-    }
-
-    console.log("회원가입 데이터:", formData);
-  };
-
-  const checkUserIdAvailability = async (userId) => {
     try {
-      const response = await fetch('/api/check-userid', {
+      const response = await fetch('http://15.165.135.23/signup/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ userId })
+        body: JSON.stringify({
+          username: formData.username,
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          email: formData.email,
+          password1: formData.password1,
+          password2: formData.password2,
+        }),
       });
-      const data = await response.json();
-      return data.isTaken;
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("회원가입 성공:", data);
+        navigate('/sign-up-complete'); // 회원가입 성공 후 리디렉션
+      } else {
+        const errorData = await response.json();
+        console.error("회원가입 실패:", errorData);
+        // 서버에서 반환한 에러 메시지 처리
+      }
     } catch (error) {
-      console.error("아이디 중복 확인 중 오류 발생:", error);
-      return false;
+      console.error("회원가입 중 오류 발생:", error);
     }
   };
 
-  // 소셜 로그인 버튼 클릭 시 동작하지 않도록 처리
   const handleSocialLoginClick = (e) => {
     e.preventDefault();
     alert("소셜 회원가입 기능은 현재 사용할 수 없습니다."); // 테스트용 알림, 추후 제거 가능
@@ -107,16 +121,28 @@ const SignUp = () => {
       <h2>회원가입</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="username">사용자 이름:</label>
+          <label htmlFor="firstName">이름:</label>
           <input
             type="text"
-            id="username"
-            name="username"
-            value={formData.username}
+            id="firstName"
+            name="firstName"
+            value={formData.firstName}
             onChange={handleChange}
             required
           />
-          {errors.username && <p className="error-message">{errors.username}</p>}
+          {errors.firstName && <p className="error-message">{errors.firstName}</p>}
+        </div>
+        <div className="form-group">
+          <label htmlFor="lastName">성씨:</label>
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
+            required
+          />
+          {errors.lastName && <p className="error-message">{errors.lastName}</p>}
         </div>
         <div className="form-group">
           <label htmlFor="email">이메일:</label>
@@ -131,47 +157,47 @@ const SignUp = () => {
           {errors.email && <p className="error-message">{errors.email}</p>}
         </div>
         <div className="form-group">
-          <label htmlFor="userId">아이디:</label>
+          <label htmlFor="username">아이디:</label>
           <input
             type="text"
-            id="userId"
-            name="userId"
-            value={formData.userId}
+            id="username"
+            name="username"
+            value={formData.username}
             onChange={handleChange}
             required
           />
-          {errors.userId && <p className="error-message">{errors.userId}</p>}
+          {errors.username && <p className="error-message">{errors.username}</p>}
         </div>
         <div className="form-group">
-          <label htmlFor="password">비밀번호:</label>
+          <label htmlFor="password1">비밀번호:</label>
           <input
             type="password"
-            id="password"
-            name="password"
-            value={formData.password}
+            id="password1"
+            name="password1"
+            value={formData.password1}
             onChange={handleChange}
             required
           />
-          {errors.password && <p className="error-message">{errors.password}</p>}
+          {errors.password1 && <p className="error-message">{errors.password1}</p>}
         </div>
         <div className="form-group">
-          <label htmlFor="confirmPassword">비밀번호 확인:</label>
+          <label htmlFor="password2">비밀번호 확인:</label>
           <input
             type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            value={formData.confirmPassword}
+            id="password2"
+            name="password2"
+            value={formData.password2}
             onChange={handleChange}
             required
           />
-          {errors.confirmPassword && <p className="error-message">{errors.confirmPassword}</p>}
+          {errors.password2 && <p className="error-message">{errors.password2}</p>}
         </div>
         <button type="submit">회원가입</button>
         <div className="divider"></div> {/* 구분선 추가 */}
       </form>
       <div className="social-login">
-          <button className="naver-login" onClick={handleSocialLoginClick}>네이버 회원가입</button>
-          <button className="kakao-login" onClick={handleSocialLoginClick}>카카오 회원가입</button>
+        <button className="naver-login" onClick={handleSocialLoginClick}>네이버 회원가입</button>
+        <button className="kakao-login" onClick={handleSocialLoginClick}>카카오 회원가입</button>
       </div>
     </div>
   );

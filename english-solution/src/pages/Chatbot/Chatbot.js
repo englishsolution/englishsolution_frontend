@@ -1,32 +1,55 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
-import "./Chatbot.css"; // Chatbot 스타일링 파일
+import "./Chatbot.css";
 
 const Chatbot = () => {
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState("");
   const [csrftoken, setCsrfToken] = useState("");
-  const [currentPrompt, setCurrentPrompt] = useState("general");
+  const [currentMode, setCurrentMode] = useState("");
+  const [difficulty, setDifficulty] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // 페이지 로딩 시 초기화 시키기 위함
-    setCsrfToken(Cookies.get("csrftoken"));
+    const token = Cookies.get("csrftoken");
+    setCsrfToken(token);
   }, []);
 
-  const sendMessage = (prompt) => {
-    if (inputText.trim() === "") return;
+  useEffect(() => {
+    const messagesEnd = document.getElementById("messages-end");
+    if (messagesEnd) {
+      messagesEnd.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
 
-    // Prepare request data
+  // 상태가 변경될 때마다 메시지를 전송합니다.
+  useEffect(() => {
+    if (currentMode) {
+      const userMessage = currentMode === "word" ? `Word (${difficulty})` : `${currentMode} 선택`;
+      sendMessage(userMessage);
+    }
+  }, [currentMode, difficulty]);
+
+  const sendMessage = (userMessage = null) => {
+    if (inputText.trim() === "" && currentMode === "general" && !userMessage) return;
+
+    setLoading(true);
+
     const requestData = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "X-CSRFToken": csrftoken,
       },
-      body: JSON.stringify({ mode: prompt, prompt: inputText }),
+      body: JSON.stringify({
+        mode: currentMode,
+        prompt: currentMode === "general" ? inputText : undefined,
+        difficulty: currentMode === "word" ? difficulty : undefined,
+        video_title: currentMode === "topic" ? inputText : undefined,
+      }),
     };
 
-    // Send message to backend
     fetch("http://15.165.135.23/chatbot", requestData)
       .then((response) => {
         if (!response.ok) {
@@ -35,30 +58,39 @@ const Chatbot = () => {
         return response.json();
       })
       .then((data) => {
-        const botReplies = data.replies; // Assuming 'data.replies' is an array of replies
-        // Update messages state with user input and bot replies
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { text: inputText, sender: "user" },
-
-          ...botReplies.map((reply, index) => ({
-            text: reply,
-            sender: "bot",
-            key: index,
-          })),
-
-        ]);
-        // Clear input text
-        setInputText("");
+        if (data.error) {
+          setError("서버 오류가 발생했습니다. 나중에 다시 시도해 주세요.");
+        } else {
+          const botReplies = Array.isArray(data.reply) ? data.reply : [data.reply];
+          setMessages((prevMessages) => [
+            ...prevMessages,
+            ...(userMessage ? [{ text: userMessage, sender: "user" }] : [{ text: inputText, sender: "user" }]),
+            ...botReplies.map((reply, index) => ({
+              text: reply,
+              sender: "reply",
+              key: index,
+            })),
+          ]);
+          setInputText("");
+          setError("");
+        }
+        setLoading(false);
       })
       .catch((error) => {
         console.error("Error sending message:", error);
+        setError("네트워크 오류가 발생했습니다. 다시 시도해 주세요.");
+        setLoading(false);
       });
+  };
+
+  const handleButtonClick = (mode, difficulty = "") => {
+    setCurrentMode(mode);
+    setDifficulty(difficulty);
   };
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      sendMessage(currentPrompt);
+      sendMessage();
     }
   };
 
@@ -67,43 +99,39 @@ const Chatbot = () => {
       <div className="chatbot-messages">
         {messages.map((msg, index) => (
           <div key={index} className={`message ${msg.sender}`}>
-
             <div className="message-bubble">{msg.text}</div>
-
           </div>
         ))}
+        <div id="messages-end" />
       </div>
+
+      {error && <div className="error-message">{error}</div>}
+      {loading && <div className="loading-message">로딩 중...</div>}
 
       <div className="button-container">
         <button
           className="chatbot-button wordbutton"
-
-          onClick={() => setCurrentPrompt("high")}
-
+          onClick={() => handleButtonClick("word", "advanced")}
         >
           Word (상)
         </button>
         <button
           className="chatbot-button wordbutton"
-
-          onClick={() => setCurrentPrompt("medium")}
-
+          onClick={() => handleButtonClick("word", "intermediate")}
         >
           Word (중)
         </button>
         <button
           className="chatbot-button wordbutton"
-
-          onClick={() => setCurrentPrompt("low")}
-
+          onClick={() => handleButtonClick("word", "easy")}
         >
           Word (하)
         </button>
         <button
           className="chatbot-button speakingbutton"
-          onClick={() => sendMessage(currentPrompt)}
+          onClick={() => handleButtonClick("topic")}
         >
-          Speaking
+          영상주제
         </button>
       </div>
       <div className="chatbot-input-container">
@@ -117,7 +145,7 @@ const Chatbot = () => {
         />
         <button
           className="chatbot-button"
-          onClick={() => sendMessage(currentPrompt)}
+          onClick={() => handleButtonClick("general")}
         >
           Send
         </button>
