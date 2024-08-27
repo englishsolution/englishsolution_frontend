@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Button from "@mui/material/Button";
 import SentenceConfirm from "../../../../components/ConfirmDialog/SentenceConfirm";
@@ -6,6 +6,10 @@ import SentenceConfirm from "../../../../components/ConfirmDialog/SentenceConfir
 const SentenceSave = ({ sentence, videoId }) => {
   const [openDialog, setOpenDialog] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
+
+  useEffect(() => {
+    setIsSaved(false);
+  }, [sentence]);
 
   const handleOpenDialog = () => {
     setOpenDialog(true);
@@ -24,7 +28,7 @@ const SentenceSave = ({ sentence, videoId }) => {
         {
           category: "sentence",
           sentence: sentence,
-          video_link: "www",
+          video_link: videoLink,
         },
         {
           headers: {

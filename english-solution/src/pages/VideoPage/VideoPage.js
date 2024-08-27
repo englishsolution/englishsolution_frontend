@@ -3,6 +3,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import VideoPlayer from "../../pages/VideoPage/VideoPlayer/VideoPlayer";
 import { Container, Box, Grid } from "@mui/material";
+import AllScript from "./AllScript/AllScript";
 
 const VideoPage = () => {
   const { videoId } = useParams();
@@ -11,10 +12,9 @@ const VideoPage = () => {
     <Container
       maxWidth="lg"
       style={{
-        minHeight: "80vh",
+        maxHeight: "80vh",
         minWidth: "100vw",
-        display: "flex",
-        flexDirection: "column",
+        overflow: "hidden",
       }}
     >
       <Box paddingTop={2} flex={1} display="flex" style={{ height: "100vh" }}>
@@ -38,10 +38,12 @@ const VideoPage = () => {
               display: "flex",
               flexDirection: "column",
               position: "relative",
-              height: "100%",
+              height: "80%",
+              padding: "15px",
+              overflow: "hidden",
             }}
           >
-            {/* <Description /> */}
+            <AllScript videoId={videoId} />
           </Grid>
         </Grid>
       </Box>
