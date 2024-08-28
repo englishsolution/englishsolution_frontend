@@ -14,7 +14,7 @@ const Learning = () => {
     // Function to fetch data from API
     const fetchData = async () => {
       try {
-        const response = await fetch("http://15.165.135.23/quiz_index/"); // Replace with your API endpoint
+        const response = await fetch("/quiz_index/"); // Replace with your API endpoint
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }

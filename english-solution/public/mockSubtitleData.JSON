@@ -79,68 +79,305 @@
     { "text": "[Music]", "start": 260.88, "duration": 2.74 }
   ],
   "transcription_en": [
-    { "text": "[Music]", "start": 4.36, "duration": 10.68 },
-    { "text": "it is a cold winter day", "start": 11.519, "duration": 7.351 },
-    { "text": "the ants are eating", "start": 15.04, "duration": 13.239 },
-    { "text": "[Music]", "start": 18.87, "duration": 9.409 },
-    { "text": "a grasshopper comes", "start": 31.439, "duration": 6.621 },
-    { "text": "may i have some food", "start": 34.399, "duration": 7.281 },
-    { "text": "[Music]", "start": 38.06, "duration": 7.78 },
-    { "text": "the ants are mad", "start": 41.68, "duration": 4.16 },
-    { "text": "they do not want to share", "start": 46.239, "duration": 11.88 },
-    { "text": "[Music]", "start": 49.59, "duration": 8.529 },
-    { "text": "we work all summer", "start": 58.559, "duration": 6.32 },
-    { "text": "we store food", "start": 61.44, "duration": 3.439 },
-    { "text": "[Music]", "start": 65.37, "duration": 7.069 },
-    { "text": "then we can eat in winter", "start": 68.08, "duration": 4.359 },
-    { "text": "[Music]", "start": 76.43, "duration": 6.29 },
-    { "text": "how was your summer", "start": 80.0, "duration": 5.83 },
-    { "text": "what did you do", "start": 82.72, "duration": 10.519 },
-    { "text": "[Music]", "start": 85.83, "duration": 7.409 },
-    { "text": "i played music", "start": 94.479, "duration": 3.96 },
-    { "text": "she says", "start": 102.56, "duration": 7.829 },
-    { "text": "[Music]", "start": 105.17, "duration": 5.219 },
-    { "text": "the ants are mad", "start": 114.159, "duration": 6.161 },
-    { "text": "you played music in summer", "start": 117.2, "duration": 7.559 },
-    { "text": "then dance in winter", "start": 120.32, "duration": 4.439 },
-    { "text": "[Music]", "start": 126.11, "duration": 3.239 },
     {
-      "text": "my music made everyone happy",
+      "subtitle_number": 1,
+      "text": "[Music]",
+      "start": 4.36,
+      "duration": 10.68
+    },
+    {
+      "subtitle_number": 2,
+      "text": "It is a cold winter day.",
+      "start": 11.519,
+      "duration": 7.351
+    },
+    {
+      "subtitle_number": 3,
+      "text": "The ants are eating.",
+      "start": 15.04,
+      "duration": 13.239
+    },
+    {
+      "subtitle_number": 4,
+      "text": "[Music]",
+      "start": 18.87,
+      "duration": 9.409
+    },
+    {
+      "subtitle_number": 5,
+      "text": "A grasshopper comes, \"May I have some food?\"",
+      "start": 31.439,
+      "duration": 6.621
+    },
+    {
+      "subtitle_number": 6,
+      "text": "The ants are mad.",
+      "start": 34.399,
+      "duration": 7.281
+    },
+    {
+      "subtitle_number": 7,
+      "text": "[Music]",
+      "start": 38.06,
+      "duration": 7.78
+    },
+    {
+      "subtitle_number": 8,
+      "text": "They do not want to share.",
+      "start": 41.68,
+      "duration": 4.16
+    },
+    {
+      "subtitle_number": 9,
+      "text": "We work all summer.",
+      "start": 46.239,
+      "duration": 11.88
+    },
+    {
+      "subtitle_number": 10,
+      "text": "We store food.",
+      "start": 49.59,
+      "duration": 8.529
+    },
+    {
+      "subtitle_number": 11,
+      "text": "[Music]",
+      "start": 58.559,
+      "duration": 6.32
+    },
+    {
+      "subtitle_number": 12,
+      "text": "Then we can eat in winter.",
+      "start": 61.44,
+      "duration": 3.439
+    },
+    {
+      "subtitle_number": 13,
+      "text": "[Music]",
+      "start": 65.37,
+      "duration": 7.069
+    },
+    {
+      "subtitle_number": 14,
+      "text": "How was your summer?",
+      "start": 68.08,
+      "duration": 4.359
+    },
+    {
+      "subtitle_number": 15,
+      "text": "What did you do?",
+      "start": 76.43,
+      "duration": 6.29
+    },
+    {
+      "subtitle_number": 16,
+      "text": "[Music]",
+      "start": 80.0,
+      "duration": 5.83
+    },
+    {
+      "subtitle_number": 17,
+      "text": "I played music,\" she says.",
+      "start": 82.72,
+      "duration": 10.519
+    },
+    {
+      "subtitle_number": 18,
+      "text": "[Music]",
+      "start": 85.83,
+      "duration": 7.409
+    },
+    {
+      "subtitle_number": 19,
+      "text": "The ants are mad.",
+      "start": 94.479,
+      "duration": 3.96
+    },
+    {
+      "subtitle_number": 20,
+      "text": "You played music in summer, then dance in winter.",
+      "start": 102.56,
+      "duration": 7.829
+    },
+    {
+      "subtitle_number": 21,
+      "text": "[Music]",
+      "start": 105.17,
+      "duration": 5.219
+    },
+    {
+      "subtitle_number": 22,
+      "text": "My music made everyone happy,\" she says.",
+      "start": 114.159,
+      "duration": 6.161
+    },
+    {
+      "subtitle_number": 23,
+      "text": "May I have some food?",
+      "start": 117.2,
+      "duration": 7.559
+    },
+    {
+      "subtitle_number": 24,
+      "text": "[Music]",
+      "start": 120.32,
+      "duration": 4.439
+    },
+    {
+      "subtitle_number": 25,
+      "text": "No,\" the ants say.",
+      "start": 126.11,
+      "duration": 3.239
+    },
+    {
+      "subtitle_number": 26,
+      "text": "The grasshopper cries.",
       "start": 134.239,
       "duration": 6.241
     },
-    { "text": "she says", "start": 138.4, "duration": 5.37 },
-    { "text": "may i have some food", "start": 140.48, "duration": 8.679 },
-    { "text": "[Music]", "start": 143.77, "duration": 5.389 },
-    { "text": "no", "start": 153.519, "duration": 4.881 },
-    { "text": "the ants say", "start": 155.2, "duration": 3.2 },
-    { "text": "[Music]", "start": 159.51, "duration": 5.77 },
-    { "text": "the grasshopper cries", "start": 161.519, "duration": 3.761 },
     {
-      "text": "you have so much you are greedy",
+      "subtitle_number": 27,
+      "text": "You have so much, you are greedy.",
+      "start": 138.4,
+      "duration": 5.37
+    },
+    {
+      "subtitle_number": 28,
+      "text": "[Music]",
+      "start": 140.48,
+      "duration": 8.679
+    },
+    {
+      "subtitle_number": 29,
+      "text": "She hops away.",
+      "start": 143.77,
+      "duration": 5.389
+    },
+    {
+      "subtitle_number": 30,
+      "text": "[Music]",
+      "start": 153.519,
+      "duration": 4.881
+    },
+    {
+      "subtitle_number": 31,
+      "text": "Wait,\" one ant says.",
+      "start": 155.2,
+      "duration": 3.2
+    },
+    {
+      "subtitle_number": 32,
+      "text": "Come and eat with us.",
+      "start": 159.51,
+      "duration": 5.77
+    },
+    {
+      "subtitle_number": 33,
+      "text": "[Music]",
+      "start": 161.519,
+      "duration": 3.761
+    },
+    {
+      "subtitle_number": 34,
+      "text": "The ant asks her in.",
       "start": 165.68,
       "duration": 5.96
     },
-    { "text": "she hops away", "start": 167.92, "duration": 3.72 },
-    { "text": "[Music]", "start": 172.33, "duration": 11.39 },
-    { "text": "wait", "start": 179.92, "duration": 3.8 },
-    { "text": "one ant says", "start": 184.19, "duration": 4.34 },
-    { "text": "come and eat with us", "start": 195.84, "duration": 12.321 },
-    { "text": "[Music]", "start": 200.18, "duration": 12.64 },
-    { "text": "the ant asks her in", "start": 210.48, "duration": 7.85 },
-    { "text": "[Music]", "start": 212.82, "duration": 5.51 },
-    { "text": "the grasshopper eats", "start": 222.72, "duration": 4.2 },
-    { "text": "[Music]", "start": 227.52, "duration": 10.669 },
     {
-      "text": "the grasshopper plays music",
+      "subtitle_number": 35,
+      "text": "[Music]",
+      "start": 167.92,
+      "duration": 3.72
+    },
+    {
+      "subtitle_number": 36,
+      "text": "The grasshopper eats.",
+      "start": 172.33,
+      "duration": 11.39
+    },
+    {
+      "subtitle_number": 37,
+      "text": "[Music]",
+      "start": 179.92,
+      "duration": 3.8
+    },
+    {
+      "subtitle_number": 38,
+      "text": "[Music]",
+      "start": 184.19,
+      "duration": 7.74
+    },
+    {
+      "subtitle_number": 39,
+      "text": "Wait,\" one ant says.",
+      "start": 193.84,
+      "duration": 4.319
+    },
+    {
+      "subtitle_number": 40,
+      "text": "The grasshopper plays music.",
+      "start": 195.84,
+      "duration": 4.34
+    },
+    {
+      "subtitle_number": 41,
+      "text": "[Music]",
+      "start": 198.159,
+      "duration": 12.321
+    },
+    {
+      "subtitle_number": 42,
+      "text": "The ants dance.",
+      "start": 200.18,
+      "duration": 12.64
+    },
+    {
+      "subtitle_number": 43,
+      "text": "[Music]",
+      "start": 210.48,
+      "duration": 7.85
+    },
+    {
+      "subtitle_number": 44,
+      "text": "The grasshopper plays music.",
+      "start": 212.82,
+      "duration": 5.51
+    },
+    {
+      "subtitle_number": 45,
+      "text": "[Applause]",
+      "start": 222.72,
+      "duration": 4.2
+    },
+    {
+      "subtitle_number": 46,
+      "text": "[Music]",
+      "start": 227.52,
+      "duration": 10.669
+    },
+    {
+      "subtitle_number": 47,
+      "text": "Everyone is happy.",
       "start": 239.599,
       "duration": 5.841
     },
-    { "text": "[Music]", "start": 241.85, "duration": 5.19 },
-    { "text": "[Applause]", "start": 245.44, "duration": 4.4 },
-    { "text": "the ants dance", "start": 247.04, "duration": 6.759 },
-    { "text": "everyone is happy", "start": 249.84, "duration": 3.959 },
-    { "text": "it is good to share", "start": 254.959, "duration": 4.361 },
-    { "text": "[Music]", "start": 260.88, "duration": 2.74 }
+    {
+      "subtitle_number": 48,
+      "text": "[Music]",
+      "start": 241.85,
+      "duration": 5.19
+    },
+    {
+      "subtitle_number": 49,
+      "text": "It is good to share.",
+      "start": 245.44,
+      "duration": 4.4
+    },
+    {
+      "subtitle_number": 50,
+      "text": "[Music]",
+      "start": 247.04,
+      "duration": 6.759
+    }
   ]
 }

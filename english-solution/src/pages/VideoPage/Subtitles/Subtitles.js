@@ -73,7 +73,7 @@ const Subtitles = ({ videoId, playerRef }) => {
         setApiError(false);
         console.log(transcription_en);
       } catch (error) {
-        console.error("Error fetching subtitles:", error);
+        console.error("실시간 자막 Error fetching subtitles:", error);
         setApiError(true);
 
         // mockSubtitles.JSON에서 자막 데이터 가져오기
