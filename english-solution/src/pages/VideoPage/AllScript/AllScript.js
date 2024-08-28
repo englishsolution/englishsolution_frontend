@@ -14,7 +14,7 @@ const AllScript = ({ videoId }) => {
         (part) =>
           part
             // 문장 끝의 구두점 뒤에서 분리하고 구두점을 유지
-            .split(/(?<=\.)\s+/)
+            .match(/[^.!?]+[.!?]+[\s]*/g)
             .map((sentence) => sentence.trim()) // 앞뒤 공백 제거
             .filter((sentence) => sentence.length > 0) // 빈 문장 제거
       );

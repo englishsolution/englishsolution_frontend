@@ -18,7 +18,7 @@ const QuizQuestion = ({ questionData, selectedOption, handleOptionClick }) => {
 
   return (
     <div className="quiz-question">
-      <p>{questionText}</p>
+      <p className="questionText">{questionText}</p>
       <div className="options">
         {options.map((option, index) => {
           const isSelected = selectedOption === option;

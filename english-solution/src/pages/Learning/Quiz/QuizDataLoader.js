@@ -5,7 +5,7 @@ import axios from "axios";
 const QuizDataLoader = ({ onDataLoaded }) => {
   const { quizType, videoId } = useParams();
 
-  const user_id = 1; // 임시 하드코딩, 로그인 연동 필요
+  const user_id = "1"; // 임시 하드코딩, 로그인 연동 필요
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
