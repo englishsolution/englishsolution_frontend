@@ -29,7 +29,7 @@ const WordSave = ({ word, videoId }) => {
         {
           category: "word",
           word: cleanedWord,
-          video_link: "www", // 실제 비디오링크로 수정 필요 -> video_link
+          video_link: videoLink, // 실제 비디오링크로 수정 필요 -> video_link
         },
         {
           headers: {
