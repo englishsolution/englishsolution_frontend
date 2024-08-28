@@ -61,7 +61,15 @@ const SentenceSave = ({ sentence, videoId }) => {
         }}
         aria-disabled={isSaved}
       >
-        {isSaved ? "Saved" : "Save Sentence"}
+        {isSaved ? (
+          "Saved"
+        ) : (
+          <img
+            src={`/bookmark.svg`}
+            alt="Save"
+            style={{ width: "24px", height: "24px", marginRight: "8px" }}
+          />
+        )}
       </Button>
       <SentenceConfirm
         open={openDialog}

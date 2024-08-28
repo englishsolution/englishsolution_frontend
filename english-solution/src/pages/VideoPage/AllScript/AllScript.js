@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Box, Typography } from "@mui/material";
 import fetchBackendSubtitles from "../Subtitles/SubtitlesLoader/SubtitlesLoader";
+import AllScript_SentenceBox from "./AllScript_SentenceBox";
+
 const AllScript = ({ videoId }) => {
   const [scriptSentences, setScriptSentences] = useState([]);
 
@@ -63,18 +65,11 @@ const AllScript = ({ videoId }) => {
       flexDirection="column"
     >
       {scriptSentences.map((sentence, index) => (
-        <Box
+        <AllScript_SentenceBox
           key={index}
-          padding="10px"
-          marginBottom="8px"
-          style={{
-            backgroundColor: "#f7f7f7",
-            borderRadius: "4px",
-            boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.1)",
-          }}
-        >
-          <Typography variant="body2">{sentence}</Typography>
-        </Box>
+          sentence={sentence}
+          videoId={videoId}
+        />
       ))}
     </Box>
   );
