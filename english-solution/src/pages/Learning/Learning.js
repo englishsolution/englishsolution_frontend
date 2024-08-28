@@ -14,19 +14,21 @@ const Learning = () => {
     // Function to fetch data from API
     const fetchData = async () => {
       try {
-        const response = await fetch("http://15.165.135.23/quiz_index/"); // Replace with your API endpoint
+        const response = await fetch("http://15.165.135.23/processing_url/");
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
         const result = await response.json();
-        setData(result);
+        // result가 배열일 경우
+        const titles = result.map(item => ({ id: item.id, title: item.title }));
+        setData(titles);
         setLoading(false);
       } catch (error) {
         setError(error.message);
         setLoading(false);
       }
     };
-
+  
     fetchData();
   }, []);
 
