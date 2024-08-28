@@ -10,7 +10,6 @@ const Chatbot = () => {
   const [difficulty, setDifficulty] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [videoData, setVideoData] = useState(null); // 서버에서 반환된 비디오 데이터 상태 추가
 
   useEffect(() => {
     const token = Cookies.get("csrftoken");
@@ -24,27 +23,31 @@ const Chatbot = () => {
     }
   }, [messages]);
 
+  // 상태가 변경될 때마다 메시지를 전송합니다.
   useEffect(() => {
-    if (currentMode && videoData) {
-      if (currentMode === "topic") {
-        // 서버에서 비디오 정보를 가져온 후 챗봇이 메시지를 추가합니다.
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { text: "영상에 관한 어떤 이야기를 해 볼까요?", sender: "reply" },
-        ]);
-      } else {
-        const userMessage =
-          currentMode === "word"
-            ? `Word (${difficulty})`
-            : `${currentMode} 선택`;
-        sendMessage(userMessage);
-      }
+    if (currentMode) {
+      const userMessage = currentMode === "word" ? `Word (${difficulty})` : `${currentMode} 선택`;
+      sendMessage(userMessage);
     }
-  }, [currentMode, difficulty, videoData]);
+  }, [currentMode, difficulty]);
+
+  //여기부터
+
+  useEffect(() => {
+    if (currentMode === "topic") {
+      // `topic` 모드로 변경될 때 챗봇이 자동으로 메시지를 보냅니다.
+      const initialMessage = "영상 주제로 대화하는 챗봇 모드로 변경되었습니다. 원하는 영상의 제목을 알려주세요.";
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { text: initialMessage, sender: "reply" },
+      ]);
+    }
+  }, [currentMode]);
+
+  //여기까지
 
   const sendMessage = (userMessage = null) => {
-    if (inputText.trim() === "" && currentMode === "general" && !userMessage)
-      return;
+    if (inputText.trim() === "" && currentMode === "general" && !userMessage) return;
 
     setLoading(true);
 
@@ -73,31 +76,16 @@ const Chatbot = () => {
         if (data.error) {
           setError("서버 오류가 발생했습니다. 나중에 다시 시도해 주세요.");
         } else {
-          if (currentMode === "topic") {
-            // 비디오 정보와 스크립트를 상태에 저장
-            setVideoData(data);
-            setMessages((prevMessages) => [
-              ...prevMessages,
-              { text: `비디오 제목: ${data.title}`, sender: "reply" },
-              { text: `비디오 URL: ${data.url}`, sender: "reply" },
-              { text: `스크립트: ${data.script}`, sender: "reply" },
-            ]);
-          } else {
-            const botReplies = Array.isArray(data.reply)
-              ? data.reply
-              : [data.reply];
-            setMessages((prevMessages) => [
-              ...prevMessages,
-              ...(userMessage
-                ? [{ text: userMessage, sender: "user" }]
-                : [{ text: inputText, sender: "user" }]),
-              ...botReplies.map((reply, index) => ({
-                text: reply,
-                sender: "reply",
-                key: index,
-              })),
-            ]);
-          }
+          const botReplies = Array.isArray(data.reply) ? data.reply : [data.reply];
+          setMessages((prevMessages) => [
+            ...prevMessages,
+            ...(userMessage ? [{ text: userMessage, sender: "user" }] : [{ text: inputText, sender: "user" }]),
+            ...botReplies.map((reply, index) => ({
+              text: reply,
+              sender: "reply",
+              key: index,
+            })),
+          ]);
           setInputText("");
           setError("");
         }
@@ -113,10 +101,6 @@ const Chatbot = () => {
   const handleButtonClick = (mode, difficulty = "") => {
     setCurrentMode(mode);
     setDifficulty(difficulty);
-    if (mode === "topic") {
-      // 영상주제 버튼 클릭 시 서버에서 비디오 정보를 가져옵니다.
-      sendMessage();
-    }
   };
 
   const handleKeyPress = (event) => {
