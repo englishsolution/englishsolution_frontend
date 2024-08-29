@@ -143,21 +143,24 @@ const Subtitles = ({ videoId, playerRef }) => {
 
   return (
     <Box flex={1} display="flex" flexDirection="column">
-      <Box display="flex" alignItems="center" marginBottom={1}>
-        <Typography sx={{ marginRight: "0px" }} variant="body1" marginRight={2}>
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="flex-start"
+        marginBottom={1}
+      >
+        <Typography sx={{ marginRight: "-5px" }} variant="body1">
           English
         </Typography>
         <Switch checked={showEnglish} onChange={handleEnglishToggle} />
 
-        <Typography variant="body1" sx={{ marginRight: "0px" }}>
+        <Typography
+          variant="body1"
+          sx={{ marginRight: "-5px", marginLeft: "15px" }}
+        >
           한국어
         </Typography>
         <Switch checked={showKorean} onChange={handleKoreanToggle} />
-        {apiError && (
-          <span color="error" marginBottom={2}>
-            자막을 불러오는 중 오류가 발생했습니다.
-          </span>
-        )}
       </Box>
 
       <Box

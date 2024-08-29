@@ -7,9 +7,8 @@ const Header = ({ isLoggedIn, onLogout }) => {
     <header className="header">
       <div className="logo">
         <Link to="/" className="logo-link">
-          <img src="/logo.png" alt="Logo" />
-
-          <span>영솔</span>
+          <span className="logo-icon">🔡</span>
+          <span className="logo-text">영솔</span>
         </Link>
       </div>
       <nav className="navigation">
