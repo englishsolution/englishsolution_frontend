@@ -13,7 +13,7 @@ const AllScript = ({ videoId }) => {
       // 문장 끝의 구두점(.?! 뒤에 공백이 있을 경우)으로 문장을 구분
       .split(/(?<=[.?!])\s+/)
       .map((sentence) => sentence.trim()) // 앞뒤 공백 제거
-      .filter((sentence) => sentence.length > 0) // 빈 문장 제거
+      .filter((sentence) => sentence.length > 0 && sentence !== ".") // 빈 문장 제거
       .map((sentence) => {
         if (sentence.startsWith(".")) {
           // 문장이 '.'으로 시작하는 경우

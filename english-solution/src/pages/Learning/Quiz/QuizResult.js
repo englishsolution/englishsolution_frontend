@@ -49,8 +49,11 @@ const QuizResult = () => {
           const payload = {
             sentence_id_list: [],
             word_id_list: [],
-            quiz_id: quizId,
           };
+
+          if (quizId !== undefined) {
+            payload.quiz_id = quizId; // quizId가 undefined가 아닌 경우에만 추가
+          }
 
           console.log(payload);
 
