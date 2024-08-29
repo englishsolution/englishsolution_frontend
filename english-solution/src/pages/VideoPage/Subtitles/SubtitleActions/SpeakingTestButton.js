@@ -24,7 +24,18 @@ const SpeakingTestButton = ({ subtitle }) => {
   return (
     <>
       {/* 스피킹 테스트 모달 버튼 */}
-      <Button variant="outlined" onClick={openSpeakingModal}>
+      <Button
+        variant="outlined"
+        onClick={openSpeakingModal}
+        sx={{
+          marginRight: "10px",
+          maxWidth: "40px",
+          maxHeight: "40px",
+          minWidth: "unset",
+          fontSize: "20px",
+          border: "none",
+        }}
+      >
         🎤
       </Button>
 

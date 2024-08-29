@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-const QuizDataLoader = ({ onDataLoaded }) => {
+const QuizDataLoader = ({ onDataLoaded, onError }) => {
   const { quizType, videoId } = useParams();
 
   const user_id = "1"; // 임시 하드코딩, 로그인 연동 필요
@@ -13,7 +13,7 @@ const QuizDataLoader = ({ onDataLoaded }) => {
     const loadQuizData = async () => {
       try {
         let url = "";
-        let postData = { user_id: user_id, video_id: videoId };
+        let postData = { user_id: user_id, video_identify: videoId };
         let transformData = (data) => data.json_quiz.questions;
 
         if (quizType === "word") {
@@ -52,10 +52,21 @@ const QuizDataLoader = ({ onDataLoaded }) => {
         const response = await axios.post(`${url}`, postData);
 
         const quizData = transformData(response.data);
-        onDataLoaded(quizData);
+        const quizId = response.data.quiz_id;
+        onDataLoaded(quizData, quizId);
+        console.log(`퀴즈아이디: ${quizId}`);
+        // quizId가 undefined인 경우를 처리합니다.
+        if (!quizId) {
+          throw new Error("quiz_id가 응답에 없습니다.");
+        }
+        onDataLoaded(quizData, quizId);
+        console.log(`퀴즈아이디: ${quizId}`);
       } catch (error) {
         setError("퀴즈 데이터를 로딩하는 중 오류가 발생했습니다.");
         console.error("퀴즈 데이터 로딩 오류:", error);
+        if (onError) {
+          onError(error.message); // 에러 메시지를 onError 콜백으로 전달
+        }
       } finally {
         setLoading(false);
       }

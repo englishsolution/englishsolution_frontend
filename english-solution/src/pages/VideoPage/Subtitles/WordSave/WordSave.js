@@ -23,6 +23,8 @@ const WordSave = ({ word, videoId }) => {
 
     const videoLink = `https://www.youtube.com/watch?v=${videoId}`;
 
+    console.log(word, videoId);
+
     try {
       const response = await axios.post(
         "/save",

@@ -5,7 +5,7 @@ import "./QuizResult.css";
 
 const QuizResult = () => {
   const location = useLocation();
-  const { quizType, quizData, selectedOptions } = location.state || {};
+  const { quizType, quizData, selectedOptions, quizId } = location.state || {};
   const navigate = useNavigate();
 
   const [results, setResults] = useState(null);
@@ -49,7 +49,10 @@ const QuizResult = () => {
           const payload = {
             sentence_id_list: [],
             word_id_list: [],
+            quiz_id: quizId,
           };
+
+          console.log(payload);
 
           results.incorrectIds.forEach((id) => {
             if (
@@ -63,15 +66,24 @@ const QuizResult = () => {
             }
           });
 
+          if (quizType === "replay") {
+            payload.mode = "replay"; // 오답 퀴즈인 경우 mode를 추가
+          }
+
           if (
             payload.sentence_id_list.length > 0 ||
             payload.word_id_list.length > 0
           ) {
-            await axios.post("/quiz_result/", payload, {
+            const response = await axios.post("/quiz_result/", payload, {
               headers: {
                 "Content-Type": "application/json",
               },
             });
+
+            // 성공 시 콘솔에 출력
+            console.log("Successfully sent incorrect IDs:", response.data);
+          } else {
+            console.log("No incorrect IDs to send.");
           }
         } catch (error) {
           console.error("Error sending incorrect IDs:", error);
@@ -80,7 +92,7 @@ const QuizResult = () => {
 
       sendIncorrectIds();
     }
-  }, [results, quizType]);
+  }, [results, quizType, quizId]);
 
   if (!results) {
     return <div>Invalid Access</div>;
@@ -93,6 +105,7 @@ const QuizResult = () => {
   return (
     <div className="quiz-result-container">
       <h2 className="quiz-result-title">Quiz 결과</h2>
+      <p>퀴즈 아이디: {quizId}</p>
 
       <div className="results-summary">
         <div className="result-count">

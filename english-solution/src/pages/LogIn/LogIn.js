@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../AuthContext/AuthContext'; // useAuth import
-import './LogIn.css';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../AuthContext/AuthContext"; // useAuth import
+import "./LogIn.css";
 
 const LogIn = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const { login } = useAuth(); // useAuth를 통해 login 함수 가져오기
 
   useEffect(() => {
     // Kakao SDK 로드 및 초기화
-    const script = document.createElement('script');
-    script.src = 'https://developers.kakao.com/sdk/js/kakao.min.js';
+    const script = document.createElement("script");
+    script.src = "https://developers.kakao.com/sdk/js/kakao.min.js";
     script.async = true;
     script.onload = () => {
       if (window.Kakao) {
-        window.Kakao.init('YOUR_JAVASCRIPT_KEY'); // Kakao JavaScript SDK 키를 입력하세요
+        window.Kakao.init("YOUR_JAVASCRIPT_KEY"); // Kakao JavaScript SDK 키를 입력하세요
       }
     };
     document.body.appendChild(script);
@@ -25,10 +25,10 @@ const LogIn = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('http://15.165.135.23/login', {
-        method: 'POST',
+      const response = await fetch("http://13.125.48.140/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ username, password }),
       });
@@ -37,13 +37,13 @@ const LogIn = () => {
 
       if (response.ok && data.success) {
         login(); // 로그인 상태 설정
-        navigate('/'); // 메인 페이지로 리다이렉션
+        navigate("/"); // 메인 페이지로 리다이렉션
       } else {
-        setError(data.message || '로그인 실패. 다시 시도해 주세요.');
+        setError(data.message || "로그인 실패. 다시 시도해 주세요.");
       }
     } catch (error) {
-      console.error('로그인 중 오류 발생:', error);
-      setError('로그인 정보가 일치하지 않습니다.');
+      console.error("로그인 중 오류 발생:", error);
+      setError("로그인 정보가 일치하지 않습니다.");
     }
   };
 
@@ -77,7 +77,7 @@ const LogIn = () => {
           href="#"
           onClick={(e) => {
             e.preventDefault();
-            navigate('/find-id');
+            navigate("/find-id");
           }}
         >
           아이디 찾기
@@ -86,26 +86,20 @@ const LogIn = () => {
           href="#"
           onClick={(e) => {
             e.preventDefault();
-            navigate('/find-password');
+            navigate("/find-password");
           }}
         >
           비밀번호 찾기
         </a>
-        <button className="signup-button" onClick={() => navigate('/sign-up')}>
+        <button className="signup-button" onClick={() => navigate("/sign-up")}>
           회원가입
         </button>
       </div>
       <div className="divider"></div>
-      <button
-        className="kakao-button"
-        onClick={handleSocialLoginClick}
-      >
+      <button className="kakao-button" onClick={handleSocialLoginClick}>
         카카오 로그인
       </button>
-      <button
-        className="naver-button"
-        onClick={handleSocialLoginClick}
-      >
+      <button className="naver-button" onClick={handleSocialLoginClick}>
         네이버 로그인
       </button>
       {error && <p className="error-message">{error}</p>}

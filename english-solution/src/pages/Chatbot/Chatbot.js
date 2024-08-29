@@ -26,7 +26,8 @@ const Chatbot = () => {
   // 상태가 변경될 때마다 메시지를 전송합니다.
   useEffect(() => {
     if (currentMode) {
-      const userMessage = currentMode === "word" ? `Word (${difficulty})` : `${currentMode} 선택`;
+      const userMessage =
+        currentMode === "word" ? `Word (${difficulty})` : `${currentMode} 선택`;
       sendMessage(userMessage);
     }
   }, [currentMode, difficulty]);
@@ -36,7 +37,8 @@ const Chatbot = () => {
   useEffect(() => {
     if (currentMode === "topic") {
       // `topic` 모드로 변경될 때 챗봇이 자동으로 메시지를 보냅니다.
-      const initialMessage = "영상 주제로 대화하는 챗봇 모드로 변경되었습니다. 원하는 영상의 제목을 알려주세요.";
+      const initialMessage =
+        "영상 주제로 대화하는 챗봇 모드로 변경되었습니다. 원하는 영상의 제목을 알려주세요.";
       setMessages((prevMessages) => [
         ...prevMessages,
         { text: initialMessage, sender: "reply" },
@@ -47,7 +49,8 @@ const Chatbot = () => {
   //여기까지
 
   const sendMessage = (userMessage = null) => {
-    if (inputText.trim() === "" && currentMode === "general" && !userMessage) return;
+    if (inputText.trim() === "" && currentMode === "general" && !userMessage)
+      return;
 
     setLoading(true);
 
@@ -65,7 +68,7 @@ const Chatbot = () => {
       }),
     };
 
-    fetch("http://15.165.135.23/chatbot", requestData)
+    fetch("http://13.125.48.140/chatbot", requestData)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -76,10 +79,14 @@ const Chatbot = () => {
         if (data.error) {
           setError("서버 오류가 발생했습니다. 나중에 다시 시도해 주세요.");
         } else {
-          const botReplies = Array.isArray(data.reply) ? data.reply : [data.reply];
+          const botReplies = Array.isArray(data.reply)
+            ? data.reply
+            : [data.reply];
           setMessages((prevMessages) => [
             ...prevMessages,
-            ...(userMessage ? [{ text: userMessage, sender: "user" }] : [{ text: inputText, sender: "user" }]),
+            ...(userMessage
+              ? [{ text: userMessage, sender: "user" }]
+              : [{ text: inputText, sender: "user" }]),
             ...botReplies.map((reply, index) => ({
               text: reply,
               sender: "reply",
