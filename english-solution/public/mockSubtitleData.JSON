@@ -1,383 +1,540 @@
 {
   "url": "https://www.youtube.com/watch?v=6fqLL5MMTic",
-  "title": "\"Sharing is Caring: The Ant and the Grasshopper\"",
+  "title": "\"The Ants and the Grasshopper: A Lesson in Sharing",
   "thumbnail": "https://img.youtube.com/vi/6fqLL5MMTic/0.jpg",
-  "script": "[Music].it is a cold winter day the ants are eating [Music].a grasshopper comes may i have some food [Music].the ants are mad they do not want to share [Music].we work all summer we store food [Music].then we can eat in winter [Music].how was your summer what did you do [Music].i played music she says [Music].the ants are mad you played music in summer then dance in winter [Music].my music made everyone happy she says may i have some food [Music].no the ants say [Music].the grasshopper cries you have so much you are greedy [Music].she hops away [Music].wait one ant says come and eat with us [Music].the aunt asks her in [Music].the grasshopper eats [Music].the grasshopper plays music [Music].[Applause].the ants dance everyone is happy it is good to share [Music].",
+  "script": "It is a cold winter day. The ants are eating. A grasshopper comes, may i have some food. The ants are mad, they do not want to share. We work all summer, we store food, then we can eat in winter. How was your summer, what did you do. I played music, she says. The ants are mad, you played music in summer, then dance in winter. My music made everyone happy, she says, may i have some food. No, the ants say. The grasshopper cries, you have so much, you are greedy, she hops away. Wait, one ant says, come and eat with us. The ant asks her in. The grasshopper eats, the grasshopper plays music. The ants dance, everyone is happy, it is good to share.",
   "transcription_ko": [
-    { "text": "[Music]", "start": 4.36, "duration": 10.68 },
-    { "text": "그것은 추운 겨울날이야", "start": 11.519, "duration": 7.351 },
-    { "text": "개미들은 먹고 있어", "start": 15.04, "duration": 13.239 },
-    { "text": "[Music]", "start": 18.87, "duration": 9.409 },
-    { "text": "여기 메뚜기가 왔어", "start": 31.439, "duration": 6.621 },
-    { "text": "음식 좀 얻을 수 있을까", "start": 34.399, "duration": 7.281 },
-    { "text": "[Music]", "start": 38.06, "duration": 7.78 },
-    { "text": "개미들은 화가 나 있어", "start": 41.68, "duration": 4.16 },
-    { "text": "그들은 나누기를 원치 않아", "start": 46.239, "duration": 11.88 },
-    { "text": "[Music]", "start": 49.59, "duration": 8.529 },
-    { "text": "우리는 여름 내내 일했어", "start": 58.559, "duration": 6.32 },
-    { "text": "우리는 음식을 저장했어", "start": 61.44, "duration": 3.439 },
-    { "text": "[Music]", "start": 65.37, "duration": 7.069 },
     {
-      "text": "그러면 우리는 겨울에 먹을 수 있어",
+      "text": "[음악]",
+      "start": 4.36,
+      "duration": 10.68
+    },
+    {
+      "text": "추운 겨울날이야",
+      "start": 11.519,
+      "duration": 7.351
+    },
+    {
+      "text": "개미들이 먹고 있어",
+      "start": 15.04,
+      "duration": 13.239
+    },
+    {
+      "text": "[음악]",
+      "start": 18.87,
+      "duration": 9.409
+    },
+    {
+      "text": "메뚜기가 온다",
+      "start": 31.439,
+      "duration": 6.621
+    },
+    {
+      "text": "음식 좀 얻을 수 있을까",
+      "start": 34.399,
+      "duration": 7.281
+    },
+    {
+      "text": "[음악]",
+      "start": 38.06,
+      "duration": 7.78
+    },
+    {
+      "text": "개미들 화가 나",
+      "start": 41.68,
+      "duration": 4.16
+    },
+    {
+      "text": "나누기 싫어해",
+      "start": 46.239,
+      "duration": 11.88
+    },
+    {
+      "text": "[음악]",
+      "start": 49.59,
+      "duration": 8.529
+    },
+    {
+      "text": "여름 내내 일했어",
+      "start": 58.559,
+      "duration": 6.32
+    },
+    {
+      "text": "음식을 저장해",
+      "start": 61.44,
+      "duration": 3.439
+    },
+    {
+      "text": "[음악]",
+      "start": 65.37,
+      "duration": 7.069
+    },
+    {
+      "text": "그러면 겨울에 먹을 수 있어",
       "start": 68.08,
       "duration": 4.359
     },
-    { "text": "[Music]", "start": 76.43, "duration": 6.29 },
-    { "text": "너의 여름은 어땠니", "start": 80.0, "duration": 5.83 },
-    { "text": "너는 무엇을 했니", "start": 82.72, "duration": 10.519 },
-    { "text": "[Music]", "start": 85.83, "duration": 7.409 },
-    { "text": "나는 음악을 연주했어", "start": 94.479, "duration": 3.96 },
-    { "text": "그녀가 말해", "start": 102.56, "duration": 7.829 },
-    { "text": "[Music]", "start": 105.17, "duration": 5.219 },
-    { "text": "개미들은 화가 나 있어", "start": 114.159, "duration": 6.161 },
+    {
+      "text": "[음악]",
+      "start": 76.43,
+      "duration": 6.29
+    },
+    {
+      "text": "너는 여름에 뭐했어",
+      "start": 80.0,
+      "duration": 5.83
+    },
+    {
+      "text": "뭐 했어",
+      "start": 82.72,
+      "duration": 10.519
+    },
+    {
+      "text": "[음악]",
+      "start": 85.83,
+      "duration": 7.409
+    },
+    {
+      "text": "음악을 연주했어",
+      "start": 94.479,
+      "duration": 3.96
+    },
+    {
+      "text": "그녀가 말했어",
+      "start": 102.56,
+      "duration": 7.829
+    },
+    {
+      "text": "[음악]",
+      "start": 105.17,
+      "duration": 5.219
+    },
+    {
+      "text": "개미들 화가 나",
+      "start": 114.159,
+      "duration": 6.161
+    },
     {
       "text": "너는 여름에 음악을 연주했어",
       "start": 117.2,
       "duration": 7.559
     },
     {
-      "text": "그런 다음 겨울에 춤을 추지",
+      "text": "그럼 겨울에 춤추지",
       "start": 120.32,
       "duration": 4.439
     },
-    { "text": "[Music]", "start": 126.11, "duration": 3.239 },
+    {
+      "text": "[음악]",
+      "start": 126.11,
+      "duration": 3.239
+    },
     {
       "text": "내 음악은 모두를 행복하게 했어",
       "start": 134.239,
       "duration": 6.241
     },
-    { "text": "그녀가 말해", "start": 138.4, "duration": 5.37 },
-    { "text": "음식 좀 얻을 수 있을까", "start": 140.48, "duration": 8.679 },
-    { "text": "[Music]", "start": 143.77, "duration": 5.389 },
-    { "text": "아니", "start": 153.519, "duration": 4.881 },
-    { "text": "개미들이 말해", "start": 155.2, "duration": 3.2 },
-    { "text": "[Music]", "start": 159.51, "duration": 5.77 },
-    { "text": "메뚜기가 울어", "start": 161.519, "duration": 3.761 },
     {
-      "text": "너는 그렇게 많이 가지고 있어",
+      "text": "그녀가 말했어",
+      "start": 138.4,
+      "duration": 5.37
+    },
+    {
+      "text": "음식 좀 얻을 수 있을까",
+      "start": 140.48,
+      "duration": 8.679
+    },
+    {
+      "text": "[음악]",
+      "start": 143.77,
+      "duration": 5.389
+    },
+    {
+      "text": "아니",
+      "start": 153.519,
+      "duration": 4.881
+    },
+    {
+      "text": "개미들이 말했어",
+      "start": 155.2,
+      "duration": 3.2
+    },
+    {
+      "text": "[음악]",
+      "start": 159.51,
+      "duration": 5.77
+    },
+    {
+      "text": "메뚜기가 울어",
+      "start": 161.519,
+      "duration": 3.761
+    },
+    {
+      "text": "너는 많이 가지고 있어",
       "start": 165.68,
       "duration": 5.96
     },
-    { "text": "너는 탐욕스러워", "start": 167.92, "duration": 3.72 },
-    { "text": "[Music]", "start": 172.33, "duration": 11.39 },
-    { "text": "그녀는 뛰어나가", "start": 179.92, "duration": 3.8 },
-    { "text": "[Music]", "start": 184.19, "duration": 7.74 },
-    { "text": "기다려", "start": 193.84, "duration": 4.319 },
-    { "text": "한 마리 개미가 말해", "start": 195.84, "duration": 4.34 },
-    { "text": "우리와 함께 먹어", "start": 198.159, "duration": 12.321 },
-    { "text": "[Music]", "start": 200.18, "duration": 12.64 },
-    { "text": "개미는 그녀를 초대해", "start": 210.48, "duration": 7.85 },
-    { "text": "[Music]", "start": 212.82, "duration": 5.51 },
-    { "text": "메뚜기가 먹어", "start": 222.72, "duration": 4.2 },
-    { "text": "[Music]", "start": 227.52, "duration": 10.669 },
-    { "text": "메뚜기가 음악을 연주해", "start": 239.599, "duration": 5.841 },
-    { "text": "[Music]", "start": 241.85, "duration": 5.19 },
-    { "text": "[박수]", "start": 245.44, "duration": 4.4 },
-    { "text": "개미들이 춤을 춰", "start": 247.04, "duration": 6.759 },
-    { "text": "모두가 행복해", "start": 249.84, "duration": 3.959 },
-    { "text": "나누는 것이 좋아", "start": 254.959, "duration": 4.361 },
-    { "text": "[Music]", "start": 260.88, "duration": 2.74 }
+    {
+      "text": "탐욕스러워",
+      "start": 167.92,
+      "duration": 3.72
+    },
+    {
+      "text": "[음악]",
+      "start": 172.33,
+      "duration": 11.39
+    },
+    {
+      "text": "그녀는 뛰쳐나갔어",
+      "start": 179.92,
+      "duration": 3.8
+    },
+    {
+      "text": "[음악]",
+      "start": 184.19,
+      "duration": 7.74
+    },
+    {
+      "text": "기다려",
+      "start": 193.84,
+      "duration": 4.319
+    },
+    {
+      "text": "한 마리 개미가 말했어",
+      "start": 195.84,
+      "duration": 4.34
+    },
+    {
+      "text": "우리랑 같이 먹어",
+      "start": 198.159,
+      "duration": 12.321
+    },
+    {
+      "text": "[음악]",
+      "start": 200.18,
+      "duration": 12.64
+    },
+    {
+      "text": "개미가 그녀를 초대했어",
+      "start": 210.48,
+      "duration": 7.85
+    },
+    {
+      "text": "[음악]",
+      "start": 212.82,
+      "duration": 5.51
+    },
+    {
+      "text": "메뚜기가 먹어",
+      "start": 222.72,
+      "duration": 4.2
+    },
+    {
+      "text": "[음악]",
+      "start": 227.52,
+      "duration": 10.669
+    },
+    {
+      "text": "메뚜기가 음악을 연주해",
+      "start": 239.599,
+      "duration": 5.841
+    },
+    {
+      "text": "[음악]",
+      "start": 241.85,
+      "duration": 5.19
+    },
+    {
+      "text": "[박수]",
+      "start": 245.44,
+      "duration": 4.4
+    },
+    {
+      "text": "개미들이 춤춰",
+      "start": 247.04,
+      "duration": 6.759
+    },
+    {
+      "text": "모두가 행복해",
+      "start": 249.84,
+      "duration": 3.959
+    },
+    {
+      "text": "나누는 건 좋아",
+      "start": 254.959,
+      "duration": 4.361
+    },
+    {
+      "text": "[음악]",
+      "start": 260.88,
+      "duration": 2.74
+    }
   ],
   "transcription_en": [
     {
-      "subtitle_number": 1,
       "text": "[Music]",
       "start": 4.36,
       "duration": 10.68
     },
     {
-      "subtitle_number": 2,
-      "text": "It is a cold winter day.",
+      "text": "it is a cold winter day",
       "start": 11.519,
       "duration": 7.351
     },
     {
-      "subtitle_number": 3,
-      "text": "The ants are eating.",
+      "text": "the ants are eating",
       "start": 15.04,
       "duration": 13.239
     },
     {
-      "subtitle_number": 4,
       "text": "[Music]",
       "start": 18.87,
       "duration": 9.409
     },
     {
-      "subtitle_number": 5,
-      "text": "A grasshopper comes, \"May I have some food?\"",
+      "text": "a grasshopper comes",
       "start": 31.439,
       "duration": 6.621
     },
     {
-      "subtitle_number": 6,
-      "text": "The ants are mad.",
+      "text": "may i have some food",
       "start": 34.399,
       "duration": 7.281
     },
     {
-      "subtitle_number": 7,
       "text": "[Music]",
       "start": 38.06,
       "duration": 7.78
     },
     {
-      "subtitle_number": 8,
-      "text": "They do not want to share.",
+      "text": "the ants are mad",
       "start": 41.68,
       "duration": 4.16
     },
     {
-      "subtitle_number": 9,
-      "text": "We work all summer.",
+      "text": "they do not want to share",
       "start": 46.239,
       "duration": 11.88
     },
     {
-      "subtitle_number": 10,
-      "text": "We store food.",
+      "text": "[Music]",
       "start": 49.59,
       "duration": 8.529
     },
     {
-      "subtitle_number": 11,
-      "text": "[Music]",
+      "text": "we work all summer",
       "start": 58.559,
       "duration": 6.32
     },
     {
-      "subtitle_number": 12,
-      "text": "Then we can eat in winter.",
+      "text": "we store food",
       "start": 61.44,
       "duration": 3.439
     },
     {
-      "subtitle_number": 13,
       "text": "[Music]",
       "start": 65.37,
       "duration": 7.069
     },
     {
-      "subtitle_number": 14,
-      "text": "How was your summer?",
+      "text": "then we can eat in winter",
       "start": 68.08,
       "duration": 4.359
     },
     {
-      "subtitle_number": 15,
-      "text": "What did you do?",
+      "text": "[Music]",
       "start": 76.43,
       "duration": 6.29
     },
     {
-      "subtitle_number": 16,
-      "text": "[Music]",
+      "text": "how was your summer",
       "start": 80.0,
       "duration": 5.83
     },
     {
-      "subtitle_number": 17,
-      "text": "I played music,\" she says.",
+      "text": "what did you do",
       "start": 82.72,
       "duration": 10.519
     },
     {
-      "subtitle_number": 18,
       "text": "[Music]",
       "start": 85.83,
       "duration": 7.409
     },
     {
-      "subtitle_number": 19,
-      "text": "The ants are mad.",
+      "text": "i played music",
       "start": 94.479,
       "duration": 3.96
     },
     {
-      "subtitle_number": 20,
-      "text": "You played music in summer, then dance in winter.",
+      "text": "she says",
       "start": 102.56,
       "duration": 7.829
     },
     {
-      "subtitle_number": 21,
       "text": "[Music]",
       "start": 105.17,
       "duration": 5.219
     },
     {
-      "subtitle_number": 22,
-      "text": "My music made everyone happy,\" she says.",
+      "text": "the ants are mad",
       "start": 114.159,
       "duration": 6.161
     },
     {
-      "subtitle_number": 23,
-      "text": "May I have some food?",
+      "text": "you played music in summer",
       "start": 117.2,
       "duration": 7.559
     },
     {
-      "subtitle_number": 24,
-      "text": "[Music]",
+      "text": "then dance in winter",
       "start": 120.32,
       "duration": 4.439
     },
     {
-      "subtitle_number": 25,
-      "text": "No,\" the ants say.",
+      "text": "[Music]",
       "start": 126.11,
       "duration": 3.239
     },
     {
-      "subtitle_number": 26,
-      "text": "The grasshopper cries.",
+      "text": "my music made everyone happy",
       "start": 134.239,
       "duration": 6.241
     },
     {
-      "subtitle_number": 27,
-      "text": "You have so much, you are greedy.",
+      "text": "she says",
       "start": 138.4,
       "duration": 5.37
     },
     {
-      "subtitle_number": 28,
-      "text": "[Music]",
+      "text": "may i have some food",
       "start": 140.48,
       "duration": 8.679
     },
     {
-      "subtitle_number": 29,
-      "text": "She hops away.",
+      "text": "[Music]",
       "start": 143.77,
       "duration": 5.389
     },
     {
-      "subtitle_number": 30,
-      "text": "[Music]",
+      "text": "no",
       "start": 153.519,
       "duration": 4.881
     },
     {
-      "subtitle_number": 31,
-      "text": "Wait,\" one ant says.",
+      "text": "the ants say",
       "start": 155.2,
       "duration": 3.2
     },
     {
-      "subtitle_number": 32,
-      "text": "Come and eat with us.",
+      "text": "[Music]",
       "start": 159.51,
       "duration": 5.77
     },
     {
-      "subtitle_number": 33,
-      "text": "[Music]",
+      "text": "the grasshopper cries",
       "start": 161.519,
       "duration": 3.761
     },
     {
-      "subtitle_number": 34,
-      "text": "The ant asks her in.",
+      "text": "you have so much",
       "start": 165.68,
       "duration": 5.96
     },
     {
-      "subtitle_number": 35,
-      "text": "[Music]",
+      "text": "you are greedy",
       "start": 167.92,
       "duration": 3.72
     },
     {
-      "subtitle_number": 36,
-      "text": "The grasshopper eats.",
+      "text": "[Music]",
       "start": 172.33,
       "duration": 11.39
     },
     {
-      "subtitle_number": 37,
-      "text": "[Music]",
+      "text": "she hops away",
       "start": 179.92,
       "duration": 3.8
     },
     {
-      "subtitle_number": 38,
       "text": "[Music]",
       "start": 184.19,
       "duration": 7.74
     },
     {
-      "subtitle_number": 39,
-      "text": "Wait,\" one ant says.",
+      "text": "wait",
       "start": 193.84,
       "duration": 4.319
     },
     {
-      "subtitle_number": 40,
-      "text": "The grasshopper plays music.",
+      "text": "one ant says",
       "start": 195.84,
       "duration": 4.34
     },
     {
-      "subtitle_number": 41,
-      "text": "[Music]",
+      "text": "come and eat with us",
       "start": 198.159,
       "duration": 12.321
     },
     {
-      "subtitle_number": 42,
-      "text": "The ants dance.",
+      "text": "[Music]",
       "start": 200.18,
       "duration": 12.64
     },
     {
-      "subtitle_number": 43,
-      "text": "[Music]",
+      "text": "the aunt asks her in",
       "start": 210.48,
       "duration": 7.85
     },
     {
-      "subtitle_number": 44,
-      "text": "The grasshopper plays music.",
+      "text": "[Music]",
       "start": 212.82,
       "duration": 5.51
     },
     {
-      "subtitle_number": 45,
-      "text": "[Applause]",
+      "text": "the grasshopper eats",
       "start": 222.72,
       "duration": 4.2
     },
     {
-      "subtitle_number": 46,
       "text": "[Music]",
       "start": 227.52,
       "duration": 10.669
     },
     {
-      "subtitle_number": 47,
-      "text": "Everyone is happy.",
+      "text": "the grasshopper plays music",
       "start": 239.599,
       "duration": 5.841
     },
     {
-      "subtitle_number": 48,
       "text": "[Music]",
       "start": 241.85,
       "duration": 5.19
     },
     {
-      "subtitle_number": 49,
-      "text": "It is good to share.",
+      "text": "[Applause]",
       "start": 245.44,
       "duration": 4.4
     },
     {
-      "subtitle_number": 50,
-      "text": "[Music]",
+      "text": "the ants dance",
       "start": 247.04,
       "duration": 6.759
+    },
+    {
+      "text": "everyone is happy",
+      "start": 249.84,
+      "duration": 3.959
+    },
+    {
+      "text": "it is good to share",
+      "start": 254.959,
+      "duration": 4.361
+    },
+    {
+      "text": "[Music]",
+      "start": 260.88,
+      "duration": 2.74
     }
   ]
 }

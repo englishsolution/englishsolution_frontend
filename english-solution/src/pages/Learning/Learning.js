@@ -14,7 +14,7 @@ const Learning = () => {
     // API에서 데이터를 가져오는 함수
     const fetchData = async () => {
       try {
-        const response = await fetch("http://15.165.135.23/realtime/videos/");
+        const response = await fetch("http://13.125.48.140/realtime/videos/");
         if (!response.ok) {
           throw new Error(
             `Network response was not ok: ${response.statusText}`

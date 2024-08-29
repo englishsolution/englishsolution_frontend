@@ -18,7 +18,7 @@ const DescriptionToggleButton = ({ sentence }) => {
   return (
     <div>
       <Button variant="contained" onClick={toggleDescription}>
-        {showDescription ? "Hide Description" : "Show Description"}
+        {showDescription ? "문장분석 닫기" : "문장분석 열기"}
       </Button>
 
       {showDescription && (

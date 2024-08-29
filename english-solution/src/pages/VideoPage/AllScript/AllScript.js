@@ -8,16 +8,21 @@ const AllScript = ({ videoId }) => {
 
   // script 데이터를 문장 단위로 처리하는 함수
   const processScript = (script) => {
-    return script
-      .split("[Music]") // [Music]으로 구분
-      .flatMap(
-        (part) =>
-          part
-            // 문장 끝의 구두점 뒤에서 분리하고 구두점을 유지
-            .match(/[^.!?]+[.!?]+[\s]*/g)
-            .map((sentence) => sentence.trim()) // 앞뒤 공백 제거
-            .filter((sentence) => sentence.length > 0) // 빈 문장 제거
-      );
+    const sentences = script
+      .replace(/\[.*?\]/g, "")
+      // 문장 끝의 구두점(.?! 뒤에 공백이 있을 경우)으로 문장을 구분
+      .split(/(?<=[.?!])\s+/)
+      .map((sentence) => sentence.trim()) // 앞뒤 공백 제거
+      .filter((sentence) => sentence.length > 0) // 빈 문장 제거
+      .map((sentence) => {
+        if (sentence.startsWith(".")) {
+          // 문장이 '.'으로 시작하는 경우
+          return sentence.substring(1) + "."; // 앞의 '.'을 제거하고 문장 끝에 추가
+        }
+        return sentence; // 그렇지 않으면 원래 문장 반환
+      });
+
+    return sentences;
   };
 
   useEffect(() => {

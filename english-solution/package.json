@@ -1,7 +1,7 @@
 {
   "name": "english-solution",
   "version": "0.1.0",
-  "proxy": "http://15.165.135.23",
+  "proxy": "http://13.125.48.140",
   "private": true,
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",

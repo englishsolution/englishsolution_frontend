@@ -22,6 +22,8 @@ const SentenceSave = ({ sentence, videoId }) => {
   const saveSentenceToDatabase = async () => {
     const videoLink = `https://www.youtube.com/watch?v=${videoId}`;
 
+    console.log(sentence, videoLink);
+
     try {
       const response = await axios.post(
         "/save",
@@ -38,7 +40,7 @@ const SentenceSave = ({ sentence, videoId }) => {
       );
 
       if (response.data.message === "sentence saved successfully") {
-        console.log("Sentence saved successfully.");
+        console.log("저장된 문장:", sentence);
         setIsSaved(true); // 저장 완료 상태로 업데이트
         handleCloseDialog(); // 저장 후 다이얼로그 닫기
       }
@@ -55,9 +57,14 @@ const SentenceSave = ({ sentence, videoId }) => {
         variant="outlined"
         onClick={handleOpenDialog}
         disabled={isSaved}
-        style={{
+        sx={{
           cursor: isSaved ? "default" : "pointer",
           marginRight: "10px",
+          maxWidth: "40px",
+          maxHeight: "40px",
+          minWidth: "unset",
+          fontSize: "20px",
+          border: "none",
         }}
         aria-disabled={isSaved}
       >
