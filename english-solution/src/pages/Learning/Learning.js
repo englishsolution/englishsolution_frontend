@@ -22,11 +22,9 @@ const Learning = () => {
         }
         const result = await response.json();
 
-        const length = result.length;
-
         // title 필드와 video_identify 필드 사용
         const titles = result.map((item, index) => ({
-          index: length - index, // 역순 인덱스 계산
+          index: index + 1, // 역순 인덱스 계산
           title: item.title,
           videoId: item.video_identify, // 비디오 ID 직접 사용
         }));
@@ -45,9 +43,10 @@ const Learning = () => {
     setSearchTerm(e.target.value);
   };
 
-  const handleGoToQuiz = (type, index, title) => {
+  const handleGoToQuiz = (type, videoId, title) => {
     // 퀴즈 페이지로 이동할 때 순서 정보를 사용
-    navigate(`/learning/Quiz/${type}/${index}`, {
+    console.log(videoId);
+    navigate(`/learning/Quiz/${type}/${videoId}`, {
       state: { title }, // 상태로 title 전달
     });
   };
@@ -110,15 +109,8 @@ const Learning = () => {
               </td>
               <td>
                 <button
-                  onClick={() => handleGoToQuiz("word", item.index, item.title)}
-                >
-                  응시하기
-                </button>
-              </td>
-              <td>
-                <button
                   onClick={() =>
-                    handleGoToQuiz("sentence", item.index, item.title)
+                    handleGoToQuiz("word", item.videoId, item.title)
                   }
                 >
                   응시하기
@@ -127,7 +119,16 @@ const Learning = () => {
               <td>
                 <button
                   onClick={() =>
-                    handleGoToQuiz("replay", item.index, item.title)
+                    handleGoToQuiz("sentence", item.videoId, item.title)
+                  }
+                >
+                  응시하기
+                </button>
+              </td>
+              <td>
+                <button
+                  onClick={() =>
+                    handleGoToQuiz("replay", item.videoId, item.title)
                   }
                 >
                   응시하기

@@ -9,7 +9,9 @@ const QuizTemplate = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState({});
   const [quizData, setQuizData] = useState([]);
+  const [quizId, setQuizId] = useState(null);
   const [showResults, setShowResults] = useState(false);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const { title } = location.state || {};
@@ -38,18 +40,28 @@ const QuizTemplate = () => {
         quizType,
         quizData,
         selectedOptions,
+        quizId,
       },
     });
   };
 
-  const handleDataLoaded = (data) => {
+  const handleDataLoaded = (data, quizId) => {
     setQuizData(data);
+    setQuizId(quizId);
   };
+
+  const handleError = (error) => {
+    setError(error);
+  };
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   if (!quizData.length && !showResults) {
     return (
       <div>
-        <QuizDataLoader onDataLoaded={handleDataLoaded} />
+        <QuizDataLoader onDataLoaded={handleDataLoaded} onError={handleError} />
       </div>
     );
   }

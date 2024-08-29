@@ -5,13 +5,30 @@ import SentenceConfirm from "../../../../components/ConfirmDialog/SentenceConfir
 
 const SentenceSave = ({ sentence, videoId }) => {
   const [openDialog, setOpenDialog] = useState(false);
-  const [isSaved, setIsSaved] = useState(false);
+  const [currentSentence, setCurrentSentence] = useState("");
+  const [currentVideoId, setCurrentVideoId] = useState("");
 
   useEffect(() => {
-    setIsSaved(false);
-  }, [sentence]);
+    if (openDialog) {
+      console.log(
+        "Dialog opened with sentence:",
+        currentSentence,
+        "and video ID:",
+        currentVideoId
+      );
+    }
+  }, [currentSentence, currentVideoId, openDialog]);
+
+  useEffect(() => {
+    // 다이얼로그가 열린 직후 상태를 콘솔에 출력
+    if (openDialog) {
+      console.log("State updated:", currentSentence, currentVideoId);
+    }
+  }, [currentSentence, currentVideoId]);
 
   const handleOpenDialog = () => {
+    setCurrentSentence(sentence);
+    setCurrentVideoId(videoId);
     setOpenDialog(true);
   };
 
@@ -20,16 +37,21 @@ const SentenceSave = ({ sentence, videoId }) => {
   };
 
   const saveSentenceToDatabase = async () => {
-    const videoLink = `https://www.youtube.com/watch?v=${videoId}`;
+    const videoLink = `https://www.youtube.com/watch?v=${currentVideoId}`;
 
-    console.log(sentence, videoLink);
+    console.log(
+      "Saving sentence:",
+      currentSentence,
+      "with video link:",
+      videoLink
+    );
 
     try {
       const response = await axios.post(
         "/save",
         {
           category: "sentence",
-          sentence: sentence,
+          sentence: currentSentence,
           video_link: videoLink,
         },
         {
@@ -40,8 +62,7 @@ const SentenceSave = ({ sentence, videoId }) => {
       );
 
       if (response.data.message === "sentence saved successfully") {
-        console.log("저장된 문장:", sentence);
-        setIsSaved(true); // 저장 완료 상태로 업데이트
+        console.log("저장된 문장:", currentSentence);
         handleCloseDialog(); // 저장 후 다이얼로그 닫기
       }
     } catch (error) {
@@ -56,9 +77,8 @@ const SentenceSave = ({ sentence, videoId }) => {
       <Button
         variant="outlined"
         onClick={handleOpenDialog}
-        disabled={isSaved}
         sx={{
-          cursor: isSaved ? "default" : "pointer",
+          cursor: "pointer",
           marginRight: "10px",
           maxWidth: "40px",
           maxHeight: "40px",
@@ -66,15 +86,14 @@ const SentenceSave = ({ sentence, videoId }) => {
           fontSize: "20px",
           border: "none",
         }}
-        aria-disabled={isSaved}
       >
-        {isSaved ? "" : "⭐"}
+        ⭐
       </Button>
       <SentenceConfirm
         open={openDialog}
         onClose={handleCloseDialog}
         onConfirm={saveSentenceToDatabase}
-        subtitle={{ englishSubtitle: sentence }}
+        subtitle={{ englishSubtitle: currentSentence }}
       />
     </>
   );
