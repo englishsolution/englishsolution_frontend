@@ -4,9 +4,18 @@ import axios from "axios";
 export const fetchBackendSubtitles = async (videoId) => {
   try {
     // 백엔드 API 호출
-    const response = await axios.post("/api/get_subtitles/", {
-      url: `https://www.youtube.com/watch?v=${videoId}`,
-    });
+    const response = await axios.post(
+      `/processing_url/`,
+      {
+        url: `https://www.youtube.com/watch?v=${videoId}`,
+        user_id: 1,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     return response.data;
   } catch (error) {
     console.error("Error fetching backend subtitles:", error);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Learning.css"; // 스타일링을 위한 CSS 파일
+import "./Learning.css"; // Ensure this CSS file handles the styles as per the screenshot
 
 const Learning = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -11,15 +11,21 @@ const Learning = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Function to fetch data from API
+    // API에서 데이터를 가져오는 함수
     const fetchData = async () => {
       try {
-        const response = await fetch("http://15.165.135.23/save"); // Replace with your API endpoint
+        const response = await fetch("http://13.125.48.140/realtime/videos/");
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          throw new Error(`Network response was not ok: ${response.statusText}`);
         }
         const result = await response.json();
-        setData(result);
+        // title 필드와 video_identify 필드 사용
+        const titles = result.map((item, index) => ({
+          index: index + 1, // 순서 정보를 추가
+          title: item.title,
+          videoId: item.video_identify // 비디오 ID 직접 사용
+        }));
+        setData(titles.reverse());
         setLoading(false);
       } catch (error) {
         setError(error.message);
@@ -34,16 +40,18 @@ const Learning = () => {
     setSearchTerm(e.target.value);
   };
 
-  const handleGoToQuiz = (type, id) => {
-    navigate(`/learning/Quiz/${type}/${id}`);
+  const handleGoToQuiz = (type, index) => {
+    // 퀴즈 페이지로 이동할 때 순서 정보를 사용
+    navigate(`/learning/Quiz/${type}/${index}`);
   };
 
   const handleGoToVideo = (videoId) => {
+    // 비디오 페이지로 이동
     const url = `/video/${videoId}`;
-    navigate(url);
+    navigate(url); // navigate를 사용하여 URL로 이동
   };
 
-  // 필터링된 데이터
+  // 검색어에 따른 필터링된 데이터
   const filteredData = data.filter((item) =>
     item.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -53,26 +61,26 @@ const Learning = () => {
 
   return (
     <div className="learning-container">
-      <h1>저장된 기록</h1>
+      <h1>Active issues</h1>
       <div className="search-bar">
         <input
           type="text"
-          placeholder="영상 제목으로 검색"
+          placeholder="Search tickets..."
           value={searchTerm}
           onChange={handleSearchChange}
         />
       </div>
       <button
         className="quiz-button"
-        onClick={() => navigate("/learning/quiz")}
+        onClick={() => navigate("/learning/Quiz/all")}
       >
-        전체 퀴즈 응시하기
+        전체 QUIZ 응시하기
       </button>
       <table className="learning-table">
         <thead>
           <tr>
-            <th>번호</th>
-            <th>제목</th>
+            <th>Number</th>
+            <th>Title</th>
             <th>단어시험</th>
             <th>문장시험</th>
             <th>오답시험</th>
@@ -80,25 +88,28 @@ const Learning = () => {
         </thead>
         <tbody>
           {filteredData.map((item, index) => (
-            <tr key={item.id}>
-              <td>{index + 1}</td>
+            <tr key={index + 1}>
+              <td>{item.index}</td>
               <td>
-                <a href="#" onClick={() => handleGoToVideo(item.id)}>
+                <a href="#" onClick={(e) => {
+                  e.preventDefault(); // 기본 링크 클릭 동작 방지
+                  handleGoToVideo(item.videoId);
+                }}>
                   {item.title}
                 </a>
               </td>
               <td>
-                <button onClick={() => handleGoToQuiz("word", item.id)}>
+                <button onClick={() => handleGoToQuiz("word", item.index)}>
                   응시하기
                 </button>
               </td>
               <td>
-                <button onClick={() => handleGoToQuiz("sentence", item.id)}>
+                <button onClick={() => handleGoToQuiz("sentence", item.index)}>
                   응시하기
                 </button>
               </td>
               <td>
-                <button onClick={() => handleGoToQuiz("wrong", item.id)}>
+                <button onClick={() => handleGoToQuiz("replay", item.index)}>
                   응시하기
                 </button>
               </td>

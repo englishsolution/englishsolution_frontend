@@ -1,31 +1,37 @@
 .learning-container {
-  padding: 20px;
-  max-width: 1200px;
+  width: 80%;
   margin: 0 auto;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
 }
 
 .search-bar {
   margin-bottom: 20px;
-  text-align: left; /* 검색 바를 왼쪽 정렬 */
 }
 
 .search-bar input {
-  padding: 10px;
   width: 100%;
-  max-width: 300px;
+  padding: 10px;
+  font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
 .quiz-button {
   display: block;
-  margin: 20px auto; /* 중앙 정렬 */
-  padding: 10px 20px;
+  width: 100%;
+  padding: 10px;
   background-color: #007bff;
-  color: #fff;
+  color: white;
   border: none;
   border-radius: 4px;
+  font-size: 16px;
   cursor: pointer;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 .quiz-button:hover {
@@ -38,16 +44,34 @@
 }
 
 .learning-table th, .learning-table td {
-  padding: 12px;
-  text-align: center;
+  padding: 10px;
+  text-align: left;
   border-bottom: 1px solid #ddd;
 }
 
-.learning-table tr:hover {
-  background-color: #f5f5f5;
+.learning-table th {
+  background-color: #f8f8f8;
 }
 
-.learning-table th {
-  background-color: #f4f4f4;
-  font-weight: bold;
+.learning-table a {
+  color: black; /* 색상을 검정색으로 설정 */
+  text-decoration: none; /* 밑줄 제거 */
+}
+
+
+.learning-table td a:hover {
+  text-decoration: underline;
+}
+
+.learning-table button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.learning-table button:hover {
+  background-color: #0056b3;
 }

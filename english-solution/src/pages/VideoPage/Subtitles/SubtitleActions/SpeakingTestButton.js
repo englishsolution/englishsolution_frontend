@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
-import SpeakingModal from "./SpeakingModal";
+import SpeakingModal from "../../SpeakingModal/SpeakingModal";
 
 /**
  * 스피킹 테스트 버튼과 모달을 관리하는 컴포넌트

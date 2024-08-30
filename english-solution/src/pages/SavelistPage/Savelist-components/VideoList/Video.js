@@ -5,16 +5,18 @@ const Video = ({ video }) => {
   const navigate = useNavigate();
 
   const handleImgClick = () => {
-    navigate(`/video/${video.video_id}`);
+    navigate(`/video/${video.video_identify}`);
   };
 
-  const handleSentenceClick = () => {
-    navigate(`/save-list/sentences/${video.video_id}`);
-  };
+  const formattedDate = new Date(video.save_date).toLocaleDateString("ko-KR", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
-  const handleWordClick = () => {
-    navigate(`/save-list/words/${video.video_id}`);
-  };
+  console.log(video);
 
   return (
     <div className="video">
@@ -25,14 +27,7 @@ const Video = ({ video }) => {
         onClick={handleImgClick}
       />
       <h3 className="video-title">{video.title}</h3>
-      <div className="video-btns">
-        <button className="video-btns__sentences" onClick={handleSentenceClick}>
-          문장 보기
-        </button>
-        <button className="video-btns__words" onClick={handleWordClick}>
-          단어 보기
-        </button>
-      </div>
+      <p className="video-date">{formattedDate}</p>
     </div>
   );
 };

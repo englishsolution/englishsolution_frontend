@@ -1,33 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Cookies from "js-cookie";
-import "./Chatbot.css"; // Chatbot 스타일링 파일
+import "./Chatbot.css";
 
 const Chatbot = () => {
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState("");
   const [csrftoken, setCsrfToken] = useState("");
-  const [currentPrompt, setCurrentPrompt] = useState("general");
+  const [currentMode, setCurrentMode] = useState("general");
+  const [difficulty, setDifficulty] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [videoTitles, setVideoTitles] = useState([]);
+  const [selectedTitle, setSelectedTitle] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
-    // 페이지 로딩 시 초기화 시키기 위함
     setCsrfToken(Cookies.get("csrftoken"));
   }, []);
 
-  const sendMessage = (prompt) => {
-    if (inputText.trim() === "") return;
+  useEffect(() => {
+    const messagesEnd = document.getElementById("messages-end");
+    if (messagesEnd) {
+      messagesEnd.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
 
-    // Prepare request data
-    const requestData = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-CSRFToken": csrftoken,
-      },
-      body: JSON.stringify({ mode: prompt, prompt: inputText }),
-    };
+  useEffect(() => {
+    if (currentMode === "topic" && selectedTitle === "") {
+      fetchVideoTitles();
+    }
+  }, [currentMode, selectedTitle]);
 
-    // Send message to backend
-    fetch("http://15.165.135.23/chatbot", requestData)
+  const fetchVideoTitles = useCallback(() => {
+    setLoading(true);
+    fetch("/realtime/videos")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -35,77 +41,161 @@ const Chatbot = () => {
         return response.json();
       })
       .then((data) => {
-        const botReplies = data.replies; // Assuming 'data.replies' is an array of replies
-        // Update messages state with user input and bot replies
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { text: inputText, sender: "user" },
-
-          ...botReplies.map((reply, index) => ({
-            text: reply,
-            sender: "bot",
-            key: index,
-          })),
-
-        ]);
-        // Clear input text
-        setInputText("");
+        if (Array.isArray(data)) {
+          setVideoTitles(data.map(item => item.title));
+          setShowPopup(true);
+        } else {
+          setError("영상 제목을 불러오는 중 오류가 발생했습니다.");
+        }
       })
-      .catch((error) => {
-        console.error("Error sending message:", error);
+      .catch(() => {
+        setError("네트워크 오류가 발생했습니다. 다시 시도해 주세요.");
+      })
+      .finally(() => {
+        setLoading(false);
       });
-  };
+  }, []);
 
-  const handleKeyPress = (event) => {
-    if (event.key === "Enter") {
-      sendMessage(currentPrompt);
+  const sendMessage = useCallback(() => {
+    if (
+      (inputText.trim() === "" && currentMode === "general") ||
+      (currentMode === "topic" && selectedTitle === "")
+    ) {
+      return;
     }
-  };
+
+    setLoading(true);
+
+    const requestData = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": csrftoken,
+      },
+      body: JSON.stringify({
+        mode: currentMode,
+        prompt: currentMode === "general" || currentMode === "topic" ? inputText : null,
+        difficulty: currentMode === "word" ? difficulty : null,
+        video_title: currentMode === "topic" ? selectedTitle : null,
+      }),
+    };
+
+    fetch("http://13.125.48.140/chatbot", requestData)
+      .then((response) => {
+        if (!response.ok) {
+          return response.text().then((text) => {
+            throw new Error(`Network response was not ok: ${text}`);
+          });
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.error) {
+          setError("서버 오류가 발생했습니다. 나중에 다시 시도해 주세요.");
+        } else {
+          const botReplies = Array.isArray(data.reply) ? data.reply : [data.reply];
+          setMessages((prevMessages) => [
+            ...prevMessages,
+            { text: inputText, sender: "user" },
+            ...botReplies.map((reply, index) => ({
+              text: typeof reply === 'string' ? reply : JSON.stringify(reply),
+              sender: "reply",
+              key: index,
+            })),
+          ]);
+          setInputText("");
+          setError("");
+        }
+      })
+      .catch(() => {
+        setError("네트워크 오류가 발생했습니다. 다시 시도해 주세요.");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [inputText, currentMode, difficulty, selectedTitle, csrftoken]);
+
+  const handleButtonClick = useCallback((mode, difficulty = "") => {
+    if (currentMode === mode) {
+      // 현재 모드와 같은 모드를 클릭한 경우에는 아무 것도 하지 않음
+      return;
+    }
+
+    // 모드 변경 처리
+    setCurrentMode(mode);
+    setDifficulty(mode === "word" ? difficulty : "");
+    setSelectedTitle("");
+
+    if (mode === "topic") {
+      setShowPopup(true);
+    } else if (mode === "word") {
+      sendMessage(); // Word 모드로 변경 시 자동으로 메시지 전송
+    }
+  }, [currentMode, sendMessage]);
+
+  const handleKeyPress = useCallback((event) => {
+    if (event.key === "Enter") {
+      sendMessage();
+      event.preventDefault();
+    }
+  }, [sendMessage]);
+
+  const handleVideoTitleSelection = useCallback((title) => {
+    setSelectedTitle(title);
+    setShowPopup(false);
+    sendMessage(); // 제목을 선택하면 메시지를 전송합니다.
+  }, [sendMessage]);
 
   return (
     <div className="chatbot-container">
       <div className="chatbot-messages">
         {messages.map((msg, index) => (
           <div key={index} className={`message ${msg.sender}`}>
-
             <div className="message-bubble">{msg.text}</div>
-
           </div>
         ))}
+        <div id="messages-end" />
       </div>
+
+      {error && <div className="error-message">{error}</div>}
+      {loading && <div className="loading-message">로딩 중...</div>}
 
       <div className="button-container">
-        <button
-          className="chatbot-button wordbutton"
-
-          onClick={() => setCurrentPrompt("high")}
-
-        >
-          Word (상)
-        </button>
-        <button
-          className="chatbot-button wordbutton"
-
-          onClick={() => setCurrentPrompt("medium")}
-
-        >
-          Word (중)
-        </button>
-        <button
-          className="chatbot-button wordbutton"
-
-          onClick={() => setCurrentPrompt("low")}
-
-        >
-          Word (하)
-        </button>
+        {["advanced", "intermediate", "easy"].map((level) => (
+          <button
+            key={level}
+            className="chatbot-button wordbutton"
+            onClick={() => handleButtonClick("word", level)}
+          >
+            Word ({level})
+          </button>
+        ))}
         <button
           className="chatbot-button speakingbutton"
-          onClick={() => sendMessage(currentPrompt)}
+          onClick={() => handleButtonClick("topic")}
         >
-          Speaking
+          영상주제
         </button>
       </div>
+
+      {showPopup && (
+        <div className="video-title-popup">
+          <h3>영상 제목을 선택하세요:</h3>
+          <ul>
+            {videoTitles.map((title, index) => (
+              <li
+                key={index}
+                onClick={() => handleVideoTitleSelection(title)}
+                className={selectedTitle === title ? "selected" : ""}
+              >
+                {title}
+              </li>
+            ))}
+          </ul>
+          <button onClick={() => setShowPopup(false)}>확인</button>
+        </div>
+      )}
+
       <div className="chatbot-input-container">
         <input
           type="text"
@@ -115,10 +205,7 @@ const Chatbot = () => {
           onKeyPress={handleKeyPress}
           className="chatbot-input"
         />
-        <button
-          className="chatbot-button"
-          onClick={() => sendMessage(currentPrompt)}
-        >
+        <button className="chatbot-button" onClick={sendMessage}>
           Send
         </button>
       </div>
