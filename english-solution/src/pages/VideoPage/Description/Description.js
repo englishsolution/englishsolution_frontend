@@ -19,7 +19,7 @@ const Description = ({ sentence }) => {
         try {
           const response = await axios.post(
             `/sentence`,
-            { sentence: sentence }, // 여기서 'setence' 오타를 'sentence'로 수정
+            { sentence: sentence },
             {
               headers: {
                 "Content-Type": "application/json",

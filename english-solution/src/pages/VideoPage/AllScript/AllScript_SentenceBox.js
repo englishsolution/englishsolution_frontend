@@ -14,7 +14,7 @@ const AllScript_SentenceBox = ({ sentence, videoId }) => {
         boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.1)",
       }}
     >
-      <Typography variant="body2" style={{ flexGrow: 1 }}>
+      <Typography variant="body2" style={{ flexGrow: 1, fontSize: "16px" }}>
         {sentence}
       </Typography>
       <SentenceSave sentence={sentence} videoId={videoId} />

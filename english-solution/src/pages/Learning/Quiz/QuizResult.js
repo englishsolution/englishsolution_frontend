@@ -5,7 +5,7 @@ import "./QuizResult.css";
 
 const QuizResult = () => {
   const location = useLocation();
-  const { quizType, quizData, selectedOptions } = location.state || {};
+  const { quizType, quizData, selectedOptions, quizId } = location.state || {};
   const navigate = useNavigate();
 
   const [results, setResults] = useState(null);
@@ -25,13 +25,9 @@ const QuizResult = () => {
           correctAnswers.push(question);
         } else {
           incorrectAnswers.push(question);
-          incorrectIds.push(question.id); // 오답의 문제 ID를 저장
+          incorrectIds.push(question.id);
         }
       });
-
-      console.log("퀴즈 문제 데이터:", quizData);
-      console.log("선택된 옵션:", selectedOptions);
-      console.log("오답 문제 ID:", incorrectIds);
 
       return {
         correctCount: correctAnswers.length,
@@ -46,7 +42,6 @@ const QuizResult = () => {
     setResults(calculatedResults);
   }, [quizData, selectedOptions]);
 
-  // 오답 ID 리스트 서버로 전송
   useEffect(() => {
     if (results && results.incorrectIds.length > 0) {
       const sendIncorrectIds = async () => {
@@ -56,7 +51,12 @@ const QuizResult = () => {
             word_id_list: [],
           };
 
-          // quizType에 따라 올바른 배열에 ID 추가
+          if (quizId !== undefined) {
+            payload.quiz_id = quizId; // quizId가 undefined가 아닌 경우에만 추가
+          }
+
+          console.log(payload);
+
           results.incorrectIds.forEach((id) => {
             if (
               quizData.some(
@@ -69,89 +69,103 @@ const QuizResult = () => {
             }
           });
 
-          // 데이터 전송 전 콘솔 로그로 확인
-          console.log("전송할 데이터:", payload);
+          if (quizType === "replay") {
+            payload.mode = "replay"; // 오답 퀴즈인 경우 mode를 추가
+          }
 
           if (
             payload.sentence_id_list.length > 0 ||
             payload.word_id_list.length > 0
           ) {
-            await axios.post("/quiz_result/", payload, {
+            const response = await axios.post("/quiz_result/", payload, {
               headers: {
                 "Content-Type": "application/json",
               },
             });
-            console.log("오답 ID 리스트 전송 완료:", payload);
+
+            // 성공 시 콘솔에 출력
+            console.log("Successfully sent incorrect IDs:", response.data);
+          } else {
+            console.log("No incorrect IDs to send.");
           }
         } catch (error) {
-          console.error("오답 ID 리스트 전송 중 오류 발생:", error);
+          console.error("Error sending incorrect IDs:", error);
         }
       };
 
       sendIncorrectIds();
     }
-  }, [results, quizType]);
+  }, [results, quizType, quizId]);
 
   if (!results) {
-    return <div>잘못된 접근입니다.</div>;
+    return <div>Invalid Access</div>;
   }
 
-  // 학습 페이지로 돌아가는 핸들러
   const handleGoToLearning = () => {
     navigate(`/learning`);
   };
 
   return (
-    <div className="results">
-      <h2>결과 화면</h2>
-      <p>맞은 개수: {results.correctCount}</p>
-      <p>틀린 개수: {results.incorrectCount}</p>
+    <div className="quiz-result-container">
+      <h2 className="quiz-result-title">Quiz 결과</h2>
+      <p>퀴즈 아이디: {quizId}</p>
 
-      {quizType === "word" ? (
-        <>
-          <h3>맞은 문제</h3>
-          <ul>
-            {results.correctAnswers.map((question, index) => (
-              <li key={index}>
-                {question.word} - 정답: {question.answer}
-              </li>
-            ))}
-          </ul>
-          <h3>틀린 문제</h3>
-          <ul>
-            {results.incorrectAnswers.map((question, index) => (
-              <li key={index}>
-                {question.word} - 당신의 답:{" "}
-                {selectedOptions[quizData.indexOf(question)]}, 정답:{" "}
-                {question.answer}
-              </li>
-            ))}
-          </ul>
-        </>
-      ) : (
-        <>
-          <h3>맞은 문제</h3>
-          <ul>
-            {results.correctAnswers.map((question, index) => (
-              <li key={index}>
-                {question.sentence} - 정답: {question.answer}
-              </li>
-            ))}
-          </ul>
-          <h3>틀린 문제</h3>
-          <ul>
-            {results.incorrectAnswers.map((question, index) => (
-              <li key={index}>
-                {question.sentence} - 당신의 답:{" "}
-                {selectedOptions[quizData.indexOf(question)]}, 정답:{" "}
-                {question.answer}
-              </li>
-            ))}
-          </ul>
-        </>
-      )}
+      <div className="results-summary">
+        <div className="result-count">
+          <span className="result-text">정답: {results.correctCount}</span>
+          <span className="result-text">오답: {results.incorrectCount}</span>
+        </div>
 
-      <button onClick={handleGoToLearning} className="retake-button">
+        <div className="result-details">
+          {quizType === "word" ? (
+            <>
+              <h3 className="result-subtitle">Correct Answers</h3>
+              <ul className="result-list">
+                {results.correctAnswers.map((question, index) => (
+                  <li key={index} className="result-item">
+                    <span className="result-word">{question.word}</span>
+                    {question.answer}
+                  </li>
+                ))}
+              </ul>
+              <h3 className="result-subtitle">Incorrect Answers</h3>
+              <ul className="result-list">
+                {results.incorrectAnswers.map((question, index) => (
+                  <li key={index} className="result-item incorrect">
+                    <span className="result-word">{question.word}</span> - Your
+                    answer: {selectedOptions[quizData.indexOf(question)]} /
+                    정답: {question.answer}
+                  </li>
+                ))}
+              </ul>
+            </>
+          ) : (
+            <>
+              <h3 className="result-subtitle">Correct Answers</h3>
+              <ul className="result-list">
+                {results.correctAnswers.map((question, index) => (
+                  <li key={index} className="result-item">
+                    <span className="result-sentence">{question.sentence}</span>{" "}
+                    - Correct: {question.answer}
+                  </li>
+                ))}
+              </ul>
+              <h3 className="result-subtitle">Incorrect Answers</h3>
+              <ul className="result-list">
+                {results.incorrectAnswers.map((question, index) => (
+                  <li key={index} className="result-item incorrect">
+                    <span className="result-sentence">{question.sentence}</span>{" "}
+                    - Your answer: {selectedOptions[quizData.indexOf(question)]}
+                    , Correct: {question.answer}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </div>
+      </div>
+
+      <button onClick={handleGoToLearning} className="go-to-learning-button">
         학습 페이지로 돌아가기
       </button>
     </div>
