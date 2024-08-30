@@ -108,8 +108,6 @@ const QuizResult = () => {
   return (
     <div className="quiz-result-container">
       <h2 className="quiz-result-title">Quiz 결과</h2>
-      <p>퀴즈 아이디: {quizId}</p>
-
       <div className="results-summary">
         <div className="result-count">
           <span className="result-text">정답: {results.correctCount}</span>

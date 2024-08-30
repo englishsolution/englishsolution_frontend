@@ -1,35 +1,55 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './LogIn.css';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../AuthContext/AuthContext"; // useAuth import
+import "./LogIn.css";
 
-const LogIn = ({ onLogin }) => {
-  const [id, setId] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+const LogIn = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { login } = useAuth(); // useAuth를 통해 login 함수 가져오기
+
+  useEffect(() => {
+    // Kakao SDK 로드 및 초기화
+    const script = document.createElement("script");
+    script.src = "https://developers.kakao.com/sdk/js/kakao.min.js";
+    script.async = true;
+    script.onload = () => {
+      if (window.Kakao) {
+        window.Kakao.init("YOUR_JAVASCRIPT_KEY"); // Kakao JavaScript SDK 키를 입력하세요
+      }
+    };
+    document.body.appendChild(script);
+  }, []);
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('http://15.165.135.23/login', {
-        method: 'post',
+      const response = await fetch("http://13.125.48.140/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id, password }),
+        body: JSON.stringify({ username, password }),
       });
 
       const data = await response.json();
 
       if (response.ok && data.success) {
-        onLogin();
-        navigate('/');
+        login(); // 로그인 상태 설정
+        navigate("/"); // 메인 페이지로 리다이렉션
       } else {
-        setError(data.message || '로그인 실패. 다시 시도해 주세요.');
+        setError(data.message || "로그인 실패. 다시 시도해 주세요.");
       }
     } catch (error) {
-      console.error('로그인 중 오류 발생:', error);
-      setError('로그인 정보가 일치하지 않습니다.');
+      console.error("로그인 중 오류 발생:", error);
+      setError("로그인 정보가 일치하지 않습니다.");
     }
+  };
+
+  const handleSocialLoginClick = (e) => {
+    e.preventDefault();
+    alert("소셜 회원가입 기능은 현재 사용할 수 없습니다."); // 테스트용 알림, 추후 제거 가능
   };
 
   return (
@@ -38,8 +58,8 @@ const LogIn = ({ onLogin }) => {
       <input
         type="text"
         placeholder="아이디"
-        value={id}
-        onChange={(e) => setId(e.target.value)}
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
         className="login-input"
       />
       <input
@@ -56,8 +76,8 @@ const LogIn = ({ onLogin }) => {
         <a
           href="#"
           onClick={(e) => {
-            e.preventDefault(); // 기본 링크 동작 방지
-            navigate('/find-id'); // 아이디 찾기 페이지로 이동
+            e.preventDefault();
+            navigate("/find-id");
           }}
         >
           아이디 찾기
@@ -65,19 +85,23 @@ const LogIn = ({ onLogin }) => {
         <a
           href="#"
           onClick={(e) => {
-            e.preventDefault(); // 기본 링크 동작 방지
-            navigate('/find-password'); // 비밀번호 찾기 페이지로 이동
+            e.preventDefault();
+            navigate("/find-password");
           }}
         >
           비밀번호 찾기
         </a>
-        <button className="signup-button" onClick={() => navigate('/sign-up')}>
+        <button className="signup-button" onClick={() => navigate("/sign-up")}>
           회원가입
         </button>
       </div>
       <div className="divider"></div>
-      <button className="naver-button">네이버 로그인</button>
-      <button className="kakao-button">카카오 로그인</button>
+      <button className="kakao-button" onClick={handleSocialLoginClick}>
+        카카오 로그인
+      </button>
+      <button className="naver-button" onClick={handleSocialLoginClick}>
+        네이버 로그인
+      </button>
       {error && <p className="error-message">{error}</p>}
     </div>
   );
